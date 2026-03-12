@@ -79,14 +79,52 @@
     </div>
   </main>
 
-  <footer class="site-footer">
+   <!-- FOOTER -->
+   <footer class="site-footer">
     <div class="footer-grid">
       <div class="footer-col">
-        <h3>Prestige Auto Group</h3>
-        <p>
+        <h3 id="footerCompanyName">Prestige Auto Group</h3>
+        <p id="footerCompanyText">
           Your premier destination for luxury car rentals,
           premium vehicles for sale, and exclusive automotive accessories.
         </p>
+
+        <div class="footer-socials">
+          <a
+            href="#"
+            id="footerFacebook"
+            class="footer-social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+          >
+            <i data-lucide="facebook"></i>
+          </a>
+
+          <a
+            href="#"
+            id="footerInstagram"
+            class="footer-social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <i data-lucide="instagram"></i>
+          </a>
+
+          <a
+            href="#"
+            id="footerTiktok"
+            class="footer-social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.13V2h-3.13v12.4a2.67 2.67 0 1 1-2.67-2.67c.23 0 .45.03.67.09V8.64a5.8 5.8 0 0 0-.67-.04A5.8 5.8 0 1 0 15.82 14V8.73a7.9 7.9 0 0 0 4.63 1.49V7.09c-.29 0-.58-.14-.86-.4z"/>
+            </svg>
+          </a>
+        </div>
       </div>
 
       <div class="footer-col">
@@ -100,14 +138,15 @@
 
       <div class="footer-col">
         <h4>Contact Us</h4>
-        <p>Phone: +1 (555) 123-4567</p>
-        <p>Email: info@prestigeauto.com</p>
-        <p>Address: 123 Luxury Lane, Beverly Hills, CA</p>
+        <p id="footerPhone">Phone: +1 (555) 123-4567</p>
+        <p id="footerEmail">Email: info@prestigeauto.com</p>
+        <p id="footerAddress">Address: 123 Luxury Lane, Beverly Hills, CA</p>
       </div>
 
       <div class="footer-col">
         <h4>Newsletter</h4>
         <p>Subscribe for exclusive offers</p>
+
         <div class="newsletter">
           <input type="email" placeholder="Your email" />
           <button type="button">Subscribe</button>
@@ -115,13 +154,19 @@
       </div>
     </div>
 
-    <div class="footer-bottom">
+    <div class="footer-bottom" id="footerCopyright">
       © 2026 Prestige Auto Group. All rights reserved.
     </div>
   </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+
   <script src="global.js"></script>
 </body>
 </html>
