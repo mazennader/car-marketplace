@@ -1287,6 +1287,12 @@
   transition: opacity 0.35s ease, visibility 0.35s ease;
 }
 
+.admin-page-loader.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
 .admin-loader-inner {
   text-align: center;
 }
@@ -1314,19 +1320,6 @@
   }
 }
 
-html.admin-loading,
-html.admin-loading body {
+body:not(.admin-ready) {
   overflow: hidden;
-}
-
-html.admin-loading .admin-page-loader {
-  opacity: 1;
-  visibility: visible;
-  pointer-events: auto;
-}
-
-html:not(.admin-loading) .admin-page-loader {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
 }
