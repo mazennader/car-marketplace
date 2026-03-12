@@ -1,16 +1,54 @@
-document.documentElement.classList.add("admin-loading");
+const pageLoader = document.getElementById("pageLoader");
 
-document.addEventListener("DOMContentLoaded", async () => {
-  if (!window.db) {
-    console.error("Supabase client not found. Make sure supabase.js is loaded before admin.js");
-    window.location.href = "index.html";
+function showLoader() {
+  if (!pageLoader) return;
+  pageLoader.classList.remove("hide");
+}
+
+function hideLoader() {
+  document.body.classList.add("admin-ready");
+
+  if (!pageLoader) return;
+
+  setTimeout(() => {
+    pageLoader.classList.add("hide");
+  }, 300);
+}
+
+showLoader();
+
+document.addEventListener("click", (e) => {
+  const a = e.target.closest("a");
+  if (!a) return;
+
+  const href = a.getAttribute("href");
+  if (!href) return;
+
+  if (
+    a.target === "_blank" ||
+    href.startsWith("#") ||
+    href.startsWith("mailto:") ||
+    href.startsWith("tel:")
+  ) {
     return;
   }
 
+  if (a.origin !== window.location.origin) return;
+
+  showLoader();
+});
+document.addEventListener("DOMContentLoaded", async () => {
+  if (!window.db) {
+    console.error("Supabase client not found. Make sure supabase.js is loaded before admin.js");
+    hideLoader();
+    window.location.href = "index.html";
+    return;
+  }
   try {
     const { data: authData, error: authError } = await window.db.auth.getUser();
 
     if (authError || !authData?.user) {
+      hideLoader();
       window.location.href = "index.html";
       return;
     }
@@ -21,10 +59,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       .eq("id", authData.user.id)
       .single();
 
-    if (profileError || !profile || profile.role !== "admin") {
-      window.location.href = "index.html";
-      return;
-    }
+      if (profileError || !profile || profile.role !== "admin") {
+        hideLoader();
+        window.location.href = "index.html";
+        return;
+      }
 
     initAdminLogout();
 
@@ -54,13 +93,12 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadAdminAnalytics();
     await loadAdminSettings();
 
-    document.documentElement.classList.remove("admin-loading");
-    document.body.classList.add("admin-ready");
 
   } catch (error) {
     console.error("Admin init error:", error);
     window.location.href = "index.html";
   }
+  hideLoader();
 });
   /* =========================
      HELPERS
