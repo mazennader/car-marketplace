@@ -96,7 +96,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 
   } catch (error) {
     console.error("Admin init error:", error);
+    hideLoader();
     window.location.href = "index.html";
+    return;
   }
   hideLoader();
 });
@@ -1060,47 +1062,6 @@ document.addEventListener("DOMContentLoaded", async () => {
      SALE CARS PAGE
   ========================= */
   
-  async function loadAdminSaleCars() {
-    const body = document.getElementById("adminSaleCarsBody");
-    if (!body) return;
-  
-    try {
-      const { data, error } = await window.db
-        .from("cars_for_sale")
-        .select("*")
-        .order("created_at", { ascending: false });
-  
-      if (error) throw error;
-  
-      if (!data || !data.length) {
-        body.innerHTML = `<tr><td colspan="7">No sale cars found.</td></tr>`;
-        return;
-      }
-  
-      body.innerHTML = data.map((car) => `
-        <tr>
-          <td>
-            <div class="admin-table-product">
-              <img src="${car.image_url || "images/car1.jpg"}" alt="${car.title || "Car"}">
-              <span>${car.title || "-"}</span>
-            </div>
-          </td>
-          <td>${car.year || "-"}</td>
-          <td>${Number(car.mileage || 0).toLocaleString()} mi</td>
-          <td>${formatMoney(car.price)}</td>
-          <td>${makeStatusBadge(car.condition || "Available")}</td>
-          <td>${makeStatusBadge(car.is_available ? "Available" : "Sold")}</td>
-          <td class="admin-actions">
-            <button type="button" class="icon-btn">✎</button>
-            <button type="button" class="icon-btn delete">🗑</button>
-          </td>
-        </tr>
-      `).join("");
-    } catch (error) {
-      console.error("Admin sale cars error:", error);
-      body.innerHTML = `<tr><td colspan="7">Failed to load cars for sale.</td></tr>`;
-    }
-  }
   
   /* =========================
      ACCESSORIES PAGE
