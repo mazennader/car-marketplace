@@ -1,4 +1,4 @@
-const pageLoader = document.getElementById("pageLoader");
+const pageLoader = document.getElementById("adminPageLoader");
 
 function showLoader() {
   if (!pageLoader) return;
