@@ -26,34 +26,24 @@ document.addEventListener("DOMContentLoaded", async () => {
       return;
     }
 
-    document.documentElement.classList.remove("admin-loading");
-    document.body.classList.add("admin-ready");
+    initAdminLogout();
 
-  } catch (error) {
-    console.error("Admin access check failed:", error);
-    window.location.href = "index.html";
-    return;
-  }
+    initProgressiveImageInputs([
+      "rentalGalleryImage1",
+      "rentalGalleryImage2",
+      "rentalGalleryImage3",
+      "rentalGalleryImage4",
+      "rentalGalleryImage5"
+    ]);
 
-  initAdminLogout();
+    initProgressiveImageInputs([
+      "accessoryGalleryImage1",
+      "accessoryGalleryImage2",
+      "accessoryGalleryImage3",
+      "accessoryGalleryImage4",
+      "accessoryGalleryImage5"
+    ]);
 
-  initProgressiveImageInputs([
-    "rentalGalleryImage1",
-    "rentalGalleryImage2",
-    "rentalGalleryImage3",
-    "rentalGalleryImage4",
-    "rentalGalleryImage5"
-  ]);
-
-  initProgressiveImageInputs([
-    "accessoryGalleryImage1",
-    "accessoryGalleryImage2",
-    "accessoryGalleryImage3",
-    "accessoryGalleryImage4",
-    "accessoryGalleryImage5"
-  ]);
-
-  try {
     await loadAdminDashboard();
     await loadAdminRentCars();
     await loadAdminSaleCars();
@@ -63,8 +53,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadAdminCustomers();
     await loadAdminAnalytics();
     await loadAdminSettings();
+
+    document.documentElement.classList.remove("admin-loading");
+    document.body.classList.add("admin-ready");
+
   } catch (error) {
     console.error("Admin init error:", error);
+    window.location.href = "index.html";
   }
 });
   /* =========================

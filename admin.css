@@ -1274,3 +1274,59 @@
   background:#a8843f;
   color:#fff;
 }
+.admin-page-loader {
+  position: fixed;
+  inset: 0;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.35s ease, visibility 0.35s ease;
+}
+
+.admin-loader-inner {
+  text-align: center;
+}
+
+.admin-loader-logo {
+  font-family: "Playfair Display", serif;
+  font-size: 28px;
+  color: #111;
+  margin-bottom: 16px;
+}
+
+.admin-loader-spinner {
+  width: 44px;
+  height: 44px;
+  border: 3px solid rgba(0, 0, 0, 0.12);
+  border-top-color: #c9a458;
+  border-radius: 50%;
+  animation: adminSpin 0.8s linear infinite;
+  margin: 0 auto;
+}
+
+@keyframes adminSpin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+html.admin-loading,
+html.admin-loading body {
+  overflow: hidden;
+}
+
+html.admin-loading .admin-page-loader {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
+
+html:not(.admin-loading) .admin-page-loader {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
