@@ -609,6 +609,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   /* =========================
      RENT CARS PAGE
   ========================= */
+  let currentRentalImageUrl = "";
   
   async function loadAdminRentCars() {
     const body = document.getElementById("adminRentCarsBody");
@@ -764,6 +765,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   function fillRentalForm(car) {
     document.getElementById("rentalId").value = car.id || "";
+    currentRentalImageUrl = car.image_url || "";
     document.getElementById("rentalTitle").value = car.title || "";
     document.getElementById("rentalBrand").value = car.brand || "";
     document.getElementById("rentalModel").value = car.model || "";
@@ -802,6 +804,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   function resetRentalForm() {
     const form = document.getElementById("rentalForm");
+    currentRentalImageUrl = "";
     const message = document.getElementById("rentalFormMessage");
     if (form) form.reset();
   
@@ -899,8 +902,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         throw new Error("Price per day is required.");
       }
   
-      let mainImageUrl = null;
-  
+      let mainImageUrl = currentRentalImageUrl || "";
+
       if (mainImageFile) {
         mainImageUrl = await uploadImageToSupabase(mainImageFile, "rentals");
       }
@@ -908,11 +911,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       const galleryUrls = await uploadOptionalGalleryFiles(galleryInputs, "rentals");
   
       if (rentalId) {
-        const updatePayload = { ...payload };
-  
-        if (mainImageUrl) {
-          updatePayload.image_url = mainImageUrl;
-        }
+        const updatePayload = {
+          ...payload,
+          image_url: mainImageUrl
+        };
   
         const { error } = await window.db
           .from("rental_cars")
@@ -1062,10 +1064,11 @@ document.addEventListener("DOMContentLoaded", async () => {
      SALE CARS PAGE
   ========================= */
   
-  
+  let currentSaleImageUrl = "";
   /* =========================
      ACCESSORIES PAGE
   ========================= */
+  let currentAccessoryImageUrl = "";
   
   async function loadAdminAccessories() {
     const body = document.getElementById("adminAccessoriesBody");
@@ -1191,6 +1194,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   function fillAccessoryForm(item) {
     document.getElementById("accessoryId").value = item.id || "";
+    currentAccessoryImageUrl = item.image_url || "";
     document.getElementById("accessoryName").value = item.name || "";
     document.getElementById("accessoryCategory").value = item.category || "";
     document.getElementById("accessoryPrice").value = item.price || "";
@@ -1221,6 +1225,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
   function resetAccessoryForm() {
     const form = document.getElementById("accessoryForm");
+    currentAccessoryImageUrl = "";
     const message = document.getElementById("accessoryFormMessage");
     if (form) form.reset();
   
@@ -1305,8 +1310,8 @@ document.addEventListener("DOMContentLoaded", async () => {
         throw new Error("Price is required.");
       }
   
-      let mainImageUrl = null;
-  
+      let mainImageUrl = currentAccessoryImageUrl || "";
+
       if (mainImageFile) {
         mainImageUrl = await uploadImageToSupabase(mainImageFile, "accessories");
       }
@@ -1314,11 +1319,10 @@ document.addEventListener("DOMContentLoaded", async () => {
       const galleryUrls = await uploadOptionalGalleryFiles(galleryInputs, "accessories");
   
       if (accessoryId) {
-        const updatePayload = { ...payload };
-  
-        if (mainImageUrl) {
-          updatePayload.image_url = mainImageUrl;
-        }
+        const updatePayload = {
+          ...payload,
+          image_url: mainImageUrl
+        };
   
         const { error } = await window.db
           .from("accessories")
@@ -2556,6 +2560,7 @@ ${booking.booking_status === "pending_deposit" && booking.deposit_status === "pa
   
   function fillSaleForm(car) {
     document.getElementById("saleId").value = car.id || "";
+    currentSaleImageUrl = car.image_url || "";
     document.getElementById("saleTitle").value = car.title || "";
     document.getElementById("saleBrand").value = car.brand || "";
     document.getElementById("saleModel").value = car.model || "";
@@ -2574,6 +2579,7 @@ ${booking.booking_status === "pending_deposit" && booking.deposit_status === "pa
   
   function resetSaleForm() {
     const form = document.getElementById("saleForm");
+    currentSaleImageUrl = "";
     const message = document.getElementById("saleFormMessage");
   
     if (form) form.reset();
@@ -2630,8 +2636,8 @@ ${booking.booking_status === "pending_deposit" && booking.deposit_status === "pa
         document.getElementById("saleGalleryImage5").files[0] || null
       ].filter(Boolean);
   
-      let mainImageUrl = "";
-  
+      let mainImageUrl = currentSaleImageUrl || "";
+
       if (mainImageFile) {
         mainImageUrl = await uploadAdminImage(mainImageFile, "sale-cars");
       }
