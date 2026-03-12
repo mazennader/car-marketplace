@@ -44,6 +44,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     window.location.href = "index.html";
     return;
   }
+
   try {
     const { data: authData, error: authError } = await window.db.auth.getUser();
 
@@ -59,11 +60,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       .eq("id", authData.user.id)
       .single();
 
-      if (profileError || !profile || profile.role !== "admin") {
-        hideLoader();
-        window.location.href = "index.html";
-        return;
-      }
+    if (profileError || !profile || profile.role !== "admin") {
+      hideLoader();
+      window.location.href = "index.html";
+      return;
+    }
 
     initAdminLogout();
 
@@ -93,14 +94,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     await loadAdminAnalytics();
     await loadAdminSettings();
 
-
+    hideLoader();
   } catch (error) {
     console.error("Admin init error:", error);
     hideLoader();
     window.location.href = "index.html";
     return;
   }
-  hideLoader();
 });
   /* =========================
      HELPERS
