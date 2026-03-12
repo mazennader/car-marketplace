@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - Cars for Sale</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body data-admin-page="sales">
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <h1>Prestige Auto</h1>
+        <p>Admin Dashboard</p>
+      </div>
+
+      <nav class="admin-nav">
+        <a href="admin-dashboard.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="admin-rentals.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 13l2-5h14l2 5"></path>
+            <path d="M5 13h14v5a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-5Z"></path>
+            <circle cx="7.5" cy="17.5" r="1"></circle>
+            <circle cx="16.5" cy="17.5" r="1"></circle>
+          </svg>
+          <span>Cars for Rent</span>
+        </a>
+
+        <a href="admin-sales.html" class="active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+            <path d="M9 7h6"></path>
+          </svg>
+          <span>Cars for Sale</span>
+        </a>
+
+        <a href="admin-accessories.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="20" r="1"></circle>
+            <circle cx="18" cy="20" r="1"></circle>
+            <path d="M3 4h2l2.6 10.4a1 1 0 0 0 1 .76h9.7a1 1 0 0 0 .97-.76L21 7H7"></path>
+          </svg>
+          <span>Accessories</span>
+        </a>
+
+        <a href="admin-bookings.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <path d="M16 2v4M8 2v4M3 10h18"></path>
+          </svg>
+          <span>Bookings</span>
+        </a>
+
+        <a href="admin-orders.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="20" r="1"></circle>
+            <circle cx="18" cy="20" r="1"></circle>
+            <path d="M3 4h2l2.6 10.4a1 1 0 0 0 1 .76h9.7a1 1 0 0 0 .97-.76L21 7H7"></path>
+          </svg>
+          <span>Orders</span>
+        </a>
+
+        <a href="admin-customers.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Customers</span>
+        </a>
+
+        <a href="admin-analytics.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18"></path>
+            <path d="M18 9l-5 5-3-3-4 4"></path>
+          </svg>
+          <span>Analytics</span>
+        </a>
+
+        <a href="admin-settings.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82L4.21 7.2a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0A1.65 1.65 0 0 0 10 3.25V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="admin-sidebar-bottom">
+        <button class="admin-logout" id="adminLogoutBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <path d="M16 17l5-5-5-5"></path>
+            <path d="M21 12H9"></path>
+          </svg>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-page-head">
+        <div>
+          <h2>Cars for Sale</h2>
+          <p>Manage your cars for sale inventory</p>
+        </div>
+
+        <button type="button" class="admin-primary-btn" id="openSaleModalBtn">+ Add New Car</button>
+      </div>
+
+      <div class="panel-card">
+        <div class="admin-toolbar">
+          <input type="text" id="adminSalesSearch" class="admin-search" placeholder="Search title, brand, model..." />
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Car</th>
+                <th>Year</th>
+                <th>Mileage</th>
+                <th>Price</th>
+                <th>Condition</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminSaleCarsBody">
+              <tr>
+                <td colspan="7">Loading cars for sale...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="admin-modal" id="saleModal">
+    <div class="admin-modal-card">
+      <div class="admin-modal-head">
+        <h3 id="saleModalTitle">Add New Car</h3>
+        <button type="button" class="admin-modal-close" id="closeSaleModalBtn">×</button>
+      </div>
+
+      <form id="saleForm" class="admin-form-grid">
+        <input type="hidden" id="saleId" />
+
+        <div class="admin-form-group">
+          <label for="saleTitle">Title</label>
+          <input type="text" id="saleTitle" required />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="saleBrand">Brand</label>
+          <input type="text" id="saleBrand" required />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="saleModel">Model</label>
+          <input type="text" id="saleModel" required />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="saleYear">Year</label>
+          <input type="number" id="saleYear" />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="saleMileage">Mileage</label>
+          <input type="number" id="saleMileage" />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="saleFuel">Fuel Type</label>
+          <input type="text" id="saleFuel" />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="saleTransmission">Transmission</label>
+          <input type="text" id="saleTransmission" />
+        </div>
+        <div class="admin-form-group">
+            <label for="saleColor">Color</label>
+            <input type="text" id="saleColor" />
+          </div>
+
+        <div class="admin-form-group">
+          <label for="salePrice">Price</label>
+          <input type="number" id="salePrice" required />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="saleCondition">Condition</label>
+          <select id="saleCondition">
+            <option value="New">New</option>
+            <option value="Like New">Like New</option>
+            <option value="Used">Used</option>
+          </select>
+        </div>
+
+        <div class="admin-form-group admin-form-group-full">
+          <label for="saleMainImageFile">Main Image</label>
+          <input type="file" id="saleMainImageFile" accept="image/*" />
+        </div>
+
+        <div class="admin-form-group admin-form-group-full">
+          <label for="saleGalleryImage1">Gallery Image 1</label>
+          <input type="file" id="saleGalleryImage1" accept="image/*" />
+        </div>
+
+        <div class="admin-form-group admin-form-group-full" id="saleGalleryWrap2" style="display:none;">
+          <label for="saleGalleryImage2">Gallery Image 2</label>
+          <input type="file" id="saleGalleryImage2" accept="image/*" />
+        </div>
+
+        <div class="admin-form-group admin-form-group-full" id="saleGalleryWrap3" style="display:none;">
+          <label for="saleGalleryImage3">Gallery Image 3</label>
+          <input type="file" id="saleGalleryImage3" accept="image/*" />
+        </div>
+
+        <div class="admin-form-group admin-form-group-full" id="saleGalleryWrap4" style="display:none;">
+          <label for="saleGalleryImage4">Gallery Image 4</label>
+          <input type="file" id="saleGalleryImage4" accept="image/*" />
+        </div>
+
+        <div class="admin-form-group admin-form-group-full" id="saleGalleryWrap5" style="display:none;">
+          <label for="saleGalleryImage5">Gallery Image 5</label>
+          <input type="file" id="saleGalleryImage5" accept="image/*" />
+        </div>
+
+        <div class="admin-form-group admin-form-group-full">
+          <label for="saleDescription">Description</label>
+          <textarea id="saleDescription" rows="4"></textarea>
+        </div>
+
+        <div class="admin-form-group admin-form-group-full">
+          <label for="saleFeatures">Features (comma separated)</label>
+          <textarea id="saleFeatures" rows="3"></textarea>
+        </div>
+
+        <div class="admin-form-checks">
+          <label><input type="checkbox" id="saleFeatured" /> Featured</label>
+          <label><input type="checkbox" id="saleAvailable" checked /> Available</label>
+        </div>
+
+        <div class="admin-form-actions">
+          <button type="button" class="admin-secondary-btn" id="cancelSaleModalBtn">Cancel</button>
+          <button type="submit" class="admin-primary-btn" id="saveSaleBtn">Save Car</button>
+        </div>
+
+        <p id="saleFormMessage" class="admin-form-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

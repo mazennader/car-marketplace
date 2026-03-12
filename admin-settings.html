@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - Settings</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body data-admin-page="settings">
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+        <div class="admin-brand">
+          <h1>Prestige Auto</h1>
+          <p>Admin Dashboard</p>
+        </div>
+  
+        <nav class="admin-nav">
+          <a href="admin-dashboard.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="3" width="7" height="7"></rect>
+              <rect x="14" y="3" width="7" height="7"></rect>
+              <rect x="14" y="14" width="7" height="7"></rect>
+              <rect x="3" y="14" width="7" height="7"></rect>
+            </svg>
+            <span>Dashboard</span>
+          </a>
+  
+          <a href="admin-rentals.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 13l2-5h14l2 5"></path>
+              <path d="M5 13h14v5a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-5Z"></path>
+              <circle cx="7.5" cy="17.5" r="1"></circle>
+              <circle cx="16.5" cy="17.5" r="1"></circle>
+            </svg>
+            <span>Cars for Rent</span>
+          </a>
+  
+          <a href="admin-sales.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+              <path d="M9 7h6"></path>
+            </svg>
+            <span>Cars for Sale</span>
+          </a>
+  
+          <a href="admin-accessories.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="20" r="1"></circle>
+              <circle cx="18" cy="20" r="1"></circle>
+              <path d="M3 4h2l2.6 10.4a1 1 0 0 0 1 .76h9.7a1 1 0 0 0 .97-.76L21 7H7"></path>
+            </svg>
+            <span>Accessories</span>
+          </a>
+  
+          <a href="admin-bookings.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+              <path d="M16 2v4M8 2v4M3 10h18"></path>
+            </svg>
+            <span>Bookings</span>
+          </a>
+  
+          <a href="admin-orders.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="9" cy="20" r="1"></circle>
+              <circle cx="18" cy="20" r="1"></circle>
+              <path d="M3 4h2l2.6 10.4a1 1 0 0 0 1 .76h9.7a1 1 0 0 0 .97-.76L21 7H7"></path>
+            </svg>
+            <span>Orders</span>
+          </a>
+  
+          <a href="admin-customers.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+              <circle cx="9" cy="7" r="4"></circle>
+              <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+              <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+            </svg>
+            <span>Customers</span>
+          </a>
+  
+          <a href="admin-analytics.html">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M3 3v18h18"></path>
+              <path d="M18 9l-5 5-3-3-4 4"></path>
+            </svg>
+            <span>Analytics</span>
+          </a>
+  
+          <a href="admin-settings.html"class="active">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82L4.21 7.2a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0A1.65 1.65 0 0 0 10 3.25V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            <span>Settings</span>
+          </a>
+        </nav>
+  
+        <div class="admin-sidebar-bottom">
+          <button id="adminLogoutBtn" class="admin-logout" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+              <path d="M16 17l5-5-5-5"></path>
+              <path d="M21 12H9"></path>
+            </svg>
+            <span>Logout</span>
+          </button>
+        </div>
+      </aside>
+
+    <main class="admin-main">
+      <div class="admin-page-head">
+        <div>
+          <h2>Settings</h2>
+          <p>Manage your website settings</p>
+        </div>
+      </div>
+
+      <div class="settings-wrap">
+
+        <div class="settings-card">
+          <h3>Website Information</h3>
+          <form id="websiteSettingsForm" class="form-grid-1">
+            <div class="form-field">
+              <label for="settingCompanyName">Company Name</label>
+              <input type="text" id="settingCompanyName" />
+            </div>
+
+            <div class="form-field">
+              <label for="settingTagline">Tagline</label>
+              <input type="text" id="settingTagline" />
+            </div>
+
+            <button type="submit" class="save-btn">Save Changes</button>
+            <p id="websiteSettingsMessage" class="admin-message"></p>
+          </form>
+        </div>
+
+        <div class="settings-card">
+          <h3>Contact Information</h3>
+          <form id="contactSettingsForm" class="form-grid-2">
+            <div class="form-field">
+              <label for="settingPhone">Phone</label>
+              <input type="text" id="settingPhone" />
+            </div>
+
+            <div class="form-field">
+              <label for="settingEmail">Email</label>
+              <input type="text" id="settingEmail" />
+            </div>
+
+            <div class="form-field form-grid-1" style="grid-column:1 / -1;">
+              <label for="settingAddress">Address</label>
+              <input type="text" id="settingAddress" />
+            </div>
+
+            <div class="form-field form-grid-1" style="grid-column:1 / -1;">
+              <label for="settingWhatsapp">WhatsApp Number</label>
+              <input type="text" id="settingWhatsapp" />
+            </div>
+
+            <button type="submit" class="save-btn">Save Changes</button>
+            <p id="contactSettingsMessage" class="admin-message"></p>
+          </form>
+        </div>
+
+        <div class="settings-card">
+          <h3>Social Media</h3>
+          <form id="socialSettingsForm" class="form-grid-1">
+            <div class="form-field">
+              <label for="settingFacebook">Facebook</label>
+              <input type="text" id="settingFacebook" placeholder="https://facebook.com/yourpage" />
+            </div>
+
+            <div class="form-field">
+              <label for="settingInstagram">Instagram</label>
+              <input type="text" id="settingInstagram" placeholder="https://instagram.com/yourpage" />
+            </div>
+
+            <div class="form-field">
+              <label for="settingTiktok">TikTok</label>
+              <input type="text" id="settingTiktok" placeholder="https://tiktok.com/@yourpage" />
+            </div>
+
+            <button type="submit" class="save-btn">Save Changes</button>
+            <p id="socialSettingsMessage" class="admin-message"></p>
+          </form>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

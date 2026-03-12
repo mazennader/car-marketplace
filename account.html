@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>My Account</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-inner">
+      <div class="loader-logo">Luxury Cars</div>
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.jpeg" alt="Prestige Auto Group Logo" />
+      </a>
+    </div>
+
+    <nav class="main-nav">
+      <a href="rentals.html">Rentals</a>
+      <a href="cars-for-sale.html">Cars for Sale</a>
+      <a href="accessories.html">Accessories</a>
+    </nav>
+
+    <div class="header-right">
+      <a href="account.html" class="login-link">
+        <span>My Account</span>
+      </a>
+
+      <button type="button" class="signup-btn logout-btn">
+        <span>Log Out</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="account-page">
+    <div class="account-wrap">
+      <div class="account-header">
+        <h1>My Account</h1>
+        <p>Manage your profile, orders, and rentals</p>
+      </div>
+
+      <div class="account-grid">
+
+        <section class="account-card">
+          <h2>Profile</h2>
+          <div id="accountProfile">
+            <p class="details-loading">Loading profile...</p>
+          </div>
+        </section>
+
+        <section class="account-card">
+          <h2>Order History</h2>
+          <div id="accountOrders">
+            <p class="details-loading">Loading orders...</p>
+          </div>
+        </section>
+
+        <section class="account-card">
+          <h2>Rental History</h2>
+          <div id="accountRentals">
+            <p class="details-loading">Loading rentals...</p>
+          </div>
+        </section>
+
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>Prestige Auto Group</h3>
+        <p>
+          Your premier destination for luxury car rentals,
+          premium vehicles for sale, and exclusive automotive accessories.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="rentals.html">Car Rentals</a></li>
+          <li><a href="cars-for-sale.html">Cars for Sale</a></li>
+          <li><a href="accessories.html">Accessories</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <p>Phone: +1 (555) 123-4567</p>
+        <p>Email: info@prestigeauto.com</p>
+        <p>Address: 123 Luxury Lane, Beverly Hills, CA</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Subscribe for exclusive offers</p>
+        <div class="newsletter">
+          <input type="email" placeholder="Your email" />
+          <button type="button">Subscribe</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 Prestige Auto Group. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="global.js"></script>
+</body>
+</html>

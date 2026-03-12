@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Rental Checkout</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-inner">
+      <div class="loader-logo">Luxury Cars</div>
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.jpeg" alt="Luxury Cars Logo" />
+      </a>
+    </div>
+
+    <nav class="main-nav">
+      <a href="rentals.html" class="active">Rentals</a>
+      <a href="cars-for-sale.html">Cars for Sale</a>
+      <a href="accessories.html">Accessories</a>
+    </nav>
+
+    <div class="header-right" id="siteHeaderAuth">
+      <a href="login.html" class="login-link guest-only">
+        <span>Log In</span>
+      </a>
+
+      <a href="signup.html" class="signup-btn guest-only">
+        <span>Sign Up</span>
+      </a>
+
+      <a href="account.html" class="login-link user-only" style="display:none;">
+        <span>My Account</span>
+      </a>
+
+      <button type="button" class="signup-btn logout-btn user-only" style="display:none;">
+        <span>Log Out</span>
+      </button>
+    </div>
+  </header>
+
+  <main class="details-page">
+    <div class="details-wrap">
+      <div class="checkout-layout">
+        <section class="details-card">
+          <h2>Customer Information</h2>
+
+          <form id="rentalCheckoutForm" class="checkout-form">
+            <div class="checkout-form-grid">
+              <div class="checkout-field">
+                <label for="rentalCheckoutName">Full Name</label>
+                <input type="text" id="rentalCheckoutName" required />
+              </div>
+
+              <div class="checkout-field">
+                <label for="rentalCheckoutEmail">Email</label>
+                <input type="email" id="rentalCheckoutEmail" required />
+              </div>
+
+              <div class="checkout-field">
+                <label for="rentalCheckoutPhone">Phone</label>
+                <input type="text" id="rentalCheckoutPhone" required />
+              </div>
+
+              <div class="checkout-field payment-method-field">
+                <label for="rentalCheckoutPayment">Payment Method</label>
+                <select id="rentalCheckoutPayment" required>
+                  <option value="whish_app">Whish App</option>
+                  <option value="whish_branch">Whish Branch</option>
+                </select>
+              </div>
+              
+              <div id="whishAppCardBox" class="whish-card-box">
+                <h3>Whish App Payment</h3>
+              
+                <div class="checkout-grid-2">
+                  <div class="checkout-field">
+                    <label for="whishCardName">Cardholder Name</label>
+                    <input type="text" id="whishCardName" placeholder="Name on card">
+                  </div>
+              
+                  <div class="checkout-field">
+                    <label for="whishCardNumber">Card Number</label>
+                    <input type="text" id="whishCardNumber" placeholder="1234 5678 9012 3456" maxlength="19">
+                  </div>
+              
+                  <div class="checkout-field">
+                    <label for="whishCardExpiry">Expiry Date</label>
+                    <input type="text" id="whishCardExpiry" placeholder="MM/YY" maxlength="5">
+                  </div>
+              
+                  <div class="checkout-field">
+                    <label for="whishCardCvv">CVV</label>
+                    <input type="text" id="whishCardCvv" placeholder="123" maxlength="4">
+                  </div>
+                </div>
+              
+                <p class="whish-card-note">
+                  Deposit will be charged instantly after Whish App payment is connected.
+                </p>
+              </div>
+              
+              <div id="whishBranchInfoBox" class="whish-branch-box" style="display:none;">
+                <h3>Whish Branch Payment</h3>
+                <p>
+                  Pay your deposit at any Whish branch using your booking reference after checkout.
+                  You will have 48 hours to complete the deposit payment.
+                </p>
+              </div>
+
+              <div class="checkout-field checkout-field-full">
+                <label for="rentalCheckoutNotes">Notes</label>
+                <textarea id="rentalCheckoutNotes" rows="4" placeholder="Any extra notes..."></textarea>
+              </div>
+            </div>
+            <div class="checkout-field">
+              <label for="rentalCustomerIdFile">ID / Passport</label>
+              <input type="file" id="rentalCustomerIdFile" accept=".jpg,.jpeg,.png,.pdf" required>
+            </div>
+            
+            <div class="checkout-field">
+              <label for="rentalDriverLicenseFile">Driver's License</label>
+              <input type="file" id="rentalDriverLicenseFile" accept=".jpg,.jpeg,.png,.pdf" required>
+            </div>
+
+            <p id="rentalCheckoutMessage"></p>
+
+            <div class="details-actions" style="margin-top:20px;">
+              <button type="submit" class="whatsapp-detail-btn" id="rentalCheckoutSubmitBtn">
+                Confirm Booking
+              </button>
+            </div>
+          </form>
+        </section>
+
+        <aside class="details-card">
+          <h2>Booking Summary</h2>
+          <div id="rentalCheckoutSummary">
+            <p class="details-text">Loading booking...</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3>Prestige Auto Group</h3>
+        <p>Your premier destination for luxury car rentals, premium vehicles for sale, and exclusive automotive accessories.</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="rentals.html">Car Rentals</a></li>
+          <li><a href="cars-for-sale.html">Cars for Sale</a></li>
+          <li><a href="accessories.html">Accessories</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <p>Phone: +1 (555) 123-4567</p>
+        <p>Email: info@prestigeauto.com</p>
+        <p>Address: 123 Luxury Lane, Beverly Hills, CA</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Subscribe for exclusive offers</p>
+        <div class="newsletter">
+          <input type="email" placeholder="Your email" />
+          <button type="button">Subscribe</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      © 2026 Prestige Auto Group. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="global.js"></script>
+</body>
+</html>

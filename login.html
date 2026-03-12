@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Log In</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.jpeg" alt="Luxury Cars Logo" />
+      </a>
+    </div>
+
+    <nav class="main-nav">
+      <a href="rentals.html">Rentals</a>
+      <a href="cars-for-sale.html">Cars for Sale</a>
+      <a href="accessories.html">Accessories</a>
+    </nav>
+
+    <div class="header-right">
+      <a href="login.html" class="login-link">
+        <span class="login-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="M13 6l6 6-6 6"></path>
+          </svg>
+        </span>
+        <span>Log In</span>
+      </a>
+
+      <a href="signup.html" class="signup-btn">
+        <span class="signup-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M1 21c0-4 3-7 8-7"></path>
+            <line x1="19" y1="8" x2="19" y2="14"></line>
+            <line x1="22" y1="11" x2="16" y2="11"></line>
+          </svg>
+        </span>
+        <span>Sign Up</span>
+      </a>
+    </div>
+  </header>
+
+  <section class="auth-page">
+    <div class="auth-card login-card">
+      <h1>Welcome Back</h1>
+      <p>Sign in to your account</p>
+
+      <form id="loginForm">
+        <label>Email Address</label>
+        <div class="auth-input-wrap">
+          <span class="auth-input-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="3" y="5" width="18" height="14" rx="2"></rect>
+              <path d="M3 7l9 6 9-6"></path>
+            </svg>
+          </span>
+          <input type="email" id="loginEmail" placeholder="your@email.com" required />
+        </div>
+      
+        <label>Password</label>
+        <div class="auth-input-wrap">
+          <span class="auth-input-icon" aria-hidden="true">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <rect x="5" y="11" width="14" height="10" rx="2"></rect>
+              <path d="M8 11V8a4 4 0 1 1 8 0v3"></path>
+            </svg>
+          </span>
+          <input type="password" id="loginPassword" placeholder="••••••••" required />
+        </div>
+      
+        <div class="login-options">
+          <label class="remember">
+            <input type="checkbox" />
+            <span>Remember me</span>
+          </label>
+      
+          <a href="forgot-password.html" class="forgot-password">Forgot password?</a>
+        </div>
+      
+        <button type="submit" class="auth-btn">Sign In</button>
+      </form>
+      
+      <p id="loginMessage"></p>
+
+      <p class="auth-switch">
+        Don't have an account?
+        <a href="signup.html" class="signup-link">Sign up</a>
+      </p>
+    </div>
+  </section>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="global.js"></script>
+</body>
+</html>

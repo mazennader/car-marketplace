@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin - Accessories</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body data-admin-page="accessories">
+
+  <div class="admin-layout">
+    <aside class="admin-sidebar">
+      <div class="admin-brand">
+        <h1>Prestige Auto</h1>
+        <p>Admin Dashboard</p>
+      </div>
+
+      <nav class="admin-nav">
+        <a href="admin-dashboard.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          <span>Dashboard</span>
+        </a>
+
+        <a href="admin-rentals.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 13l2-5h14l2 5"></path>
+            <path d="M5 13h14v5a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-5Z"></path>
+            <circle cx="7.5" cy="17.5" r="1"></circle>
+            <circle cx="16.5" cy="17.5" r="1"></circle>
+          </svg>
+          <span>Cars for Rent</span>
+        </a>
+
+        <a href="admin-sales.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="5" y="3" width="14" height="18" rx="2"></rect>
+            <path d="M9 7h6"></path>
+          </svg>
+          <span>Cars for Sale</span>
+        </a>
+
+        <a href="admin-accessories.html" class="active">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="20" r="1"></circle>
+            <circle cx="18" cy="20" r="1"></circle>
+            <path d="M3 4h2l2.6 10.4a1 1 0 0 0 1 .76h9.7a1 1 0 0 0 .97-.76L21 7H7"></path>
+          </svg>
+          <span>Accessories</span>
+        </a>
+
+        <a href="admin-bookings.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="4" width="18" height="18" rx="2"></rect>
+            <path d="M16 2v4M8 2v4M3 10h18"></path>
+          </svg>
+          <span>Bookings</span>
+        </a>
+
+        <a href="admin-orders.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="9" cy="20" r="1"></circle>
+            <circle cx="18" cy="20" r="1"></circle>
+            <path d="M3 4h2l2.6 10.4a1 1 0 0 0 1 .76h9.7a1 1 0 0 0 .97-.76L21 7H7"></path>
+          </svg>
+          <span>Orders</span>
+        </a>
+
+        <a href="admin-customers.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          <span>Customers</span>
+        </a>
+
+        <a href="admin-analytics.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M3 3v18h18"></path>
+            <path d="M18 9l-5 5-3-3-4 4"></path>
+          </svg>
+          <span>Analytics</span>
+        </a>
+
+        <a href="admin-settings.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1 1.65 1.65 0 0 0-.33-1.82L4.21 7.2a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33h0A1.65 1.65 0 0 0 10 3.25V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51h0a1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82v0a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span>Settings</span>
+        </a>
+      </nav>
+
+      <div class="admin-sidebar-bottom">
+        <button class="admin-logout" id="adminLogoutBtn" type="button">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path>
+            <path d="M16 17l5-5-5-5"></path>
+            <path d="M21 12H9"></path>
+          </svg>
+          <span>Logout</span>
+        </button>
+      </div>
+    </aside>
+
+    <main class="admin-main">
+      <div class="admin-page-head">
+        <div>
+          <h2>Accessories</h2>
+          <p>Manage your accessories shop</p>
+        </div>
+
+        <button type="button" class="admin-primary-btn" id="openAccessoryModalBtn">+ Add Accessory</button>
+      </div>
+
+      <div class="panel-card">
+        <div class="admin-toolbar">
+          <input type="text" id="adminAccessoriesSearch" class="admin-search" placeholder="Search name, category..." />
+        </div>
+
+        <div class="admin-table-wrap">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th>Product</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody id="adminAccessoriesBody">
+              <tr>
+                <td colspan="6">Loading accessories...</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <div class="admin-modal" id="accessoryModal">
+    <div class="admin-modal-card">
+      <div class="admin-modal-head">
+        <h3 id="accessoryModalTitle">Add Accessory</h3>
+        <button type="button" class="admin-modal-close" id="closeAccessoryModalBtn">×</button>
+      </div>
+
+      <form id="accessoryForm" class="admin-form-grid">
+        <input type="hidden" id="accessoryId" />
+
+        <div class="admin-form-group">
+          <label for="accessoryName">Name</label>
+          <input type="text" id="accessoryName" required />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="accessoryCategory">Category</label>
+          <input type="text" id="accessoryCategory" required />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="accessoryPrice">Price</label>
+          <input type="number" id="accessoryPrice" required />
+        </div>
+
+        <div class="admin-form-group">
+          <label for="accessoryStock">Stock</label>
+          <input type="number" id="accessoryStock" required />
+        </div>
+
+        <div class="admin-form-group admin-form-group-full">
+          <label for="accessoryMainImageFile">Main Image</label>
+          <input type="file" id="accessoryMainImageFile" accept="image/*" />
+        </div>
+
+        <div class="admin-form-group admin-form-group-full">
+          <label for="accessoryGalleryImage1">Gallery Images (optional)</label>
+          <input type="file" id="accessoryGalleryImage1" accept="image/*" />
+          <input type="file" id="accessoryGalleryImage2" accept="image/*" style="display:none; margin-top:10px;" />
+          <input type="file" id="accessoryGalleryImage3" accept="image/*" style="display:none; margin-top:10px;" />
+          <input type="file" id="accessoryGalleryImage4" accept="image/*" style="display:none; margin-top:10px;" />
+          <input type="file" id="accessoryGalleryImage5" accept="image/*" style="display:none; margin-top:10px;" />
+        </div>
+
+        <div class="admin-form-group admin-form-group-full">
+          <label for="accessoryDescription">Description</label>
+          <textarea id="accessoryDescription" rows="4"></textarea>
+        </div>
+
+        <div class="admin-form-group admin-form-group-full">
+          <label for="accessoryFeatures">Features (comma separated)</label>
+          <textarea id="accessoryFeatures" rows="3"></textarea>
+        </div>
+
+        <div class="admin-form-checks">
+          <label><input type="checkbox" id="accessoryFeatured" /> Featured</label>
+          <label><input type="checkbox" id="accessoryActive" checked /> Active</label>
+        </div>
+
+        <div class="admin-form-actions">
+          <button type="button" class="admin-secondary-btn" id="cancelAccessoryModalBtn">Cancel</button>
+          <button type="submit" class="admin-primary-btn" id="saveAccessoryBtn">Save Accessory</button>
+        </div>
+
+        <p id="accessoryFormMessage" class="admin-form-message"></p>
+      </form>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>

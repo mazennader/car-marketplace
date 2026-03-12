@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Luxury Cars</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-inner">
+      <div class="loader-logo">Luxury Cars</div>
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
+
+  <!-- HEADER -->
+  <header class="site-header">
+    <div class="header-left">
+      <a href="index.html" class="logo-box">
+        <img src="images/logo.jpeg" alt="Luxury Cars Logo" />
+      </a>
+    </div>
+
+    <nav class="main-nav">
+      <a href="rentals.html">Rentals</a>
+      <a href="cars-for-sale.html">Cars for Sale</a>
+      <a href="accessories.html">Accessories</a>
+    </nav>
+
+    <div class="header-right" id="siteHeaderAuth">
+      <a href="login.html" class="login-link guest-only">
+        <span class="login-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 12h14"></path>
+            <path d="M13 6l6 6-6 6"></path>
+          </svg>
+        </span>
+        <span>Log In</span>
+      </a>
+
+      <a href="signup.html" class="signup-btn guest-only">
+        <span class="signup-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M1 21c0-4 3-7 8-7"></path>
+            <line x1="19" y1="8" x2="19" y2="14"></line>
+            <line x1="22" y1="11" x2="16" y2="11"></line>
+          </svg>
+        </span>
+        <span>Sign Up</span>
+      </a>
+
+      <a href="account.html" class="login-link user-only" style="display:none;">
+        <span>My Account</span>
+      </a>
+
+      <button type="button" class="signup-btn logout-btn user-only" style="display:none;">
+        <span>Log Out</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-overlay"></div>
+
+    <div class="hero-content">
+      <h1 id="siteTagline">Drive Excellence</h1>
+      <p>
+        Luxury Rentals, Premium Vehicles for Sale, and Exclusive Accessories
+      </p>
+
+      <div class="hero-buttons">
+        <a href="rentals.html" class="hero-btn primary">
+          <i data-lucide="car"></i>
+          <span>Rent a Car</span>
+        </a>
+
+        <a href="cars-for-sale.html" class="hero-btn light">
+          <i data-lucide="store"></i>
+          <span>Browse Cars for Sale</span>
+        </a>
+
+        <a href="accessories.html" class="hero-btn outline">
+          <i data-lucide="shopping-bag"></i>
+          <span>Shop Accessories</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEARCH CARD -->
+  <section class="search-wrap">
+    <div class="search-card">
+      <h2>Quick Rental Search</h2>
+
+      <form class="search-form" id="homeRentalSearchForm">
+        <div class="field-group">
+          <label for="location">Pick-up Location</label>
+          <input type="text" id="location" name="location" placeholder="Enter location" />
+        </div>
+
+        <div class="field-group">
+          <label for="pickup">Pick-up Date</label>
+          <input type="date" id="pickup" name="pickup" />
+        </div>
+
+        <div class="field-group">
+          <label for="returnDate">Return Date</label>
+          <input type="date" id="returnDate" name="returnDate" />
+        </div>
+
+        <button type="submit" class="search-btn">Search Available Cars</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- FEATURED RENTALS -->
+  <section class="featured-rentals">
+    <div class="featured-head">
+      <h2>Featured Rental Cars</h2>
+      <p>Experience luxury on the road</p>
+    </div>
+
+    <div class="rental-grid" id="featuredRentalsGrid">
+      <p>Loading featured rentals...</p>
+    </div>
+
+    <div class="featured-actions">
+      <a href="rentals.html" class="view-rentals-btn">View All Rentals</a>
+    </div>
+  </section>
+
+  <!-- FEATURED CARS FOR SALE -->
+  <section class="featured-sale">
+    <div class="featured-head">
+      <h2>Featured Cars for Sale</h2>
+      <p>Own the car of your dreams</p>
+    </div>
+
+    <div class="sale-grid" id="featuredSaleGrid">
+      <p>Loading featured cars...</p>
+    </div>
+
+    <div class="featured-actions">
+      <a href="cars-for-sale.html" class="view-sale-btn">View All Cars for Sale</a>
+    </div>
+  </section>
+
+  <!-- BEST-SELLING ACCESSORIES -->
+  <section class="featured-accessories">
+    <div class="featured-head">
+      <h2>Best-Selling Accessories</h2>
+      <p>Enhance your driving experience</p>
+    </div>
+
+    <div class="accessories-grid" id="featuredAccessoriesGrid">
+      <p>Loading featured accessories...</p>
+    </div>
+
+    <div class="featured-actions">
+      <a href="accessories.html" class="shop-accessories-btn">Shop All Accessories</a>
+    </div>
+  </section>
+
+  <!-- WHY CHOOSE US -->
+  <section class="why-section">
+    <div class="why-title">
+      <h2>Why Choose Us</h2>
+    </div>
+
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon">
+          <img src="icons/shield.svg" alt="Trusted and Secure" />
+        </div>
+        <h3>Trusted &amp; Secure</h3>
+        <p>All vehicles are fully insured and regularly maintained</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">
+          <img src="icons/award.svg" alt="Premium Selection" />
+        </div>
+        <h3>Premium Selection</h3>
+        <p>Curated collection of luxury and exotic vehicles</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">
+          <img src="icons/heart-handshake.svg" alt="Exceptional Service" />
+        </div>
+        <h3>Exceptional Service</h3>
+        <p>24/7 customer support and concierge service</p>
+      </div>
+
+      <div class="why-card">
+        <div class="why-icon">
+          <img src="icons/calendar.svg" alt="Flexible Booking" />
+        </div>
+        <h3>Flexible Booking</h3>
+        <p>Easy online reservations with flexible terms</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="testimonials-section">
+    <div class="testimonials-title">
+      <h2>What Our Customers Say</h2>
+    </div>
+
+    <div class="testimonials-grid">
+      <article class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>
+          "Exceptional service and an incredible selection of luxury vehicles.
+          Rented a Mercedes S-Class for my wedding - absolutely perfect!"
+        </p>
+        <h3>James Peterson</h3>
+      </article>
+
+      <article class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>
+          "Bought my dream car here. The team was professional, knowledgeable,
+          and made the entire process seamless."
+        </p>
+        <h3>Sarah Williams</h3>
+      </article>
+
+      <article class="testimonial-card">
+        <div class="stars">★★★★★</div>
+        <p>
+          "Best car rental experience ever. The vehicle was immaculate and the
+          customer service was outstanding."
+        </p>
+        <h3>Michael Chen</h3>
+      </article>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="cta-section">
+    <h2>Ready to Experience Luxury?</h2>
+
+    <p>
+      Book your dream car today or contact us for personalized assistance
+    </p>
+
+    <div class="cta-buttons">
+      <a href="rentals.html" class="cta-book">Book Now</a>
+      <a
+href="#"
+class="cta-whatsapp"
+id="siteWhatsappLink"
+target="_blank"
+rel="noopener noreferrer">
+Contact via WhatsApp
+</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h3 id="footerCompanyName">Prestige Auto Group</h3>
+        <p id="footerCompanyText">
+          Your premier destination for luxury car rentals,
+          premium vehicles for sale, and exclusive automotive accessories.
+        </p>
+
+        <div class="footer-socials">
+          <a
+            href="#"
+            id="footerFacebook"
+            class="footer-social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+          >
+            <i data-lucide="facebook"></i>
+          </a>
+
+          <a
+            href="#"
+            id="footerInstagram"
+            class="footer-social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
+            <i data-lucide="instagram"></i>
+          </a>
+
+          <a
+            href="#"
+            id="footerTiktok"
+            class="footer-social-link"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="TikTok"
+          >
+            <svg viewBox="0 0 24 24" fill="currentColor" width="20" height="20" aria-hidden="true">
+              <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.13V2h-3.13v12.4a2.67 2.67 0 1 1-2.67-2.67c.23 0 .45.03.67.09V8.64a5.8 5.8 0 0 0-.67-.04A5.8 5.8 0 1 0 15.82 14V8.73a7.9 7.9 0 0 0 4.63 1.49V7.09c-.29 0-.58-.14-.86-.4z"/>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a href="rentals.html">Car Rentals</a></li>
+          <li><a href="cars-for-sale.html">Cars for Sale</a></li>
+          <li><a href="accessories.html">Accessories</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Contact Us</h4>
+        <p id="footerPhone">Phone: +1 (555) 123-4567</p>
+        <p id="footerEmail">Email: info@prestigeauto.com</p>
+        <p id="footerAddress">Address: 123 Luxury Lane, Beverly Hills, CA</p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Subscribe for exclusive offers</p>
+
+        <div class="newsletter">
+          <input type="email" placeholder="Your email" />
+          <button type="button">Subscribe</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom" id="footerCopyright">
+      © 2026 Prestige Auto Group. All rights reserved.
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="supabase.js"></script>
+
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script>
+    lucide.createIcons();
+  </script>
+
+  <script src="global.js"></script>
+</body>
+</html>
