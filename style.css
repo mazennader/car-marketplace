@@ -3560,7 +3560,7 @@ body.is-ready {
   
     background:
       linear-gradient(rgba(0,0,0,0.20), rgba(0,0,0,0.20)),
-      url("images/hero.jpeg") !important;
+      url("images/mobile.png") !important;
     background-size: cover !important;
     background-position: 60% center !important;
     background-repeat: no-repeat !important;
