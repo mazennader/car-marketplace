@@ -3549,23 +3549,28 @@ body.is-ready {
 
   /* ===== HERO ===== */
   .hero{
-    min-height: 620px !important;
-    padding-top: 78px !important;
+    min-height: unset !important;
+    height: auto !important;
+    padding-top: 110px !important;
+    padding-bottom: 30px !important;
+  
     display: flex !important;
-    align-items: center !important;
+    align-items: flex-start !important;
     justify-content: center !important;
-    background-size: cover !important;
-    background-position: center top !important;
+  
+    background-size: 100% auto !important;
+    background-position: top center !important;
     background-repeat: no-repeat !important;
-    overflow: hidden !important;
+    overflow: visible !important;
+    background-color: #050505 !important;
   }
 
   .hero-overlay{
     background: linear-gradient(
       to bottom,
-      rgba(0,0,0,.30),
       rgba(0,0,0,.18),
-      rgba(0,0,0,.42)
+      rgba(0,0,0,.10),
+      rgba(0,0,0,.28)
     ) !important;
   }
 
@@ -3773,8 +3778,10 @@ body.is-ready {
   }
 
   .hero{
-    min-height: 590px !important;
-    background-position: center top !important;
+    min-height: unset !important;
+    height: auto !important;
+    background-size: 100% auto !important;
+    background-position: top center !important;
   }
 
   .hero-content{
@@ -3793,37 +3800,5 @@ body.is-ready {
 
   .hero-btn{
     max-width: 270px !important;
-  }
-}
-/* ===== HERO FIX MOBILE NO CROP ===== */
-
-@media screen and (max-width: 768px) {
-
-  .hero {
-
-    min-height: auto !important;
-    height: auto !important;
-
-    background-size: contain !important;
-    background-position: center top !important;
-    background-repeat: no-repeat !important;
-
-    padding-top: 120px !important;
-    padding-bottom: 40px !important;
-
-  }
-
-  .hero-overlay {
-    background: rgba(0,0,0,0.45) !important;
-  }
-
-}
-@media (max-width: 768px) {
-  .hero {
-    height: 260px !important; /* change 260 if needed */
-    min-height: unset !important;
-    background-size: contain !important;
-    background-position: center top !important;
-    background-repeat: no-repeat !important;
   }
 }
