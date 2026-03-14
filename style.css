@@ -3875,3 +3875,24 @@ body.is-ready {
     padding: 0 14px 40px !important;
   }
 }
+/* ===== MOBILE HERO FIX WITH VERTICAL CROP ===== */
+
+@media (max-width: 768px) {
+
+  .hero {
+
+    min-height: 720px !important;
+    padding-top: 140px !important;
+
+    background-image:
+      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+      url("images/hero.jpeg") !important;
+
+    background-size: cover !important;
+
+    /* THIS is the important part */
+    background-position: 60% center !important;
+
+  }
+
+}
