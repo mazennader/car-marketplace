@@ -61,13 +61,13 @@ body {
 }
 
 .logo-box {
-  width: 190px;
-  height: 48px;
+  width: 250px;
+  height: 60px;
   background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
+  overflow: visible;
   text-decoration: none;
 }
 
@@ -3436,14 +3436,15 @@ body.is-ready {
   }
 
   .logo-box{
-    width: 150px !important;
-    height: 38px !important;
+    width: 210px !important;
+    height: 52px !important;
     background: transparent !important;
     margin: 0 auto !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     transform: translateX(-10px) !important;
+    overflow: visible !important;
 }
 
 .logo-box img{
@@ -3760,13 +3761,16 @@ body.is-ready {
   }
 
   .logo-box{
+    width: 180px !important;
+    height: 44px !important;
     transform: translateX(-12px) !important;
-  }
+}
 
-  .logo-box img{
-    width: 44px !important;
-    height: 30px !important;
-  }
+.logo-box img{
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: contain !important;
+}
 
   .auth-ready .header-right .show-auth-item{
     height: 36px !important;
