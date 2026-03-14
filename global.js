@@ -2989,9 +2989,41 @@ const remainingAmount = Number(booking.remaining_amount || 0);
   function initMobileMenu() {
     const btn = document.getElementById("mobileMenuBtn");
     const nav = document.getElementById("mainNav");
+    const header = document.querySelector(".site-header");
+  
     if (!btn || !nav) return;
   
-    btn.addEventListener("click", () => {
+    if (btn.dataset.menuBound === "true") return;
+    btn.dataset.menuBound = "true";
+  
+    btn.setAttribute("type", "button");
+  
+    btn.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
       nav.classList.toggle("open");
+    });
+  
+    nav.addEventListener("click", function (e) {
+      e.stopPropagation();
+    });
+  
+    document.addEventListener("click", function (e) {
+      const clickedInsideHeader = header && header.contains(e.target);
+      if (!clickedInsideHeader) {
+        nav.classList.remove("open");
+      }
+    });
+  
+    window.addEventListener("resize", function () {
+      if (window.innerWidth > 768) {
+        nav.classList.remove("open");
+      }
+    });
+  
+    nav.querySelectorAll("a").forEach((link) => {
+      link.addEventListener("click", function () {
+        nav.classList.remove("open");
+      });
     });
   }

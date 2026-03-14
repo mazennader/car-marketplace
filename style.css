@@ -3424,11 +3424,10 @@ body.is-ready {
     margin: 0 !important;
     cursor: pointer !important;
     justify-self: start !important;
-    grid-column: 1 !important;
     position: relative !important;
-    z-index: 20 !important;
+    z-index: 9999 !important;
     pointer-events: auto !important;
-}
+  }
 
 .header-left{
   width: auto !important;
@@ -3539,7 +3538,7 @@ body.is-ready {
     left: 12px !important;
     right: 12px !important;
     width: auto !important;
-
+    z-index: 9998 !important;
     background: #050505 !important;
     border: 1px solid rgba(201,164,88,.20) !important;
     border-radius: 16px !important;
