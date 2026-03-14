@@ -3775,11 +3775,13 @@ body.is-ready {
   }
 
   .hero{
-    min-height: 580px !important;
-    padding-top: 130px !important;
-    padding-bottom: 110px !important;
+    min-height: 620px !important;
+  
+    padding-top: 90px !important;   /* smaller = content higher */
+    padding-bottom: 160px !important; /* bigger bottom = show lower image */
+  
     background-size: cover !important;
-    background-position: 62% center !important;
+    background-position: 60% center !important;
   }
 
   .hero-content{
