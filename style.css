@@ -61,20 +61,21 @@ body {
 }
 
 .logo-box {
-  width: 340px;
-  height: 72px;
+  width: 420px;
+  height: 84px;
   background: transparent;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: visible;
+  overflow: hidden;
   text-decoration: none;
 }
 
 .logo-box img {
   width: 100%;
   height: 100%;
-  object-fit: contain;
+  object-fit: cover;
+  object-position: center;
   display: block;
 }
 
@@ -3436,23 +3437,24 @@ body.is-ready {
   }
 
   .logo-box{
-    width: 240px !important;
-    height: 54px !important;
+    width: 280px !important;
+    height: 60px !important;
     background: transparent !important;
     margin: 0 auto !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     transform: translateX(-10px) !important;
-    overflow: visible !important;
-  }
-  
-  .logo-box img{
+    overflow: hidden !important;
+}
+
+.logo-box img{
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
+    object-fit: cover !important;
+    object-position: center !important;
     display: block !important;
-  }
+}
 
   .header-right{
     width: auto !important;
@@ -3761,16 +3763,18 @@ body.is-ready {
   }
 
   .logo-box{
-    width: 210px !important;
-    height: 48px !important;
+    width: 250px !important;
+    height: 54px !important;
     transform: translateX(-12px) !important;
-  }
-  
-  .logo-box img{
+    overflow: hidden !important;
+}
+
+.logo-box img{
     width: 100% !important;
     height: 100% !important;
-    object-fit: contain !important;
-  }
+    object-fit: cover !important;
+    object-position: center !important;
+}
 
   .auth-ready .header-right .show-auth-item{
     height: 36px !important;
