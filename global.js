@@ -12,6 +12,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   await setCurrentUser();
 
   highlightActiveNav();
+  initMobileMenu();
   initHomeRentalSearch();
   initSignupForm();
   initLoginForm();
@@ -2983,5 +2984,14 @@ const remainingAmount = Number(booking.remaining_amount || 0);
   
         window.location.href = href;
       });
+    });
+  }
+  function initMobileMenu() {
+    const btn = document.getElementById("mobileMenuBtn");
+    const nav = document.getElementById("mainNav");
+    if (!btn || !nav) return;
+  
+    btn.addEventListener("click", () => {
+      nav.classList.toggle("open");
     });
   }

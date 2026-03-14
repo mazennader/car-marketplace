@@ -3717,3 +3717,200 @@ body.is-ready {
     width: 100%;
   }
 }
+@media screen and (max-width: 768px) {
+  .site-header {
+    position: relative !important;
+    display: grid !important;
+    grid-template-columns: 44px 1fr auto !important;
+    align-items: center !important;
+    gap: 10px !important;
+    padding: 10px 12px !important;
+    min-height: 76px !important;
+  }
+
+  .mobile-menu-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    width: 44px !important;
+    height: 44px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    border: 1px solid rgba(255,255,255,0.18) !important;
+    border-radius: 12px !important;
+    background: transparent !important;
+    color: #fff !important;
+    font-size: 26px !important;
+    line-height: 1 !important;
+    cursor: pointer !important;
+    justify-self: start !important;
+    z-index: 30 !important;
+  }
+
+  .header-left {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    min-width: 0 !important;
+  }
+
+  .logo-box {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin: 0 auto !important;
+  }
+
+  .logo-box img {
+    display: block !important;
+    width: 56px !important;
+    height: 38px !important;
+    object-fit: contain !important;
+  }
+
+  .header-right {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    min-width: 0 !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .header-right .login-link,
+  .header-right .signup-btn,
+  .header-right .logout-btn,
+  .header-right .user-only.login-link {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 40px !important;
+    padding: 0 12px !important;
+    border-radius: 12px !important;
+    font-size: 13px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+  }
+
+  .header-right .login-link svg,
+  .header-right .signup-btn svg {
+    width: 15px !important;
+    height: 15px !important;
+  }
+
+  .header-right .login-link span,
+  .header-right .signup-btn span,
+  .header-right .logout-btn span {
+    white-space: nowrap !important;
+  }
+
+  .main-nav {
+    display: none !important;
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: 12px !important;
+    right: 12px !important;
+    background: #050505 !important;
+    border: 1px solid rgba(201, 164, 88, 0.22) !important;
+    border-radius: 16px !important;
+    padding: 10px !important;
+    box-shadow: 0 16px 30px rgba(0,0,0,0.22) !important;
+    z-index: 1000 !important;
+  }
+
+  .main-nav.open {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 6px !important;
+  }
+
+  .main-nav a {
+    display: block !important;
+    width: 100% !important;
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+    text-align: left !important;
+  }
+
+  .hero {
+    min-height: 560px !important;
+    background-position: center center !important;
+    background-size: cover !important;
+  }
+
+  .hero-content {
+    width: 100% !important;
+    max-width: 340px !important;
+    margin: 0 auto !important;
+    padding: 48px 16px 36px !important;
+    text-align: center !important;
+  }
+
+  .hero h1 {
+    font-size: 34px !important;
+    line-height: 1.12 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .hero p {
+    font-size: 16px !important;
+    line-height: 1.45 !important;
+    margin-bottom: 18px !important;
+  }
+
+  .hero-buttons {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    gap: 12px !important;
+    width: 100% !important;
+  }
+
+  .hero-btn {
+    width: 100% !important;
+    max-width: 280px !important;
+    min-height: 54px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
+}
+@media screen and (max-width: 480px) {
+  .site-header {
+    grid-template-columns: 42px 1fr auto !important;
+    gap: 8px !important;
+    padding: 10px 10px !important;
+  }
+
+  .mobile-menu-btn {
+    width: 42px !important;
+    height: 42px !important;
+    font-size: 24px !important;
+  }
+
+  .logo-box img {
+    width: 50px !important;
+    height: 34px !important;
+  }
+
+  .header-right {
+    gap: 6px !important;
+  }
+
+  .header-right .login-link,
+  .header-right .signup-btn,
+  .header-right .logout-btn,
+  .header-right .user-only.login-link {
+    height: 38px !important;
+    padding: 0 10px !important;
+    font-size: 12px !important;
+  }
+
+  .header-right .login-link .login-icon,
+  .header-right .signup-btn .signup-icon {
+    margin-right: 6px !important;
+  }
+}
