@@ -486,9 +486,18 @@ function getWhatsAppLink(message = "Hello") {
     </div>
   </article>
 `;
-      }).join("");
-      initClickableCards();
-      hideLoader();
+}).join("");
+
+initClickableCards();
+
+setupGridPagination({
+  gridId: "saleGrid",
+  itemSelector: ".sale-page-card",
+  paginationId: "salePagination",
+  itemsPerPage: 5
+});
+
+hideLoader();
     } catch (err) {
       console.error("Unexpected error loading cars:", err);
       carsContainer.innerHTML = `<p>Failed to load cars: ${err.message}</p>`;
@@ -2963,6 +2972,106 @@ const remainingAmount = Number(booking.remaining_amount || 0);
     if (type) {
       el.classList.add(type);
     }
+  }
+  function setupGridPagination({
+    gridId,
+    itemSelector,
+    paginationId,
+    itemsPerPage = 5
+  }) {
+    const grid = document.getElementById(gridId);
+    const pagination = document.getElementById(paginationId);
+  
+    if (!grid || !pagination) return;
+  
+    const items = Array.from(grid.querySelectorAll(itemSelector));
+    if (!items.length) {
+      pagination.innerHTML = "";
+      return;
+    }
+  
+    let currentPage = 1;
+    const totalPages = Math.ceil(items.length / itemsPerPage);
+  
+    function scrollToGridTop() {
+      const top = grid.getBoundingClientRect().top + window.pageYOffset - 120;
+      window.scrollTo({
+        top: top < 0 ? 0 : top,
+        behavior: "smooth"
+      });
+    }
+  
+    function renderPage(page) {
+      currentPage = page;
+  
+      const start = (page - 1) * itemsPerPage;
+      const end = start + itemsPerPage;
+  
+      items.forEach((item, index) => {
+        item.style.display = index >= start && index < end ? "" : "none";
+      });
+  
+      renderPagination();
+      scrollToGridTop();
+    }
+  
+    function renderPagination() {
+      if (totalPages <= 1) {
+        pagination.innerHTML = "";
+        return;
+      }
+  
+      let html = `
+        <button type="button" class="page-arrow prev-page" ${currentPage === 1 ? "disabled" : ""}>
+          ←
+        </button>
+      `;
+  
+      for (let i = 1; i <= totalPages; i++) {
+        html += `
+          <button type="button" class="page-number ${i === currentPage ? "active" : ""}" data-page="${i}">
+            ${i}
+          </button>
+        `;
+      }
+  
+      html += `
+        <button type="button" class="page-arrow next-page" ${currentPage === totalPages ? "disabled" : ""}>
+          →
+        </button>
+      `;
+  
+      pagination.innerHTML = html;
+  
+      const prevBtn = pagination.querySelector(".prev-page");
+      const nextBtn = pagination.querySelector(".next-page");
+      const pageBtns = pagination.querySelectorAll(".page-number");
+  
+      if (prevBtn) {
+        prevBtn.addEventListener("click", () => {
+          if (currentPage > 1) renderPage(currentPage - 1);
+        });
+      }
+  
+      if (nextBtn) {
+        nextBtn.addEventListener("click", () => {
+          if (currentPage < totalPages) renderPage(currentPage + 1);
+        });
+      }
+  
+      pageBtns.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const page = Number(btn.dataset.page || 1);
+          renderPage(page);
+        });
+      });
+    }
+  
+    items.forEach((item) => {
+      item.style.display = "";
+    });
+  
+    renderPage(1);
   }
   function initClickableCards() {
     const cards = document.querySelectorAll(".card-clickable");

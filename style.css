@@ -3373,3 +3373,367 @@ body.is-ready {
   min-width: 220px !important;
   height: 60px !important;
 }
+/* =========================================
+   GLOBAL PHONE FIX
+   ADD THIS AT THE VERY END OF style.css
+========================================= */
+@media (max-width: 768px) {
+  html,
+  body {
+    overflow-x: hidden;
+  }
+
+  body {
+    font-size: 15px;
+  }
+
+  img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  .container,
+  .section,
+  .hero,
+  .hero-content,
+  .about-section,
+  .contact-section,
+  .details-section,
+  .checkout-section,
+  .account-section,
+  .cart-section,
+  .rentals-section,
+  .sale-section,
+  .accessories-section {
+    width: 100%;
+    max-width: 100%;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+    box-sizing: border-box;
+  }
+
+  .site-header,
+  .topbar,
+  .header-inner,
+  .topbar-inner {
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+  }
+
+  .main-nav {
+    gap: 10px !important;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .main-nav a {
+    font-size: 14px;
+  }
+
+  .hero,
+  .hero-section {
+    min-height: auto !important;
+    padding-top: 32px !important;
+    padding-bottom: 32px !important;
+  }
+
+  .hero h1,
+  .hero-title,
+  .section-title,
+  .page-title,
+  .car-details-info h1 {
+    font-size: clamp(26px, 7vw, 36px) !important;
+    line-height: 1.15 !important;
+  }
+
+  .hero p,
+  .section-subtitle,
+  .details-text,
+  .car-details-info p {
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+  }
+
+  .rental-grid,
+  .sale-grid,
+  .accessories-grid,
+  .featuredRentalsGrid,
+  .featuredSaleGrid,
+  .featuredAccessoriesGrid,
+  #rentalsGrid,
+  #saleGrid,
+  #accessoriesGrid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .rental-card,
+  .sale-card,
+  .accessory-card,
+  .rental-page-card,
+  .sale-page-card,
+  .accessory-page-card {
+    width: 100% !important;
+    max-width: 100% !important;
+    border-radius: 18px !important;
+    overflow: hidden;
+  }
+
+  .rental-image,
+  .sale-image,
+  .accessory-image,
+  .rental-page-image {
+    height: 220px !important;
+  }
+
+  .rental-image img,
+  .sale-image img,
+  .accessory-image img,
+  .rental-page-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .rental-body,
+  .sale-body,
+  .accessory-body,
+  .rental-page-body {
+    padding: 16px !important;
+  }
+
+  .rental-page-meta,
+  .sale-meta,
+  .rental-meta {
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+  }
+
+  .rental-page-bottom,
+  .sale-page-bottom,
+  .accessory-page-bottom,
+  .sale-page-actions,
+  .details-actions,
+  .booking-actions {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+    align-items: stretch !important;
+  }
+
+  .rent-now-btn,
+  .book-now-detail-btn,
+  .whatsapp-btn,
+  .whatsapp-detail-btn,
+  .rental-wa-btn,
+  .cart-shop-btn,
+  .details-btn {
+    width: 100% !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  .car-details-layout {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 20px !important;
+  }
+
+  .car-main-image,
+  .car-gallery {
+    width: 100% !important;
+  }
+
+  .car-main-image img,
+  #carMainImage,
+  #rentalMainImage,
+  #accessoryMainImage {
+    width: 100% !important;
+    height: auto !important;
+    max-height: 360px !important;
+    object-fit: cover !important;
+    border-radius: 18px !important;
+  }
+
+  .car-thumbs {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 8px !important;
+  }
+
+  .car-thumb {
+    width: 100% !important;
+  }
+
+  .specs-grid,
+  .features-grid,
+  .account-profile-grid,
+  .booking-row,
+  .checkout-grid,
+  .footer-grid,
+  .admin-stats-grid {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .booking-form,
+  .checkout-form,
+  .details-card,
+  .rental-booking-card,
+  .account-item,
+  .cart-item,
+  .checkout-item {
+    padding: 16px !important;
+    border-radius: 18px !important;
+  }
+
+  .cart-item {
+    display: grid !important;
+    grid-template-columns: 90px 1fr !important;
+    gap: 12px !important;
+    align-items: start !important;
+  }
+
+  .cart-item-total {
+    grid-column: 1 / -1;
+    text-align: left !important;
+    margin-top: 8px !important;
+  }
+
+  .cart-item-controls {
+    flex-wrap: wrap !important;
+    gap: 8px !important;
+  }
+
+  input,
+  select,
+  textarea,
+  button {
+    font-size: 16px !important;
+  }
+
+  table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+  }
+
+  .footer,
+  footer {
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .page-loader .loader-inner,
+  .loader-inner {
+    transform: scale(0.92);
+  }
+}
+
+@media (max-width: 480px) {
+  .site-header,
+  .topbar,
+  .header-inner,
+  .topbar-inner,
+  .container,
+  .section,
+  .hero,
+  .hero-content,
+  .details-section,
+  .checkout-section,
+  .account-section,
+  .cart-section {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
+  }
+
+  .hero h1,
+  .hero-title,
+  .section-title,
+  .page-title,
+  .car-details-info h1 {
+    font-size: clamp(22px, 8vw, 30px) !important;
+  }
+
+  .rental-image,
+  .sale-image,
+  .accessory-image,
+  .rental-page-image {
+    height: 200px !important;
+  }
+
+  .car-thumbs {
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+
+  .booking-form,
+  .checkout-form,
+  .details-card,
+  .rental-booking-card,
+  .account-item,
+  .cart-item,
+  .checkout-item {
+    padding: 14px !important;
+  }
+}
+/* =========================================
+   PAGINATION
+========================================= */
+.custom-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 28px;
+  flex-wrap: wrap;
+}
+
+.custom-pagination button {
+  min-width: 38px;
+  height: 38px;
+  padding: 0 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: #111111;
+  color: #ffffff;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.25s ease;
+}
+
+.custom-pagination button:hover {
+  transform: translateY(-1px);
+  border-color: rgba(201,164,88,0.65);
+  color: #c9a458;
+}
+
+.custom-pagination button.active {
+  background: #c9a458;
+  color: #050505;
+  border-color: #c9a458;
+  font-weight: 700;
+}
+
+.custom-pagination button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+}
+
+@media (max-width: 768px) {
+  .custom-pagination {
+    gap: 6px;
+    margin-top: 22px;
+  }
+
+  .custom-pagination button {
+    min-width: 34px;
+    height: 34px;
+    padding: 0 10px;
+    font-size: 13px;
+    border-radius: 9px;
+  }
+}
