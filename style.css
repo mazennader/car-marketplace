@@ -3374,94 +3374,103 @@ body.is-ready {
   height: 60px !important;
 }
 /* =========================================
-   FINAL PHONE OVERWRITE
+   MOBILE ONLY FIX
    PUT THIS AT THE VERY END OF style.css
 ========================================= */
 
-.mobile-menu-btn {
-  display: none;
+.mobile-menu-btn{
+  display:none;
 }
 
-@media screen and (max-width: 768px) {
-  html,
-  body {
-    overflow-x: hidden !important;
+@media screen and (max-width: 768px){
+
+  html, body{
+    overflow-x:hidden !important;
   }
 
   /* ===== HEADER ===== */
-  .site-header {
-    position: relative !important;
+  .site-header{
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 78px !important;
+    min-height: 78px !important;
+    padding: 0 12px !important;
+    background: #050505 !important;
+
     display: grid !important;
     grid-template-columns: 44px 1fr auto !important;
     align-items: center !important;
-    gap: 8px !important;
-    min-height: 74px !important;
-    padding: 10px 12px !important;
-    background: #050505 !important;
+    gap: 10px !important;
+
     z-index: 1000 !important;
   }
 
-  .mobile-menu-btn {
+  .mobile-menu-btn{
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
     width: 42px !important;
     height: 42px !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    border: 1px solid rgba(255,255,255,.16) !important;
+    border: 1px solid rgba(255,255,255,.18) !important;
     border-radius: 12px !important;
     background: transparent !important;
     color: #fff !important;
     font-size: 24px !important;
     line-height: 1 !important;
+    padding: 0 !important;
+    margin: 0 !important;
     cursor: pointer !important;
     justify-self: start !important;
   }
 
-  .header-left {
+  .header-left{
+    width: 100% !important;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    min-width: 0 !important;
-    width: 100% !important;
     padding-left: 0 !important;
     margin: 0 !important;
+    min-width: 0 !important;
   }
 
-  .logo-box {
+  .logo-box{
+    width: auto !important;
+    height: auto !important;
+    background: transparent !important;
+    margin: 0 auto !important;
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin: 0 auto !important;
-    padding: 0 !important;
-    transform: translateX(-6px) !important;
+    transform: translateX(-10px) !important;
   }
 
-  .logo-box img {
-    display: block !important;
-    width: 52px !important;
+  .logo-box img{
+    width: 48px !important;
     height: 34px !important;
     object-fit: contain !important;
-    margin: 0 !important;
+    display: block !important;
   }
 
-  .header-right {
+  .header-right{
+    width: auto !important;
+    padding-right: 0 !important;
     display: flex !important;
     align-items: center !important;
     justify-content: flex-end !important;
     gap: 6px !important;
     min-width: 0 !important;
-    margin: 0 !important;
+    flex-wrap: nowrap !important;
   }
 
-  /* hide everything first on phone */
-  .header-right > * {
+  /* hide all auth buttons by default on phone */
+  .header-right > *{
     display: none !important;
   }
 
-  /* show only what JS marks as active */
-  .header-right > .show-auth-item {
+  /* show only the active auth items that JS adds */
+  .auth-ready .header-right .show-auth-item{
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
@@ -3471,169 +3480,193 @@ body.is-ready {
     font-size: 11px !important;
     line-height: 1 !important;
     white-space: nowrap !important;
-    flex: 0 0 auto !important;
     margin: 0 !important;
+    flex: 0 0 auto !important;
   }
 
-  .header-right .login-link.show-auth-item {
+  .auth-ready .header-right .login-link.show-auth-item{
+    color: #fff !important;
+    background: transparent !important;
+    gap: 6px !important;
     padding: 0 8px !important;
   }
 
-  .header-right .signup-btn.show-auth-item,
-  .header-right .logout-btn.show-auth-item {
-    padding: 0 10px !important;
+  .auth-ready .header-right .signup-btn.show-auth-item,
+  .auth-ready .header-right .logout-btn.show-auth-item{
+    background: #c9a458 !important;
+    color: #111 !important;
+    border: none !important;
+    gap: 6px !important;
   }
 
   .header-right .login-icon,
-  .header-right .signup-icon {
+  .header-right .signup-icon{
     display: inline-flex !important;
-    margin-right: 5px !important;
+    align-items: center !important;
+    justify-content: center !important;
+    margin-right: 0 !important;
   }
 
-  .header-right svg {
+  .header-right .login-icon svg,
+  .header-right .signup-icon svg{
     width: 13px !important;
     height: 13px !important;
   }
 
-  /* ===== MOBILE DROPDOWN ===== */
-  .main-nav {
+  /* ===== MOBILE DROPDOWN MENU ===== */
+  .main-nav{
     display: none !important;
     position: absolute !important;
     top: calc(100% + 8px) !important;
     left: 12px !important;
     right: 12px !important;
+    width: auto !important;
+
     background: #050505 !important;
     border: 1px solid rgba(201,164,88,.20) !important;
     border-radius: 16px !important;
     padding: 10px !important;
-    box-shadow: 0 16px 28px rgba(0,0,0,.22) !important;
+    box-shadow: 0 16px 28px rgba(0,0,0,.24) !important;
     z-index: 1001 !important;
-  }
 
-  .main-nav.open {
-    display: flex !important;
     flex-direction: column !important;
     gap: 6px !important;
   }
 
-  .main-nav a {
+  .main-nav.open{
+    display: flex !important;
+  }
+
+  .main-nav a{
     display: block !important;
     width: 100% !important;
+    text-align: left !important;
     padding: 12px 14px !important;
     border-radius: 12px !important;
-    text-align: left !important;
     font-size: 15px !important;
+    color: #fff !important;
   }
 
   /* ===== HERO ===== */
-  .hero {
-    min-height: 540px !important;
-    padding: 0 !important;
+  .hero{
+    min-height: 620px !important;
+    padding-top: 78px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
     background-size: cover !important;
     background-position: center top !important;
     background-repeat: no-repeat !important;
     overflow: hidden !important;
   }
 
-  .hero-overlay {
+  .hero-overlay{
     background: linear-gradient(
       to bottom,
-      rgba(0,0,0,.28),
+      rgba(0,0,0,.30),
       rgba(0,0,0,.18),
-      rgba(0,0,0,.40)
+      rgba(0,0,0,.42)
     ) !important;
   }
 
-  .hero-content {
+  .hero-content{
     width: 100% !important;
     max-width: 340px !important;
     margin: 0 auto !important;
-    padding: 42px 16px 34px !important;
+    padding: 22px 16px 28px !important;
     text-align: center !important;
   }
 
-  .hero h1,
-  #siteTagline {
-    font-size: 33px !important;
+  .hero-content h1,
+  #siteTagline{
+    font-size: 32px !important;
     line-height: 1.12 !important;
     margin: 0 0 10px !important;
     text-align: center !important;
   }
 
-  .hero p {
+  .hero-content p{
     font-size: 15px !important;
     line-height: 1.45 !important;
     margin: 0 0 18px !important;
     text-align: center !important;
   }
 
-  .hero-buttons {
+  .hero-buttons{
+    width: 100% !important;
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
+    justify-content: center !important;
     gap: 12px !important;
-    width: 100% !important;
     margin: 0 auto !important;
   }
 
-  .hero-btn {
+  .hero-btn{
     width: 100% !important;
     max-width: 280px !important;
+    min-width: 0 !important;
     min-height: 54px !important;
+    margin: 0 auto !important;
+    padding: 14px 18px !important;
+
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;
-    text-align: center !important;
-    margin: 0 auto !important;
-    padding: 14px 18px !important;
-  }
-
-  .hero-btn span {
+    gap: 10px !important;
     text-align: center !important;
   }
 
-  /* ===== SEARCH CARD ===== */
-  .search-wrap {
+  .hero-btn span{
+    text-align: center !important;
+  }
+
+  /* ===== SEARCH ===== */
+  .search-wrap{
+    margin-top: -22px !important;
+    padding: 0 14px 40px !important;
     position: relative !important;
-    z-index: 3 !important;
-    margin-top: -18px !important;
-    padding-left: 14px !important;
-    padding-right: 14px !important;
+    z-index: 5 !important;
   }
 
-  .search-card {
+  .search-card{
     width: 100% !important;
     max-width: 100% !important;
-    margin: 0 auto !important;
     padding: 20px 16px !important;
     border-radius: 20px !important;
+    margin: 0 auto !important;
   }
 
-  .search-card h2 {
-    text-align: center !important;
+  .search-card h2{
     font-size: 22px !important;
-  }
-
-  .search-btn {
-    width: 100% !important;
     text-align: center !important;
   }
 
-  /* ===== SECTIONS ===== */
+  .search-form{
+    grid-template-columns: 1fr !important;
+    gap: 14px !important;
+  }
+
+  .field-group input,
+  .search-btn{
+    width: 100% !important;
+  }
+
+  /* ===== CARDS / BUTTONS ===== */
   .featured-rentals,
   .featured-sale,
   .featured-accessories,
   .why-section,
   .testimonials-section,
   .cta-section,
-  .site-footer {
+  .site-footer{
     padding-left: 14px !important;
     padding-right: 14px !important;
   }
 
   .featured-head,
   .why-title,
-  .testimonials-title {
+  .testimonials-title{
     text-align: center !important;
   }
 
@@ -3642,97 +3675,123 @@ body.is-ready {
   .accessories-grid,
   .why-grid,
   .testimonials-grid,
-  .footer-grid {
+  .footer-grid{
+    display: grid !important;
     grid-template-columns: 1fr !important;
     gap: 16px !important;
   }
 
-  .featured-actions {
+  .rental-card,
+  .sale-card,
+  .accessory-card,
+  .why-card,
+  .testimonial-card{
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+  }
+
+  .featured-actions{
     display: flex !important;
     justify-content: center !important;
+    margin-top: 18px !important;
   }
 
   .view-rentals-btn,
   .view-sale-btn,
-  .shop-accessories-btn,
-  .cta-book,
-  .cta-whatsapp {
-    margin-left: auto !important;
-    margin-right: auto !important;
+  .shop-accessories-btn{
+    margin: 0 auto !important;
     text-align: center !important;
   }
 
-  .cta-buttons {
+  .rental-bottom,
+  .sale-bottom,
+  .accessory-bottom{
+    align-items: center !important;
+  }
+
+  .rent-btn,
+  .details-btn,
+  .cart-btn{
+    text-align: center !important;
+  }
+
+  .cta-buttons{
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     gap: 12px !important;
   }
 
-  .newsletter {
+  .cta-book,
+  .cta-whatsapp{
+    width: 100% !important;
+    max-width: 260px !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+  }
+
+  .newsletter{
     display: flex !important;
     flex-direction: column !important;
     gap: 10px !important;
   }
 
   .newsletter input,
-  .newsletter button {
+  .newsletter button{
     width: 100% !important;
+    border-radius: 8px !important;
   }
 }
 
-@media screen and (max-width: 480px) {
-  .site-header {
+@media screen and (max-width: 480px){
+  .site-header{
     grid-template-columns: 42px 1fr auto !important;
-    gap: 7px !important;
-    padding: 9px 10px !important;
+    gap: 8px !important;
+    padding: 0 10px !important;
   }
 
-  .mobile-menu-btn {
+  .mobile-menu-btn{
     width: 40px !important;
     height: 40px !important;
     font-size: 22px !important;
   }
 
-  .logo-box {
-    transform: translateX(-8px) !important;
+  .logo-box{
+    transform: translateX(-12px) !important;
   }
 
-  .logo-box img {
-    width: 48px !important;
-    height: 32px !important;
+  .logo-box img{
+    width: 44px !important;
+    height: 30px !important;
   }
 
-  .header-right {
-    gap: 5px !important;
-  }
-
-  .header-right > .show-auth-item {
+  .auth-ready .header-right .show-auth-item{
     height: 36px !important;
     font-size: 10px !important;
     padding: 0 8px !important;
   }
 
-  .hero {
-    min-height: 520px !important;
+  .hero{
+    min-height: 590px !important;
     background-position: center top !important;
   }
 
-  .hero-content {
+  .hero-content{
     max-width: 320px !important;
-    padding: 40px 14px 30px !important;
+    padding: 20px 14px 26px !important;
   }
 
-  .hero h1,
-  #siteTagline {
-    font-size: 30px !important;
+  .hero-content h1,
+  #siteTagline{
+    font-size: 29px !important;
   }
 
-  .hero p {
+  .hero-content p{
     font-size: 14px !important;
   }
 
-  .hero-btn {
+  .hero-btn{
     max-width: 270px !important;
   }
 }

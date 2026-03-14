@@ -367,5 +367,21 @@ Contact via WhatsApp
   
 
   <script src="global.js"></script>
+  <script>
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const mainNav = document.getElementById("mainNav");
+  
+    if (mobileMenuBtn && mainNav) {
+      mobileMenuBtn.addEventListener("click", () => {
+        mainNav.classList.toggle("open");
+      });
+  
+      document.addEventListener("click", (e) => {
+        if (!mainNav.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+          mainNav.classList.remove("open");
+        }
+      });
+    }
+  </script>
 </body>
 </html>
