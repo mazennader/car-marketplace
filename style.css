@@ -3877,22 +3877,27 @@ body.is-ready {
 }
 /* ===== MOBILE HERO FIX WITH VERTICAL CROP ===== */
 
+/* ===== MOBILE HERO FIX CLEAN ===== */
+
 @media (max-width: 768px) {
 
   .hero {
 
-    min-height: 720px !important;
+    min-height: 620px !important;
     padding-top: 140px !important;
 
     background-image:
-      linear-gradient(rgba(0,0,0,0.45), rgba(0,0,0,0.45)),
+      linear-gradient(rgba(0,0,0,0.25), rgba(0,0,0,0.25)),
       url("images/hero.jpeg") !important;
 
     background-size: cover !important;
-
-    /* THIS is the important part */
     background-position: 60% center !important;
+    background-repeat: no-repeat !important;
 
+  }
+
+  .hero-overlay {
+    display: none !important;
   }
 
 }
