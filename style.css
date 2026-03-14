@@ -3818,3 +3818,20 @@ body.is-ready {
   }
 
 }
+/* MOBILE HERO FIX */
+@media (max-width: 768px) {
+
+  .hero,
+  .hero img,
+  .hero-bg {
+    height: auto !important;
+  }
+
+  .hero img,
+  .hero-bg {
+    object-fit: contain !important;
+    width: 100% !important;
+    height: auto !important;
+  }
+
+}
