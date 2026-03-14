@@ -35,7 +35,7 @@
     </div>
   
     <div class="header-right" id="siteHeaderAuth">
-      <a href="login.html" class="login-link guest-only desktop-auth">
+      <a href="login.html" class="login-link guest-only">
         <span class="login-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -45,8 +45,8 @@
         </span>
         <span>Log In</span>
       </a>
-    
-      <a href="signup.html" class="signup-btn guest-only desktop-auth">
+  
+      <a href="signup.html" class="signup-btn guest-only">
         <span class="signup-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
             stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -58,27 +58,16 @@
         </span>
         <span>Sign Up</span>
       </a>
-    
-      <a href="login.html" class="mobile-account-btn guest-only mobile-auth-btn" aria-label="Login">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M5 12h14"></path>
-          <path d="M13 6l6 6-6 6"></path>
-        </svg>
+  
+      <a href="account.html" class="login-link user-only" style="display:none;">
+        <span>My Account</span>
       </a>
-    
-      <a href="account.html" class="mobile-account-btn user-only mobile-auth-btn" style="display:none;" aria-label="My Account">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
-          stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <circle cx="12" cy="8" r="4"></circle>
-          <path d="M4 20c0-4 4-7 8-7s8 3 8 7"></path>
-        </svg>
-      </a>
-    
-      <button type="button" class="signup-btn logout-btn user-only desktop-auth" style="display:none;">
+  
+      <button type="button" class="signup-btn logout-btn user-only" style="display:none;">
         <span>Log Out</span>
       </button>
     </div>
+  
     <nav class="main-nav" id="mainNav">
       <a href="rentals.html">Rentals</a>
       <a href="cars-for-sale.html">Cars for Sale</a>
