@@ -3374,36 +3374,11 @@ body.is-ready {
   height: 60px !important;
 }
 /* =========================================
-   REAL RESPONSIVE FIX FOR YOUR ACTUAL HTML
-   ADD THIS AT THE VERY END OF style.css
+   CLEAN PHONE FIX - HEADER + HERO + BUTTONS
 ========================================= */
 
-@media screen and (max-width: 1024px) {
-  .hero-content {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-
-  .featured-rentals,
-  .featured-sale,
-  .featured-accessories,
-  .why-section,
-  .testimonials-section,
-  .cta-section,
-  .site-footer,
-  .search-wrap {
-    padding-left: 24px;
-    padding-right: 24px;
-  }
-
-  .hero h1 {
-    font-size: 52px !important;
-    line-height: 1.1 !important;
-  }
-
-  .hero p {
-    font-size: 20px !important;
-  }
+.mobile-menu-btn {
+  display: none;
 }
 
 @media screen and (max-width: 768px) {
@@ -3412,519 +3387,279 @@ body.is-ready {
     overflow-x: hidden;
   }
 
-  body {
-    font-size: 15px;
-  }
-
-  img {
-    max-width: 100%;
-    display: block;
-  }
-
   /* ---------- HEADER ---------- */
   .site-header {
-    display: grid !important;
-    grid-template-columns: auto 1fr auto !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 12px 14px !important;
+    position: relative;
+    display: grid;
+    grid-template-columns: 44px 1fr auto;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 14px;
+    min-height: 72px;
+  }
+
+  .mobile-menu-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: 0;
+    background: transparent;
+    color: #fff;
+    font-size: 28px;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+    justify-self: start;
   }
 
   .header-left {
     display: flex;
     align-items: center;
+    justify-content: center;
+  }
+
+  .logo-box {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
   }
 
   .logo-box img {
-    width: 64px !important;
-    height: 38px !important;
-    object-fit: contain !important;
-  }
-
-  .main-nav {
-    display: flex !important;
-    justify-content: center !important;
-    gap: 14px !important;
-    flex-wrap: wrap !important;
-  }
-
-  .main-nav a {
-    font-size: 14px !important;
+    width: 58px;
+    height: 40px;
+    object-fit: contain;
   }
 
   .header-right {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    gap: 8px !important;
-    flex-wrap: wrap !important;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 8px;
   }
 
-  .login-link,
-  .signup-btn,
-  .header-right .user-only,
+  .header-right .login-link,
+  .header-right .signup-btn,
   .header-right .logout-btn {
-    font-size: 13px !important;
-    padding: 10px 12px !important;
-    white-space: nowrap !important;
+    padding: 10px 12px;
+    font-size: 13px;
+    white-space: nowrap;
+  }
+
+  .main-nav {
+    display: none;
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 14px;
+    right: 14px;
+    background: #050505;
+    border: 1px solid rgba(201, 164, 88, 0.22);
+    border-radius: 16px;
+    padding: 10px;
+    z-index: 1000;
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+  }
+
+  .main-nav.open {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .main-nav a {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px 14px;
+    border-radius: 12px;
   }
 
   /* ---------- HERO ---------- */
   .hero {
-    min-height: auto !important;
-    padding: 0 !important;
-    position: relative !important;
+    position: relative;
+    min-height: 520px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 
   .hero-overlay {
-    opacity: 1 !important;
+    position: absolute;
+    inset: 0;
+    z-index: 1;
   }
 
   .hero-content {
-    position: relative !important;
-    z-index: 2 !important;
-    padding: 70px 18px 40px !important;
-    text-align: center !important;
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 340px;
+    margin: 0 auto;
+    padding: 28px 16px 36px;
+    text-align: center;
   }
 
   .hero h1 {
-    font-size: 38px !important;
-    line-height: 1.1 !important;
-    margin-bottom: 12px !important;
+    font-size: 34px !important;
+    line-height: 1.12 !important;
+    margin: 0 0 10px !important;
   }
 
   .hero p {
-    font-size: 17px !important;
-    line-height: 1.45 !important;
-    max-width: 100% !important;
-    margin: 0 auto 18px !important;
+    font-size: 16px !important;
+    line-height: 1.5 !important;
+    margin: 0 0 18px !important;
   }
 
   .hero-buttons {
     display: flex !important;
     flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
     gap: 12px !important;
-    align-items: stretch !important;
     width: 100% !important;
-    max-width: 280px !important;
     margin: 0 auto !important;
   }
 
   .hero-btn {
     width: 100% !important;
+    max-width: 290px !important;
+    min-height: 54px !important;
+    display: flex !important;
+    align-items: center !important;
     justify-content: center !important;
-    min-height: 52px !important;
-    font-size: 15px !important;
+    text-align: center !important;
+    margin: 0 auto !important;
   }
 
-  /* ---------- SEARCH CARD ---------- */
+  .hero-btn span {
+    text-align: center;
+  }
+
+  /* ---------- SEARCH ---------- */
   .search-wrap {
-    padding: 0 14px !important;
-    margin-top: -12px !important;
+    padding-left: 14px !important;
+    padding-right: 14px !important;
+    margin-top: -16px;
+    position: relative;
+    z-index: 3;
   }
 
   .search-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    padding: 18px !important;
-    border-radius: 18px !important;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 20px;
+    padding: 20px 16px;
+    margin: 0 auto;
   }
 
   .search-card h2 {
-    font-size: 22px !important;
-    text-align: center !important;
+    text-align: center;
+    font-size: 22px;
   }
 
   .search-form {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 14px !important;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
   }
 
   .field-group input,
-  .field-group select {
-    width: 100% !important;
-    font-size: 16px !important;
-  }
-
+  .field-group select,
   .search-btn {
-    width: 100% !important;
-    min-height: 50px !important;
+    width: 100%;
   }
 
-  /* ---------- SECTIONS ---------- */
+  /* ---------- FEATURED SECTIONS ---------- */
   .featured-rentals,
   .featured-sale,
   .featured-accessories,
   .why-section,
   .testimonials-section,
-  .cta-section {
+  .cta-section,
+  .site-footer {
     padding-left: 14px !important;
     padding-right: 14px !important;
+  }
+
+  .featured-head,
+  .why-title,
+  .testimonials-title {
+    text-align: center;
   }
 
   .featured-head h2,
   .why-title h2,
   .testimonials-title h2,
   .cta-section h2 {
-    font-size: 34px !important;
-    line-height: 1.15 !important;
-    text-align: center !important;
+    font-size: 28px;
+    line-height: 1.2;
   }
 
   .featured-head p,
   .cta-section p {
-    text-align: center !important;
-    font-size: 16px !important;
+    font-size: 15px;
   }
 
-  /* ---------- GRIDS ---------- */
   .rental-grid,
   .sale-grid,
   .accessories-grid,
   .why-grid,
   .testimonials-grid,
   .footer-grid {
-    display: grid !important;
+    display: grid;
     grid-template-columns: 1fr !important;
-    gap: 16px !important;
+    gap: 16px;
   }
 
-  /* ---------- FEATURED CARDS ---------- */
   .rental-card,
   .sale-card,
   .accessory-card,
   .why-card,
   .testimonial-card {
-    width: 100% !important;
-    max-width: 100% !important;
-    border-radius: 18px !important;
-    overflow: hidden !important;
+    width: 100%;
+    max-width: 100%;
+    margin: 0 auto;
   }
 
-  .rental-image,
-  .sale-image,
-  .accessory-image {
-    height: 220px !important;
-  }
-
-  .rental-image img,
-  .sale-image img,
-  .accessory-image img {
-    width: 100% !important;
-    height: 100% !important;
-    object-fit: cover !important;
-  }
-
-  .rental-body,
-  .sale-body,
-  .accessory-body,
-  .why-card,
-  .testimonial-card {
-    padding: 16px !important;
-  }
-
-  .rental-body h3,
-  .sale-body h3,
-  .accessory-body h3 {
-    font-size: 18px !important;
-    line-height: 1.25 !important;
-  }
-
-  .rental-meta,
-  .sale-meta,
-  .accessory-meta {
-    flex-wrap: wrap !important;
-    gap: 6px !important;
-    font-size: 13px !important;
-  }
-
-  .rental-bottom,
-  .sale-bottom,
-  .accessory-bottom {
-    display: flex !important;
-    justify-content: space-between !important;
-    align-items: center !important;
-    gap: 10px !important;
-    margin-top: 12px !important;
-  }
-
-  .rent-btn,
-  .details-btn,
-  .cart-btn {
-    min-width: 120px !important;
-    height: 42px !important;
-    font-size: 14px !important;
-    padding: 0 14px !important;
-  }
-
-  /* ---------- ACTION BUTTONS UNDER SECTIONS ---------- */
   .featured-actions {
-    display: flex !important;
-    justify-content: center !important;
-    margin-top: 18px !important;
+    display: flex;
+    justify-content: center;
+    margin-top: 18px;
   }
 
   .view-rentals-btn,
   .view-sale-btn,
   .shop-accessories-btn {
-    width: auto !important;
-    min-width: 180px !important;
-    text-align: center !important;
-    padding: 12px 18px !important;
-    font-size: 14px !important;
+    margin: 0 auto;
+    text-align: center;
   }
 
-  /* ---------- WHY SECTION ---------- */
-  .why-card {
-    text-align: center !important;
-  }
-
-  .why-icon {
-    margin-left: auto !important;
-    margin-right: auto !important;
-  }
-
-  /* ---------- TESTIMONIALS ---------- */
-  .testimonial-card p {
-    font-size: 15px !important;
-    line-height: 1.6 !important;
-  }
-
-  /* ---------- CTA ---------- */
   .cta-buttons {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 12px !important;
-    align-items: center !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
   }
 
   .cta-book,
   .cta-whatsapp {
-    width: 100% !important;
-    max-width: 260px !important;
-    text-align: center !important;
-  }
-
-  /* ---------- FOOTER ---------- */
-  .site-footer {
-    padding-left: 14px !important;
-    padding-right: 14px !important;
-  }
-
-  .footer-col {
-    width: 100% !important;
-  }
-
-  .footer-col h3,
-  .footer-col h4 {
-    margin-bottom: 10px !important;
+    width: 100%;
+    max-width: 260px;
+    text-align: center;
   }
 
   .newsletter {
-    display: flex !important;
-    flex-direction: row !important;
-    gap: 8px !important;
-    align-items: center !important;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .newsletter input {
-    flex: 1 !important;
-    min-width: 0 !important;
-    font-size: 16px !important;
-  }
-
+  .newsletter input,
   .newsletter button {
-    white-space: nowrap !important;
+    width: 100%;
   }
 }
-
-@media screen and (max-width: 560px) {
-  /* ---------- HEADER STACK CLEANER ---------- */
-  .site-header {
-    grid-template-columns: 1fr !important;
-    justify-items: center !important;
-    text-align: center !important;
-    gap: 10px !important;
-  }
-
-  .header-left,
-  .main-nav,
-  .header-right {
-    justify-content: center !important;
-    width: 100% !important;
-  }
-
-  .main-nav {
-    order: 2 !important;
-  }
-
-  .header-right {
-    order: 3 !important;
-    gap: 8px !important;
-  }
-
-  /* ---------- HERO ---------- */
-  .hero-content {
-    padding: 56px 14px 34px !important;
-  }
-
-  .hero h1 {
-    font-size: 30px !important;
-  }
-
-  .hero p {
-    font-size: 15px !important;
-  }
-
-  /* ---------- CARDS ---------- */
-  .rental-image,
-  .sale-image,
-  .accessory-image {
-    height: 200px !important;
-  }
-
-  .featured-head h2,
-  .why-title h2,
-  .testimonials-title h2,
-  .cta-section h2 {
-    font-size: 28px !important;
-  }
-
-  .newsletter {
-    flex-direction: column !important;
-    align-items: stretch !important;
-  }
-
-  .newsletter button {
-    width: 100% !important;
-  }
-}
-/* =========================
-   MOBILE HEADER FIX
-========================= */
-
-@media (max-width:768px){
-
-  .site-header{
-    display:grid;
-    grid-template-columns:40px 1fr auto;
-    align-items:center;
-    padding:10px;
-  }
-  
-  .mobile-menu-btn{
-    display:block;
-    font-size:22px;
-    background:none;
-    border:none;
-    color:white;
-  }
-  
-  .header-left{
-    display:flex;
-    justify-content:center;
-  }
-  
-  .logo-box img{
-    height:40px;
-  }
-  
-  .header-right{
-    display:flex;
-    gap:6px;
-  }
-  
-  .main-nav{
-    display:none;
-  }
-  
-  .main-nav.open{
-    display:flex;
-    flex-direction:column;
-    position:absolute;
-    top:60px;
-    left:0;
-    width:100%;
-    background:black;
-    padding:10px;
-  }
-  
-  .main-nav a{
-    padding:10px;
-    text-align:center;
-  }
-  
-  
-  /* =========================
-     HERO FIX
-  ========================= */
-  
-  .hero{
-    height:auto;
-    padding-top:80px;
-  }
-  
-  .hero-content{
-    text-align:center;
-    padding:40px 15px;
-  }
-  
-  .hero h1{
-    font-size:30px;
-  }
-  
-  .hero p{
-    font-size:15px;
-  }
-  
-  .hero-buttons{
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    gap:10px;
-  }
-  
-  .hero-btn{
-    width:90%;
-    max-width:260px;
-  }
-  
-  
-  /* =========================
-     CENTER BUTTONS EVERYWHERE
-  ========================= */
-  
-  .featured-actions,
-  .cta-buttons{
-    display:flex;
-    justify-content:center;
-  }
-  
-  .view-rentals-btn,
-  .view-sale-btn,
-  .shop-accessories-btn,
-  .cta-book,
-  .cta-whatsapp{
-    margin:auto;
-  }
-  
-  
-  /* =========================
-     CARDS CENTER
-  ========================= */
-  
-  .rental-grid,
-  .sale-grid,
-  .accessories-grid{
-    grid-template-columns:1fr;
-  }
-  
-  .rental-card,
-  .sale-card,
-  .accessory-card{
-    margin:auto;
-    max-width:320px;
-  }
-  
-  }
