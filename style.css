@@ -3374,13 +3374,11 @@ body.is-ready {
   height: 60px !important;
 }
 /* =========================================
-   CLEAN PHONE FIX - HEADER + HERO + BUTTONS
+   PHONE OVERWRITE - FINAL CLEAN VERSION
+   PUT THIS AT THE VERY END OF style.css
 ========================================= */
 
-.mobile-menu-btn {
-  display: none;
-}
-
+.mobile-menu-btn,
 .mobile-auth-btn {
   display: none;
 }
@@ -3388,36 +3386,44 @@ body.is-ready {
 @media screen and (max-width: 768px) {
   html,
   body {
-    overflow-x: hidden;
+    overflow-x: hidden !important;
   }
 
-  /* ---------- HEADER ---------- */
+  body {
+    width: 100% !important;
+  }
+
+  /* ---------- HEADER LAYOUT ---------- */
   .site-header {
-    position: relative;
+    position: relative !important;
     display: grid !important;
-    grid-template-columns: 48px 1fr 48px !important;
+    grid-template-columns: 46px 1fr auto !important;
     align-items: center !important;
     gap: 10px !important;
     padding: 10px 12px !important;
-    min-height: 74px !important;
+    min-height: 76px !important;
+    background: #050505 !important;
+    z-index: 1000 !important;
   }
 
   .mobile-menu-btn {
-    display: flex !important;
+    display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    width: 42px !important;
-    height: 42px !important;
-    border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    width: 44px !important;
+    height: 44px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    border: 1px solid rgba(255,255,255,.16) !important;
     border-radius: 12px !important;
     background: transparent !important;
     color: #fff !important;
-    font-size: 24px !important;
+    font-size: 26px !important;
+    line-height: 1 !important;
     cursor: pointer !important;
-    padding: 0 !important;
-    margin: 0 !important;
     justify-self: start !important;
-    z-index: 20 !important;
+    align-self: center !important;
+    z-index: 1002 !important;
   }
 
   .header-left {
@@ -3425,65 +3431,84 @@ body.is-ready {
     align-items: center !important;
     justify-content: center !important;
     min-width: 0 !important;
+    width: 100% !important;
   }
 
   .logo-box {
     display: inline-flex !important;
     align-items: center !important;
     justify-content: center !important;
-    margin-left: -8px !important;
-  }
-
-  .logo-box img {
-    width: 54px !important;
-    height: 38px !important;
-    object-fit: contain !important;
-    display: block !important;
-  }
-
-  .header-right {
-    width: 48px !important;
-    display: flex !important;
-    justify-content: flex-end !important;
-    align-items: center !important;
-    min-width: 0 !important;
-  }
-
-  .desktop-auth {
-    display: none !important;
-  }
-
-  .mobile-auth-btn {
-    display: inline-flex !important;
-    width: 42px !important;
-    height: 42px !important;
-    align-items: center !important;
-    justify-content: center !important;
-    border-radius: 12px !important;
-    background: #c9a458 !important;
-    color: #050505 !important;
-    text-decoration: none !important;
-    border: none !important;
+    width: auto !important;
+    margin: 0 auto !important;
     padding: 0 !important;
   }
 
-  .mobile-auth-btn svg {
-    width: 18px !important;
-    height: 18px !important;
+  .logo-box img {
+    display: block !important;
+    width: 54px !important;
+    height: 38px !important;
+    object-fit: contain !important;
+    margin: 0 auto !important;
   }
 
+  .header-right {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-end !important;
+    gap: 8px !important;
+    min-width: 0 !important;
+    flex-wrap: nowrap !important;
+  }
+
+  .header-right .guest-only,
+  .header-right .user-only,
+  .header-right .login-link,
+  .header-right .signup-btn,
+  .header-right .logout-btn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    height: 40px !important;
+    padding: 0 12px !important;
+    border-radius: 12px !important;
+    font-size: 12px !important;
+    line-height: 1 !important;
+    white-space: nowrap !important;
+    margin: 0 !important;
+    min-width: 0 !important;
+  }
+
+  .header-right .login-link span,
+  .header-right .signup-btn span,
+  .header-right .logout-btn span {
+    white-space: nowrap !important;
+  }
+
+  .header-right .login-icon,
+  .header-right .signup-icon {
+    display: inline-flex !important;
+    margin-right: 6px !important;
+  }
+
+  .header-right .login-link svg,
+  .header-right .signup-btn svg {
+    width: 14px !important;
+    height: 14px !important;
+  }
+
+  /* ---------- MOBILE NAV DROPDOWN ---------- */
   .main-nav {
-    display: none;
-    position: absolute;
-    top: calc(100% + 6px) !important;
-    left: 12px;
-    right: 12px;
-    background: #050505;
-    border: 1px solid rgba(201, 164, 88, 0.22);
-    border-radius: 16px;
-    padding: 10px;
-    z-index: 1000;
-    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+    display: none !important;
+    position: absolute !important;
+    top: calc(100% + 8px) !important;
+    left: 12px !important;
+    right: 12px !important;
+    background: #050505 !important;
+    border: 1px solid rgba(201,164,88,.22) !important;
+    border-radius: 16px !important;
+    padding: 10px !important;
+    box-shadow: 0 16px 30px rgba(0,0,0,.22) !important;
+    z-index: 1001 !important;
   }
 
   .main-nav.open {
@@ -3493,25 +3518,17 @@ body.is-ready {
   }
 
   .main-nav a {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 12px 14px;
-    border-radius: 12px;
-  }
-
-  /* hide old desktop auth links on phone if still present */
-  .header-right .login-link,
-  .header-right .signup-btn,
-  .header-right .logout-btn,
-  .header-right .user-only,
-  .header-right .guest-only {
-    display: none !important;
+    display: block !important;
+    width: 100% !important;
+    text-align: left !important;
+    padding: 12px 14px !important;
+    border-radius: 12px !important;
+    font-size: 15px !important;
   }
 
   /* ---------- HERO ---------- */
   .hero {
-    position: relative;
+    position: relative !important;
     min-height: 560px !important;
     padding: 0 !important;
     display: flex !important;
@@ -3519,52 +3536,47 @@ body.is-ready {
     justify-content: center !important;
     overflow: hidden !important;
     background-position: center center !important;
+    background-repeat: no-repeat !important;
     background-size: cover !important;
-  }
-
-  .hero::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background-position: center center !important;
-    background-size: cover !important;
-    z-index: 0;
   }
 
   .hero-overlay {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 1 !important;
     background: linear-gradient(
       to bottom,
-      rgba(0, 0, 0, 0.38),
-      rgba(0, 0, 0, 0.22),
-      rgba(0, 0, 0, 0.42)
+      rgba(0,0,0,.34),
+      rgba(0,0,0,.22),
+      rgba(0,0,0,.42)
     ) !important;
   }
 
   .hero-content {
-    position: relative;
-    z-index: 2;
-    width: 100%;
-    max-width: 340px;
-    margin: 0 auto;
-    padding: 70px 16px 36px !important;
-    text-align: center;
+    position: relative !important;
+    z-index: 2 !important;
+    width: 100% !important;
+    max-width: 340px !important;
+    margin: 0 auto !important;
+    padding: 48px 16px 34px !important;
+    text-align: center !important;
   }
 
   .hero h1,
-  .hero-content h1 {
+  .hero-content h1,
+  #siteTagline {
     font-size: 34px !important;
     line-height: 1.12 !important;
     margin: 0 0 10px !important;
+    text-align: center !important;
   }
 
   .hero p,
   .hero-content p {
     font-size: 16px !important;
-    line-height: 1.5 !important;
+    line-height: 1.45 !important;
     margin: 0 0 18px !important;
+    text-align: center !important;
   }
 
   .hero-buttons {
@@ -3579,7 +3591,7 @@ body.is-ready {
 
   .hero-btn {
     width: 100% !important;
-    max-width: 290px !important;
+    max-width: 280px !important;
     min-height: 54px !important;
     display: flex !important;
     align-items: center !important;
@@ -3595,39 +3607,39 @@ body.is-ready {
 
   /* ---------- SEARCH ---------- */
   .search-wrap {
+    position: relative !important;
+    z-index: 3 !important;
+    margin-top: -16px !important;
     padding-left: 14px !important;
     padding-right: 14px !important;
-    margin-top: -16px;
-    position: relative;
-    z-index: 3;
   }
 
   .search-card {
-    width: 100%;
-    max-width: 100%;
-    border-radius: 20px;
-    padding: 20px 16px;
-    margin: 0 auto;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
+    padding: 20px 16px !important;
+    border-radius: 20px !important;
   }
 
   .search-card h2 {
-    text-align: center;
-    font-size: 22px;
+    text-align: center !important;
+    font-size: 22px !important;
   }
 
   .search-form {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
   }
 
   .field-group input,
   .field-group select,
   .search-btn {
-    width: 100%;
+    width: 100% !important;
   }
 
-  /* ---------- FEATURED SECTIONS ---------- */
+  /* ---------- SECTIONS ---------- */
   .featured-rentals,
   .featured-sale,
   .featured-accessories,
@@ -3642,20 +3654,20 @@ body.is-ready {
   .featured-head,
   .why-title,
   .testimonials-title {
-    text-align: center;
+    text-align: center !important;
   }
 
   .featured-head h2,
   .why-title h2,
   .testimonials-title h2,
   .cta-section h2 {
-    font-size: 28px;
-    line-height: 1.2;
+    font-size: 28px !important;
+    line-height: 1.2 !important;
   }
 
   .featured-head p,
   .cta-section p {
-    font-size: 15px;
+    font-size: 15px !important;
   }
 
   .rental-grid,
@@ -3664,9 +3676,9 @@ body.is-ready {
   .why-grid,
   .testimonials-grid,
   .footer-grid {
-    display: grid;
+    display: grid !important;
     grid-template-columns: 1fr !important;
-    gap: 16px;
+    gap: 16px !important;
   }
 
   .rental-card,
@@ -3674,215 +3686,55 @@ body.is-ready {
   .accessory-card,
   .why-card,
   .testimonial-card {
-    width: 100%;
-    max-width: 100%;
-    margin: 0 auto;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 auto !important;
   }
 
   .featured-actions {
-    display: flex;
-    justify-content: center;
-    margin-top: 18px;
+    display: flex !important;
+    justify-content: center !important;
+    margin-top: 18px !important;
   }
 
   .view-rentals-btn,
   .view-sale-btn,
   .shop-accessories-btn {
-    margin: 0 auto;
-    text-align: center;
-  }
-
-  .cta-buttons {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 12px;
-  }
-
-  .cta-book,
-  .cta-whatsapp {
-    width: 100%;
-    max-width: 260px;
-    text-align: center;
-  }
-
-  .newsletter {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-
-  .newsletter input,
-  .newsletter button {
-    width: 100%;
-  }
-}
-@media screen and (max-width: 768px) {
-  .site-header {
-    position: relative !important;
-    display: grid !important;
-    grid-template-columns: 44px 1fr auto !important;
-    align-items: center !important;
-    gap: 10px !important;
-    padding: 10px 12px !important;
-    min-height: 76px !important;
-  }
-
-  .mobile-menu-btn {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    width: 44px !important;
-    height: 44px !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    border: 1px solid rgba(255,255,255,0.18) !important;
-    border-radius: 12px !important;
-    background: transparent !important;
-    color: #fff !important;
-    font-size: 26px !important;
-    line-height: 1 !important;
-    cursor: pointer !important;
-    justify-self: start !important;
-    z-index: 30 !important;
-  }
-
-  .header-left {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    min-width: 0 !important;
-  }
-
-  .logo-box {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
     margin: 0 auto !important;
-  }
-
-  .logo-box img {
-    display: block !important;
-    width: 56px !important;
-    height: 38px !important;
-    object-fit: contain !important;
-  }
-
-  .header-right {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: flex-end !important;
-    gap: 8px !important;
-    min-width: 0 !important;
-    flex-wrap: nowrap !important;
-  }
-
-  .header-right .login-link,
-  .header-right .signup-btn,
-  .header-right .logout-btn,
-  .header-right .user-only.login-link {
-    display: inline-flex !important;
-    align-items: center !important;
-    justify-content: center !important;
-    height: 40px !important;
-    padding: 0 12px !important;
-    border-radius: 12px !important;
-    font-size: 13px !important;
-    line-height: 1 !important;
-    white-space: nowrap !important;
-    margin: 0 !important;
-  }
-
-  .header-right .login-link svg,
-  .header-right .signup-btn svg {
-    width: 15px !important;
-    height: 15px !important;
-  }
-
-  .header-right .login-link span,
-  .header-right .signup-btn span,
-  .header-right .logout-btn span {
-    white-space: nowrap !important;
-  }
-
-  .main-nav {
-    display: none !important;
-    position: absolute !important;
-    top: calc(100% + 8px) !important;
-    left: 12px !important;
-    right: 12px !important;
-    background: #050505 !important;
-    border: 1px solid rgba(201, 164, 88, 0.22) !important;
-    border-radius: 16px !important;
-    padding: 10px !important;
-    box-shadow: 0 16px 30px rgba(0,0,0,0.22) !important;
-    z-index: 1000 !important;
-  }
-
-  .main-nav.open {
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 6px !important;
-  }
-
-  .main-nav a {
-    display: block !important;
-    width: 100% !important;
-    padding: 12px 14px !important;
-    border-radius: 12px !important;
-    text-align: left !important;
-  }
-
-  .hero {
-    min-height: 560px !important;
-    background-position: center center !important;
-    background-size: cover !important;
-  }
-
-  .hero-content {
-    width: 100% !important;
-    max-width: 340px !important;
-    margin: 0 auto !important;
-    padding: 48px 16px 36px !important;
     text-align: center !important;
   }
 
-  .hero h1 {
-    font-size: 34px !important;
-    line-height: 1.12 !important;
-    margin-bottom: 10px !important;
-  }
-
-  .hero p {
-    font-size: 16px !important;
-    line-height: 1.45 !important;
-    margin-bottom: 18px !important;
-  }
-
-  .hero-buttons {
+  .cta-buttons {
     display: flex !important;
     flex-direction: column !important;
     align-items: center !important;
     gap: 12px !important;
-    width: 100% !important;
   }
 
-  .hero-btn {
+  .cta-book,
+  .cta-whatsapp {
     width: 100% !important;
-    max-width: 280px !important;
-    min-height: 54px !important;
-    display: flex !important;
-    align-items: center !important;
-    justify-content: center !important;
+    max-width: 260px !important;
     text-align: center !important;
-    margin: 0 auto !important;
+  }
+
+  .newsletter {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 10px !important;
+  }
+
+  .newsletter input,
+  .newsletter button {
+    width: 100% !important;
   }
 }
+
 @media screen and (max-width: 480px) {
   .site-header {
-    grid-template-columns: 42px 1fr auto !important;
+    grid-template-columns: 44px 1fr auto !important;
     gap: 8px !important;
-    padding: 10px 10px !important;
+    padding: 10px !important;
   }
 
   .mobile-menu-btn {
@@ -3900,17 +3752,33 @@ body.is-ready {
     gap: 6px !important;
   }
 
+  .header-right .guest-only,
+  .header-right .user-only,
   .header-right .login-link,
   .header-right .signup-btn,
-  .header-right .logout-btn,
-  .header-right .user-only.login-link {
+  .header-right .logout-btn {
     height: 38px !important;
     padding: 0 10px !important;
-    font-size: 12px !important;
+    font-size: 11px !important;
   }
 
-  .header-right .login-link .login-icon,
-  .header-right .signup-btn .signup-icon {
-    margin-right: 6px !important;
+  .hero-content {
+    max-width: 320px !important;
+    padding: 44px 14px 30px !important;
+  }
+
+  .hero h1,
+  .hero-content h1,
+  #siteTagline {
+    font-size: 30px !important;
+  }
+
+  .hero p,
+  .hero-content p {
+    font-size: 15px !important;
+  }
+
+  .hero-btn {
+    max-width: 270px !important;
   }
 }
