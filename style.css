@@ -3800,3 +3800,131 @@ body.is-ready {
     width: 100% !important;
   }
 }
+/* =========================
+   MOBILE HEADER FIX
+========================= */
+
+@media (max-width:768px){
+
+  .site-header{
+    display:grid;
+    grid-template-columns:40px 1fr auto;
+    align-items:center;
+    padding:10px;
+  }
+  
+  .mobile-menu-btn{
+    display:block;
+    font-size:22px;
+    background:none;
+    border:none;
+    color:white;
+  }
+  
+  .header-left{
+    display:flex;
+    justify-content:center;
+  }
+  
+  .logo-box img{
+    height:40px;
+  }
+  
+  .header-right{
+    display:flex;
+    gap:6px;
+  }
+  
+  .main-nav{
+    display:none;
+  }
+  
+  .main-nav.open{
+    display:flex;
+    flex-direction:column;
+    position:absolute;
+    top:60px;
+    left:0;
+    width:100%;
+    background:black;
+    padding:10px;
+  }
+  
+  .main-nav a{
+    padding:10px;
+    text-align:center;
+  }
+  
+  
+  /* =========================
+     HERO FIX
+  ========================= */
+  
+  .hero{
+    height:auto;
+    padding-top:80px;
+  }
+  
+  .hero-content{
+    text-align:center;
+    padding:40px 15px;
+  }
+  
+  .hero h1{
+    font-size:30px;
+  }
+  
+  .hero p{
+    font-size:15px;
+  }
+  
+  .hero-buttons{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:10px;
+  }
+  
+  .hero-btn{
+    width:90%;
+    max-width:260px;
+  }
+  
+  
+  /* =========================
+     CENTER BUTTONS EVERYWHERE
+  ========================= */
+  
+  .featured-actions,
+  .cta-buttons{
+    display:flex;
+    justify-content:center;
+  }
+  
+  .view-rentals-btn,
+  .view-sale-btn,
+  .shop-accessories-btn,
+  .cta-book,
+  .cta-whatsapp{
+    margin:auto;
+  }
+  
+  
+  /* =========================
+     CARDS CENTER
+  ========================= */
+  
+  .rental-grid,
+  .sale-grid,
+  .accessories-grid{
+    grid-template-columns:1fr;
+  }
+  
+  .rental-card,
+  .sale-card,
+  .accessory-card{
+    margin:auto;
+    max-width:320px;
+  }
+  
+  }

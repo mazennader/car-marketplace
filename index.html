@@ -24,13 +24,18 @@
 
   <!-- HEADER -->
   <header class="site-header">
+
+    <button class="mobile-menu-btn" id="mobileMenuBtn">
+      ☰
+    </button>
+  
     <div class="header-left">
       <a href="index.html" class="logo-box">
         <img src="images/logo.jpeg" alt="Luxury Cars Logo" />
       </a>
     </div>
 
-    <nav class="main-nav">
+    <nav class="main-nav" id="mainNav">
       <a href="rentals.html">Rentals</a>
       <a href="cars-for-sale.html">Cars for Sale</a>
       <a href="accessories.html">Accessories</a>
@@ -359,6 +364,18 @@ Contact via WhatsApp
   <script>
     lucide.createIcons();
   </script>
+  <script>
+
+    const btn = document.getElementById("mobileMenuBtn");
+    const nav = document.getElementById("mainNav");
+    
+    if (btn) {
+      btn.onclick = () => {
+        nav.classList.toggle("open");
+      };
+    }
+    
+    </script>
 
   <script src="global.js"></script>
 </body>
