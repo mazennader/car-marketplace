@@ -4401,3 +4401,36 @@ body.is-ready {
   }
 
 }
+/* ==============================
+   DETAIL PAGE IMAGE FIX MOBILE
+   no crop on phone
+============================== */
+
+@media screen and (max-width: 768px) {
+
+  .car-main-image {
+    height: auto !important;
+    aspect-ratio: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .car-main-image img {
+    width: 100% !important;
+    height: auto !important;
+    max-height: none !important;
+    object-fit: contain !important;
+    object-position: center center !important;
+    display: block !important;
+  }
+
+}
+@media screen and (max-width: 768px) {
+
+  .car-thumb img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: contain !important;
+  }
+
+}
