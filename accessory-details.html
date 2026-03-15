@@ -18,18 +18,23 @@
     </div>
   </div>
   <header class="site-header">
+
+    <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu">
+      ☰
+    </button>
+  
     <div class="header-left">
       <a href="index.html" class="logo-box">
         <img src="images/logo.jpeg" alt="Prestige Auto Group">
       </a>
     </div>
-
-    <nav class="main-nav">
+  
+    <nav class="main-nav" id="mainNav">
       <a href="rentals.html">Rentals</a>
       <a href="cars-for-sale.html">Cars for Sale</a>
       <a href="accessories.html" class="active">Accessories</a>
     </nav>
-
+  
     <div class="header-right" id="siteHeaderAuth">
       <a href="login.html" class="login-link guest-only">
         <span class="login-icon" aria-hidden="true">
@@ -41,7 +46,7 @@
         </span>
         <span>Log In</span>
       </a>
-    
+  
       <a href="signup.html" class="signup-btn guest-only">
         <span class="signup-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
@@ -54,27 +59,45 @@
         </span>
         <span>Sign Up</span>
       </a>
-    
+  
       <a href="account.html" class="login-link user-only" style="display:none;">
         <span>My Account</span>
       </a>
-    
+  
       <button type="button" class="signup-btn logout-btn user-only" style="display:none;">
         <span>Log Out</span>
       </button>
     </div>
   </header>
-
+  
+  <section class="rentals-hero">
+    <div class="rentals-hero-inner accessories-hero-inner">
+      <div>
+        <h1>Accessory Details</h1>
+        <p>Discover premium accessories designed for your luxury vehicle.</p>
+      </div>
+  
+      <a href="cart.html" class="accessories-cart-btn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="9" cy="20" r="1"></circle>
+          <circle cx="18" cy="20" r="1"></circle>
+          <path d="M3 4h2l2.6 10.4a1 1 0 0 0 1 .76h9.7a1 1 0 0 0 .97-.76L21 7H7"></path>
+        </svg>
+        <span>Cart</span>
+        <span class="cart-badge" id="cartCountBadge">0</span>
+      </a>
+    </div>
+  </section>
+  
   <main class="details-page accessory-details-page">
     <div class="back-bar">
       <a href="accessories.html" class="back-btn">← Back to Accessories</a>
     </div>
-
+  
     <div class="details-wrap" id="accessoryDetailsPage">
       <p class="details-loading">Loading accessory details...</p>
     </div>
   </main>
-
    <!-- FOOTER -->
    <footer class="site-footer">
     <div class="footer-grid">

@@ -15,22 +15,33 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="page-loader" id="pageLoader">
+    <div class="loader-inner">
+      <div class="loader-logo">Wehbe Luxury Cars</div>
+      <div class="loader-spinner"></div>
+    </div>
+  </div>
 
   <header class="site-header">
+
+    <button class="mobile-menu-btn" id="mobileMenuBtn" type="button" aria-label="Open menu">
+      ☰
+    </button>
+
     <div class="header-left">
       <a href="index.html" class="logo-box">
         <img src="images/logo.jpeg" alt="Luxury Cars Logo" />
       </a>
     </div>
 
-    <nav class="main-nav">
+    <nav class="main-nav" id="mainNav">
       <a href="rentals.html">Rentals</a>
       <a href="cars-for-sale.html">Cars for Sale</a>
       <a href="accessories.html">Accessories</a>
     </nav>
 
-    <div class="header-right">
-      <a href="login.html" class="login-link">
+    <div class="header-right" id="siteHeaderAuth">
+      <a href="login.html" class="login-link guest-only">
         <span class="login-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 12h14"></path>
@@ -40,7 +51,7 @@
         <span>Log In</span>
       </a>
 
-      <a href="signup.html" class="signup-btn">
+      <a href="signup.html" class="signup-btn guest-only">
         <span class="signup-icon" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="9" cy="7" r="4"></circle>
@@ -51,6 +62,14 @@
         </span>
         <span>Sign Up</span>
       </a>
+
+      <a href="account.html" class="login-link user-only" style="display:none;">
+        <span>My Account</span>
+      </a>
+
+      <button type="button" class="signup-btn logout-btn user-only" style="display:none;">
+        <span>Log Out</span>
+      </button>
     </div>
   </header>
 
@@ -115,6 +134,7 @@
       </p>
     </div>
   </section>
+
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
   <script src="global.js"></script>
