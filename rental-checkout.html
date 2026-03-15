@@ -142,6 +142,24 @@
                   You will have 48 hours to complete the deposit payment.
                 </p>
               </div>
+              <div class="checkout-field checkout-field-full">
+                <label for="rentalLocationSearch">Pick-up / Delivery Location</label>
+                <input
+                  type="text"
+                  id="rentalLocationSearch"
+                  placeholder="Search location or click on the map"
+                  autocomplete="off"
+                  required
+                />
+              </div>
+              
+              <div class="checkout-field checkout-field-full">
+                <div id="rentalCheckoutMap" class="checkout-map-box"></div>
+              </div>
+              
+              <input type="hidden" id="rentalLocationLat" />
+              <input type="hidden" id="rentalLocationLng" />
+              <input type="hidden" id="rentalLocationMapLink" />
 
               <div class="checkout-field checkout-field-full">
                 <label for="rentalCheckoutNotes">Notes</label>
@@ -267,5 +285,10 @@
   </script>
 
   <script src="global.js"></script>
+  <script
+  async
+  defer
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCCIcLWXEHuz6QjC1xidnjEIzLP00ZQ68Y&libraries=places&callback=initRentalCheckoutMap">
+</script>
 </body>
 </html>

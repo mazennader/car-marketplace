@@ -2826,18 +2826,27 @@ initClickableCards();
     }
   
     const name = document.getElementById("rentalCheckoutName")?.value.trim() || "";
-    const email = document.getElementById("rentalCheckoutEmail")?.value.trim() || "";
-    const phone = document.getElementById("rentalCheckoutPhone")?.value.trim() || "";
-    const paymentMethod = document.getElementById("rentalCheckoutPayment")?.value || "whish_branch";
-    const notes = document.getElementById("rentalCheckoutNotes")?.value.trim() || "";
-    const idFile = document.getElementById("rentalCustomerIdFile")?.files?.[0] || null;
-    const licenseFile = document.getElementById("rentalDriverLicenseFile")?.files?.[0] || null;
-    const submitBtn = document.getElementById("rentalCheckoutSubmitBtn");
+const email = document.getElementById("rentalCheckoutEmail")?.value.trim() || "";
+const phone = document.getElementById("rentalCheckoutPhone")?.value.trim() || "";
+const paymentMethod = document.getElementById("rentalCheckoutPayment")?.value || "whish_branch";
+const locationText = document.getElementById("rentalLocationSearch")?.value.trim() || "";
+const locationLat = document.getElementById("rentalLocationLat")?.value || "";
+const locationLng = document.getElementById("rentalLocationLng")?.value || "";
+const locationMapLink = document.getElementById("rentalLocationMapLink")?.value || "";
+const notes = document.getElementById("rentalCheckoutNotes")?.value.trim() || "";
+const idFile = document.getElementById("rentalCustomerIdFile")?.files?.[0] || null;
+const licenseFile = document.getElementById("rentalDriverLicenseFile")?.files?.[0] || null;
+const submitBtn = document.getElementById("rentalCheckoutSubmitBtn");
   
-    if (!name || !email || !phone) {
-      setRentalCheckoutMessage("Please fill all required fields.", "error");
-      return;
-    }
+if (!name || !email || !phone || !locationText) {
+  setRentalCheckoutMessage("Please fill all required fields, including location.", "error");
+  return;
+}
+
+if (!locationLat || !locationLng) {
+  setRentalCheckoutMessage("Please choose your location from the map or search box.", "error");
+  return;
+}
   
     if (!idFile || !licenseFile) {
       setRentalCheckoutMessage("Please upload your ID/passport and driver's license.", "error");
@@ -2914,35 +2923,38 @@ const remainingAmount = Number(booking.remaining_amount || 0);
       paymentMethod === "whish_app" ? "processing" : "pending";
   
       const { error } = await window.db
-        .from("rentals")
-        .insert([
-          {
-            user_id: currentUser ? currentUser.id : null,
-            rental_car_id: booking.rental_car_id,
-            booking_reference: bookingReference,
-            customer_name: name,
-            customer_email: email,
-            customer_phone: phone,
-            start_date: booking.pickup_date,
-            end_date: booking.return_date,
-            total_days: booking.total_days,
-            base_price: booking.base_price,
-            chauffeur_required: booking.chauffeur_required,
-            chauffeur_price: booking.chauffeur_price,
-            deposit_amount: depositAmount,
-            remaining_amount: remainingAmount,
-            deposit_status: depositStatus,
-            deposit_due_at: paymentMethod === "whish_branch" ? dueDate.toISOString() : null,
-            total_price: totalPrice,
-            payment_method: paymentMethod,
-            booking_status: bookingStatus,
-            payment_status: paymentStatus,
-            customer_id_file_url: idFilePath,
-            driver_license_file_url: licenseFilePath,
-            notes: notes || null
-          }
-        ]);
-  
+      .from("rentals")
+      .insert([
+        {
+          user_id: currentUser ? currentUser.id : null,
+          rental_car_id: booking.rental_car_id,
+          booking_reference: bookingReference,
+          customer_name: name,
+          customer_email: email,
+          customer_phone: phone,
+          start_date: booking.pickup_date,
+          end_date: booking.return_date,
+          total_days: booking.total_days,
+          base_price: booking.base_price,
+          chauffeur_required: booking.chauffeur_required,
+          chauffeur_price: booking.chauffeur_price,
+          deposit_amount: depositAmount,
+          remaining_amount: remainingAmount,
+          deposit_status: depositStatus,
+          deposit_due_at: paymentMethod === "whish_branch" ? dueDate.toISOString() : null,
+          total_price: totalPrice,
+          payment_method: paymentMethod,
+          booking_status: bookingStatus,
+          payment_status: paymentStatus,
+          customer_id_file_url: idFilePath,
+          driver_license_file_url: licenseFilePath,
+          location_text: locationText,
+          location_lat: Number(locationLat),
+          location_lng: Number(locationLng),
+          location_maps_link: locationMapLink,
+          notes: notes || null
+        }
+      ]);
       if (error) {
         throw error;
       }
@@ -2983,6 +2995,84 @@ const remainingAmount = Number(booking.remaining_amount || 0);
       el.classList.add(type);
     }
   }
+  let rentalCheckoutMapInstance = null;
+let rentalCheckoutMarker = null;
+let rentalCheckoutAutocomplete = null;
+
+function saveRentalCheckoutLocation(address, lat, lng) {
+  const searchInput = document.getElementById("rentalLocationSearch");
+  const latInput = document.getElementById("rentalLocationLat");
+  const lngInput = document.getElementById("rentalLocationLng");
+  const linkInput = document.getElementById("rentalLocationMapLink");
+
+  if (searchInput && address) {
+    searchInput.value = address;
+  }
+
+  if (latInput) latInput.value = String(lat);
+  if (lngInput) lngInput.value = String(lng);
+  if (linkInput) linkInput.value = `https://www.google.com/maps?q=${lat},${lng}`;
+}
+
+function initRentalCheckoutMap() {
+  const mapEl = document.getElementById("rentalCheckoutMap");
+  const input = document.getElementById("rentalLocationSearch");
+
+  if (!mapEl || !input || !window.google || !window.google.maps) return;
+
+  const defaultCenter = { lat: 33.8938, lng: 35.5018 }; // Beirut
+
+  rentalCheckoutMapInstance = new google.maps.Map(mapEl, {
+    center: defaultCenter,
+    zoom: 12,
+    mapTypeControl: false,
+    streetViewControl: false,
+    fullscreenControl: false
+  });
+
+  rentalCheckoutMarker = new google.maps.Marker({
+    position: defaultCenter,
+    map: rentalCheckoutMapInstance,
+    draggable: true
+  });
+
+  saveRentalCheckoutLocation("", defaultCenter.lat, defaultCenter.lng);
+
+  rentalCheckoutAutocomplete = new google.maps.places.Autocomplete(input, {
+    fields: ["formatted_address", "geometry", "name"]
+  });
+
+  rentalCheckoutAutocomplete.addListener("place_changed", () => {
+    const place = rentalCheckoutAutocomplete.getPlace();
+
+    if (!place.geometry || !place.geometry.location) return;
+
+    const lat = place.geometry.location.lat();
+    const lng = place.geometry.location.lng();
+    const address = place.formatted_address || place.name || input.value;
+
+    rentalCheckoutMapInstance.setCenter({ lat, lng });
+    rentalCheckoutMapInstance.setZoom(16);
+    rentalCheckoutMarker.setPosition({ lat, lng });
+
+    saveRentalCheckoutLocation(address, lat, lng);
+  });
+
+  rentalCheckoutMarker.addListener("dragend", (event) => {
+    const lat = event.latLng.lat();
+    const lng = event.latLng.lng();
+
+    saveRentalCheckoutLocation(input.value.trim(), lat, lng);
+  });
+
+  rentalCheckoutMapInstance.addListener("click", (event) => {
+    const lat = event.latLng.lat();
+    const lng = event.latLng.lng();
+
+    rentalCheckoutMarker.setPosition({ lat, lng });
+    saveRentalCheckoutLocation(input.value.trim(), lat, lng);
+  });
+}
   
   function initClickableCards() {
     const cards = document.querySelectorAll(".card-clickable");
