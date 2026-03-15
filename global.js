@@ -2048,7 +2048,7 @@ const bookingData = {
       updateCartBadge();
       renderCheckoutPage();
       setCheckoutMessage("Order placed successfully.", "success");
-      formResetSafe(form);
+      formResetSafe(document.getElementById("checkoutForm"));
     } catch (error) {
       console.error("Checkout error:", error);
       setCheckoutMessage(error.message || "Checkout failed.", "error");
@@ -2088,7 +2088,6 @@ const bookingData = {
     const email = document.getElementById("signupEmail")?.value.trim() || "";
     const password = document.getElementById("signupPassword")?.value || "";
     const confirmPassword = document.getElementById("signupConfirmPassword")?.value || "";
-    const messageEl = document.getElementById("signupMessage");
   
     if (!fullName || !email || !password || !confirmPassword) {
       setAuthMessage("signupMessage", "Please fill all fields.", "error");
@@ -2108,35 +2107,25 @@ const bookingData = {
     try {
       setAuthMessage("signupMessage", "Creating account...", "");
   
-      const { data, error } = await window.db.auth.signUp({
+      const { error } = await window.db.auth.signUp({
         email,
-        password
+        password,
+        options: {
+          data: {
+            full_name: fullName
+          },
+          emailRedirectTo: "https://car-marketplace-mtre.onrender.com/account.html"
+        }
       });
   
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
   
-      const user = data.user;
+      setAuthMessage(
+        "signupMessage",
+        "Account created successfully. Please check your email and confirm your account.",
+        "success"
+      );
   
-      if (user) {
-        const { error: profileError } = await window.db
-          .from("users")
-          .upsert([
-            {
-              id: user.id,
-              full_name: fullName,
-              email: email,
-              role: "customer"
-            }
-          ]);
-  
-        if (profileError) {
-          throw profileError;
-        }
-      }
-  
-      setAuthMessage("signupMessage", "Account created successfully. Check your email if confirmation is enabled.", "success");
       formResetById("signupForm");
     } catch (error) {
       console.error("Signup error:", error);
@@ -2169,13 +2158,40 @@ const bookingData = {
         password
       });
   
-      if (error) {
-        throw error;
-      }
+      if (error) throw error;
   
       const user = data?.user;
       if (!user) {
         throw new Error("Login failed.");
+      }
+  
+      const userMetaFullName = user.user_metadata?.full_name || "";
+  
+      const { data: existingProfile, error: existingProfileError } = await window.db
+        .from("users")
+        .select("id, role")
+        .eq("id", user.id)
+        .maybeSingle();
+  
+      if (existingProfileError) {
+        throw existingProfileError;
+      }
+  
+      if (!existingProfile) {
+        const { error: profileInsertError } = await window.db
+          .from("users")
+          .insert([
+            {
+              id: user.id,
+              full_name: userMetaFullName,
+              email: user.email,
+              role: "customer"
+            }
+          ]);
+  
+        if (profileInsertError) {
+          throw profileInsertError;
+        }
       }
   
       const { data: profile, error: profileError } = await window.db
