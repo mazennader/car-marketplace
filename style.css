@@ -3824,4 +3824,214 @@ body.is-ready {
     max-width: 270px !important;
   }
 }
+/* =========================================
+   MOBILE MAIN PAGES LIKE SCREENSHOT
+========================================= */
 
+@media screen and (max-width: 768px) {
+  .rentals-hero {
+    padding: 108px 16px 24px !important;
+    background: #eceae5 !important;
+  }
+
+  .rentals-hero-inner,
+  .accessories-hero-inner {
+    max-width: 100% !important;
+    display: block !important;
+  }
+
+  .rentals-hero h1 {
+    font-size: 26px !important;
+    line-height: 1.15 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .rentals-hero p {
+    font-size: 14px !important;
+    line-height: 1.6 !important;
+    max-width: 280px !important;
+  }
+
+  .rentals-page {
+    padding: 0 16px 40px !important;
+    background: #eceae5 !important;
+  }
+
+  .rentals-layout {
+    display: block !important;
+    max-width: 100% !important;
+  }
+
+  .filters-sidebar {
+    position: static !important;
+    top: auto !important;
+    margin-bottom: 18px !important;
+  }
+
+  .filters-card {
+    border-radius: 20px !important;
+    padding: 18px !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08) !important;
+  }
+
+  .filters-card h2 {
+    font-size: 18px !important;
+    margin-bottom: 18px !important;
+  }
+
+  .filter-group {
+    margin-bottom: 16px !important;
+  }
+
+  .filter-group label {
+    font-size: 13px !important;
+    margin-bottom: 8px !important;
+  }
+
+  .filter-group select,
+  .field-group input {
+    height: 46px !important;
+    border-radius: 10px !important;
+    font-size: 14px !important;
+  }
+
+  .reset-btn {
+    height: 46px !important;
+    border-radius: 12px !important;
+    font-size: 14px !important;
+  }
+
+  .rentals-grid-page,
+  .accessories-page-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  .rental-page-card,
+  .sale-page-card,
+  .accessory-page-card {
+    width: 100% !important;
+    border-radius: 18px !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 20px rgba(0,0,0,.08) !important;
+  }
+
+  .rental-page-image {
+    height: 210px !important;
+  }
+
+  .rental-page-image img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+  }
+
+  .rental-page-body {
+    padding: 16px !important;
+  }
+
+  .rental-page-body h3 {
+    font-size: 16px !important;
+    line-height: 1.35 !important;
+    margin-bottom: 10px !important;
+  }
+
+  .rental-page-meta {
+    gap: 8px !important;
+    font-size: 13px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .sale-brand-line {
+    font-size: 13px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .rental-page-bottom,
+  .accessory-page-bottom {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 12px !important;
+  }
+
+  .sale-page-bottom {
+    display: block !important;
+  }
+
+  .sale-page-actions {
+    display: flex !important;
+    gap: 10px !important;
+    margin-top: 12px !important;
+  }
+
+  .rental-page-price strong,
+  .sale-page-price,
+  .accessory-page-bottom .sale-page-price {
+    font-size: 18px !important;
+  }
+
+  .rental-page-price span {
+    font-size: 13px !important;
+  }
+
+  .rent-now-btn,
+  .details-btn,
+  .cart-btn {
+    min-width: 104px !important;
+    height: 38px !important;
+    padding: 0 14px !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+  }
+
+  .whatsapp-btn {
+    min-width: 110px !important;
+    height: 38px !important;
+    border-radius: 10px !important;
+    font-size: 13px !important;
+    padding: 0 12px !important;
+  }
+
+  .car-badge {
+    top: 10px !important;
+    left: 10px !important;
+    font-size: 12px !important;
+    padding: 5px 10px !important;
+  }
+
+  .accessories-cart-btn {
+    margin-top: 14px !important;
+    width: 100% !important;
+    max-width: 150px !important;
+    height: 46px !important;
+    font-size: 14px !important;
+  }
+
+  .mobile-pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    margin-top: 18px;
+    flex-wrap: wrap;
+  }
+
+  .mobile-page-btn {
+    min-width: 38px;
+    height: 38px;
+    border: none;
+    border-radius: 10px;
+    background: #050505;
+    color: #fff;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0 12px;
+  }
+
+  .mobile-page-btn.active {
+    background: #c9a458;
+    color: #111;
+  }
+}

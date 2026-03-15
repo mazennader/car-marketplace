@@ -300,6 +300,12 @@ function getWhatsAppLink(message = "Hello") {
   </a>
 `;
       }).join("");
+      setupMobilePagination({
+        containerId: "rentalsGrid",
+        cardSelector: ".card-link-wrap",
+        paginationId: "rentalsPagination",
+        perPage: 5
+      });
       hideLoader();
     } catch (err) {
       console.error("Unexpected error loading rental cars:", err);
@@ -488,6 +494,12 @@ function getWhatsAppLink(message = "Hello") {
   </article>
 `;
       }).join("");
+      setupMobilePagination({
+        containerId: "saleGrid",
+        cardSelector: ".sale-page-card",
+        paginationId: "salePagination",
+        perPage: 5
+      });
       initClickableCards();
       hideLoader();
     } catch (err) {
@@ -638,6 +650,12 @@ function getWhatsAppLink(message = "Hello") {
   </article>
 `;
       }).join("");
+      setupMobilePagination({
+        containerId: "accessoriesGrid",
+        cardSelector: ".accessory-page-card",
+        paginationId: "accessoriesPagination",
+        perPage: 5
+      });
   
       initClickableCards();
       initAddToCartButtons();
@@ -2984,6 +3002,94 @@ const remainingAmount = Number(booking.remaining_amount || 0);
   
         window.location.href = href;
       });
+    });
+  }
+  function setupMobilePagination({
+    containerId,
+    cardSelector,
+    paginationId,
+    perPage = 5
+  }) {
+    const container = document.getElementById(containerId);
+    const pagination = document.getElementById(paginationId);
+  
+    if (!container || !pagination) return;
+  
+    const cards = Array.from(container.querySelectorAll(cardSelector));
+    if (!cards.length) {
+      pagination.innerHTML = "";
+      return;
+    }
+  
+    if (window.innerWidth > 768) {
+      cards.forEach(card => {
+        card.style.display = "";
+      });
+      pagination.innerHTML = "";
+      return;
+    }
+  
+    let currentPage = 1;
+    const totalPages = Math.ceil(cards.length / perPage);
+  
+    function renderPage(page) {
+      currentPage = page;
+  
+      const start = (page - 1) * perPage;
+      const end = start + perPage;
+  
+      cards.forEach((card, index) => {
+        card.style.display = index >= start && index < end ? "" : "none";
+      });
+  
+      renderButtons();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  
+    function renderButtons() {
+      if (totalPages <= 1) {
+        pagination.innerHTML = "";
+        return;
+      }
+  
+      let buttonsHTML = "";
+  
+      if (currentPage > 1) {
+        buttonsHTML += `<button class="mobile-page-btn" data-page="${currentPage - 1}">‹</button>`;
+      }
+  
+      for (let i = 1; i <= totalPages; i++) {
+        buttonsHTML += `
+          <button class="mobile-page-btn ${i === currentPage ? "active" : ""}" data-page="${i}">
+            ${i}
+          </button>
+        `;
+      }
+  
+      if (currentPage < totalPages) {
+        buttonsHTML += `<button class="mobile-page-btn" data-page="${currentPage + 1}">›</button>`;
+      }
+  
+      pagination.innerHTML = buttonsHTML;
+  
+      pagination.querySelectorAll("[data-page]").forEach((btn) => {
+        btn.addEventListener("click", () => {
+          renderPage(Number(btn.dataset.page));
+        });
+      });
+    }
+  
+    renderPage(1);
+  
+    window.addEventListener("resize", () => {
+      if (window.innerWidth > 768) {
+        cards.forEach(card => {
+          card.style.display = "";
+        });
+        pagination.innerHTML = "";
+      } else {
+        renderPage(1);
+      }
     });
   }
   function initMobileMenu() {
