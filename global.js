@@ -2275,11 +2275,41 @@ const bookingData = {
   
       const user = sessionData.user;
   
-      const { data: profile, error: profileError } = await window.db
+      let { data: profile, error: profileError } = await window.db
         .from("users")
         .select("*")
         .eq("id", user.id)
-        .single();
+        .maybeSingle();
+  
+      if (!profile) {
+        const { error: insertError } = await window.db
+          .from("users")
+          .insert([
+            {
+              id: user.id,
+              full_name: user.user_metadata?.full_name || "",
+              email: user.email,
+              role: "customer"
+            }
+          ]);
+  
+        if (insertError) {
+          throw insertError;
+        }
+  
+        const { data: newProfile, error: newProfileError } = await window.db
+          .from("users")
+          .select("*")
+          .eq("id", user.id)
+          .single();
+  
+        if (newProfileError) {
+          throw newProfileError;
+        }
+  
+        profile = newProfile;
+        profileError = null;
+      }
   
       if (profileContainer) {
         if (profileError || !profile) {
@@ -2313,19 +2343,19 @@ const bookingData = {
   
       if (ordersContainer) {
         const { data: orders, error: ordersError } = await window.db
-  .from("orders")
-  .select(`
-    *,
-    order_items (
-      quantity,
-      unit_price,
-      accessories (
-        name
-      )
-    )
-  `)
-  .eq("user_id", user.id)
-  .order("created_at", { ascending: false });
+          .from("orders")
+          .select(`
+            *,
+            order_items (
+              quantity,
+              unit_price,
+              accessories (
+                name
+              )
+            )
+          `)
+          .eq("user_id", user.id)
+          .order("created_at", { ascending: false });
   
         if (ordersError) {
           ordersContainer.innerHTML = `<p class="account-empty">Could not load orders.</p>`;
@@ -2333,40 +2363,37 @@ const bookingData = {
           ordersContainer.innerHTML = `<p class="account-empty">No orders yet.</p>`;
         } else {
           ordersContainer.innerHTML = `
-<div class="account-list">
-${orders.map(order => {
-
-  const items = order.order_items?.map(item => `
-      <div>
-        ${item.accessories?.name || "Product"} 
-        (x${item.quantity})
+  <div class="account-list">
+  ${orders.map(order => {
+    const items = order.order_items?.map(item => `
+        <div>
+          ${item.accessories?.name || "Product"} 
+          (x${item.quantity})
+        </div>
+    `).join("") || "";
+  
+    return `
+    <div class="account-item">
+      <div class="account-item-top">
+        <div class="account-item-title">Order #${order.id.slice(0,8)}</div>
+        <div class="account-item-status">${order.order_status || "pending"}</div>
       </div>
-  `).join("") || "";
-
-  return `
-  <div class="account-item">
-
-    <div class="account-item-top">
-      <div class="account-item-title">Order #${order.id.slice(0,8)}</div>
-      <div class="account-item-status">${order.order_status || "pending"}</div>
+  
+      <div class="account-items">
+        ${items}
+      </div>
+  
+      <div class="account-item-meta">
+        <div>Total: $${Number(order.total_price || 0).toLocaleString()}</div>
+        <div>Payment: ${order.payment_method || "-"}</div>
+        <div>Payment Status: ${order.payment_status || "-"}</div>
+        <div>Date: ${formatAccountDate(order.created_at)}</div>
+      </div>
     </div>
-
-    <div class="account-items">
-      ${items}
-    </div>
-
-    <div class="account-item-meta">
-      <div>Total: $${Number(order.total_price || 0).toLocaleString()}</div>
-      <div>Payment: ${order.payment_method || "-"}</div>
-      <div>Payment Status: ${order.payment_status || "-"}</div>
-      <div>Date: ${formatAccountDate(order.created_at)}</div>
-    </div>
-
+    `;
+  }).join("")}
   </div>
   `;
-}).join("")}
-</div>
-`;
         }
       }
   
@@ -2381,70 +2408,53 @@ ${orders.map(order => {
           `)
           .eq("user_id", user.id)
           .order("created_at", { ascending: false });
-      
+  
         if (rentalsError) {
           rentalsContainer.innerHTML = `<p class="account-empty">Could not load rentals.</p>`;
         } else if (!rentals || rentals.length === 0) {
           rentalsContainer.innerHTML = `<p class="account-empty">No rentals yet.</p>`;
         } else {
           rentalsContainer.innerHTML = `
-      <div class="account-list">
-        ${rentals.map(rental => {
-          const dueDateText = rental.deposit_due_at
-  ? new Date(rental.deposit_due_at).toLocaleString()
-  : "-";
-
-  const countdownText =
-  rental.payment_method === "whish_branch" && rental.deposit_status === "pending"
-    ? getDepositCountdown(rental.deposit_due_at)
-    : "-";
-      
-          return `
-            <div class="account-item">
-              <div class="account-item-top">
-                <div class="account-item-title">
-                  ${rental.rental_cars?.title || "Rental Car"} 
-                  <span style="font-size:14px; color:#6b7280;">#${rental.id.slice(0, 8)}</span>
+        <div class="account-list">
+          ${rentals.map(rental => {
+            const dueDateText = rental.deposit_due_at
+              ? new Date(rental.deposit_due_at).toLocaleString()
+              : "-";
+  
+            const countdownText =
+              rental.payment_method === "whish_branch" && rental.deposit_status === "pending"
+                ? getDepositCountdown(rental.deposit_due_at)
+                : "-";
+  
+            return `
+              <div class="account-item">
+                <div class="account-item-top">
+                  <div class="account-item-title">
+                    ${rental.rental_cars?.title || "Rental Car"} 
+                    <span style="font-size:14px; color:#6b7280;">#${rental.id.slice(0, 8)}</span>
+                  </div>
+                  <div class="account-item-status">${rental.booking_status || "pending"}</div>
                 </div>
-                <div class="account-item-status">${rental.booking_status || "pending"}</div>
+  
+                <div class="account-item-meta">
+                  <div>Booking Ref: ${rental.booking_reference || "-"}</div>
+                  <div>Start: ${rental.start_date || "-"}</div>
+                  <div>End: ${rental.end_date || "-"}</div>
+                  <div>Total Days: ${rental.total_days || 0}</div>
+                  <div>Total Price: $${Number(rental.total_price || 0).toLocaleString()}</div>
+                  <div>Deposit Now: $${Number(rental.deposit_amount || 0).toLocaleString()}</div>
+                  <div>Remaining on Delivery: $${Number(rental.remaining_amount || 0).toLocaleString()}</div>
+                  <div>Deposit Status: ${rental.deposit_status || "-"}</div>
+                  <div>Payment Method: ${rental.payment_method || "-"}</div>
+                  <div>Deposit Deadline: ${dueDateText}</div>
+                  <div>Time Remaining: ${countdownText}</div>
+                  <div>Payment Status: ${rental.payment_status || "-"}</div>
+                </div>
               </div>
-      
-              <div class="account-item-meta">
-                <div>Booking Ref: ${rental.booking_reference || "-"}</div>
-                <div>Start: ${rental.start_date || "-"}</div>
-                <div>End: ${rental.end_date || "-"}</div>
-                <div>Total Days: ${rental.total_days || 0}</div>
-                <div>Total Price: $${Number(rental.total_price || 0).toLocaleString()}</div>
-                <div>Deposit Now: $${Number(rental.deposit_amount || 0).toLocaleString()}</div>
-                <div>Remaining on Delivery: $${Number(rental.remaining_amount || 0).toLocaleString()}</div>
-                <div>Deposit Status: ${rental.deposit_status || "-"}</div>
-                <div>Payment Method: ${rental.payment_method || "-"}</div>
-                <div>Deposit Deadline: ${dueDateText}</div>
-                <div>Time Remaining: ${countdownText}</div>
-                <div>Payment Status: ${rental.payment_status || "-"}</div>
-              </div>
-      
-              ${
-  rental.payment_method === "whish_branch" && rental.deposit_status === "pending"
-    ? `
-      <div style="margin-top:14px; padding:12px 14px; border-radius:12px; background:rgba(201,164,88,0.10); border:1px solid rgba(201,164,88,0.25);">
-        Pay your deposit at any Whish branch using booking reference
-        <strong>${rental.booking_reference || "-"}</strong>.
-      </div>
-    `
-    : rental.payment_method === "whish_app" && rental.payment_status === "processing"
-    ? `
-      <div style="margin-top:14px; padding:12px 14px; border-radius:12px; background:rgba(201,164,88,0.10); border:1px solid rgba(201,164,88,0.25);">
-        Your booking is waiting for Whish App payment confirmation.
-      </div>
-    `
-    : ""
-}
-            </div>
-          `;
-        }).join("")}
-      </div>
-      `;
+            `;
+          }).join("")}
+        </div>
+        `;
         }
       }
     } catch (error) {
@@ -2461,7 +2471,6 @@ ${orders.map(order => {
       }
     }
   }
-  
   function formatAccountDate(dateString) {
     if (!dateString) return "-";
   
