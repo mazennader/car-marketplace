@@ -4366,3 +4366,31 @@ body.is-ready {
     gap: 12px !important;
   }
 }
+/* ===== FIX BACK BUTTON POSITION ON DETAIL PAGES MOBILE ===== */
+
+@media screen and (max-width: 768px) {
+
+  .details-page,
+  .rental-details-page,
+  .accessory-details-page {
+    padding-top: 80px !important;
+  }
+
+  .details-hero,
+  .car-details-hero,
+  .details-header,
+  .details-title-box {
+    margin-bottom: 8px !important;
+    padding-bottom: 4px !important;
+  }
+
+  .back-bar {
+    margin-top: 6px !important;
+    margin-bottom: 12px !important;
+  }
+
+  .back-btn {
+    margin-top: 0 !important;
+  }
+
+}
