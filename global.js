@@ -2122,7 +2122,7 @@ const bookingData = {
   
       setAuthMessage(
         "signupMessage",
-        "Account created successfully. Please check your email and confirm your account.",
+        "An email has been sent to you. Please check your inbox and confirm your account.",
         "success"
       );
   

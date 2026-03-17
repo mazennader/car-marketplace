@@ -4448,3 +4448,18 @@ body.is-ready {
   }
 
 }
+#signupMessage {
+  margin-top: 14px;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  line-height: 1.5;
+}
+
+#signupMessage.success {
+  color: #c9a458;
+}
+
+#signupMessage.error {
+  color: #b91c1c;
+}
