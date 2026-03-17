@@ -1,4 +1,16 @@
-window.currentUser = null;
+window.currentUser = undefined;
+async function getCurrentUserSafe() {
+  if (window.currentUser !== undefined) return window.currentUser;
+
+  try {
+    const { data, error } = await window.db.auth.getUser();
+    window.currentUser = !error ? data?.user || null : null;
+    return window.currentUser;
+  } catch {
+    window.currentUser = null;
+    return null;
+  }
+}
 
 async function setCurrentUser() {
   try {
@@ -9,44 +21,45 @@ async function setCurrentUser() {
   }
 }
 document.addEventListener("DOMContentLoaded", async () => {
-  await setCurrentUser();
-
   highlightActiveNav();
   initMobileMenu();
   initHomeRentalSearch();
   initSignupForm();
   initLoginForm();
   initLogoutButtons();
-
-  await loadSiteSettings();
-  await updateHeaderAuthState();
-
-  if (document.getElementById("featuredRentalsGrid")) await loadFeaturedRentals();
-  if (document.getElementById("featuredSaleGrid")) await loadFeaturedCarsForSale();
-  if (document.getElementById("featuredAccessoriesGrid")) await loadFeaturedAccessories();
-
-  if (document.getElementById("rentalsGrid")) {
-    await loadRentalCars();
-    initRentalsFilters();
-  }
-
-  if (document.getElementById("saleGrid")) {
-    await loadCarsForSale();
-    initSaleFilters();
-  }
-
-  if (document.getElementById("accessoriesGrid")) {
-    await loadAccessories();
-  }
-
-  if (document.getElementById("carDetailsPage")) await loadCarDetails();
-  if (document.getElementById("rentalDetailsPage")) await loadRentalDetails();
-  if (document.getElementById("accessoryDetailsPage")) await loadAccessoryDetails();
-
   updateCartBadge();
 
-  if (document.getElementById("cartItems")) {
-    renderCartPage();
+  await setCurrentUser();
+
+  const startupTasks = [
+    loadSiteSettings(),
+    updateHeaderAuthState()
+  ];
+
+  if (document.getElementById("featuredRentalsGrid")) startupTasks.push(loadFeaturedRentals());
+  if (document.getElementById("featuredSaleGrid")) startupTasks.push(loadFeaturedCarsForSale());
+  if (document.getElementById("featuredAccessoriesGrid")) startupTasks.push(loadFeaturedAccessories());
+
+  if (document.getElementById("rentalsGrid")) startupTasks.push(loadRentalCars());
+  if (document.getElementById("saleGrid")) startupTasks.push(loadCarsForSale());
+  if (document.getElementById("accessoriesGrid")) startupTasks.push(loadAccessories());
+
+  if (document.getElementById("carDetailsPage")) startupTasks.push(loadCarDetails());
+  if (document.getElementById("rentalDetailsPage")) startupTasks.push(loadRentalDetails());
+  if (document.getElementById("accessoryDetailsPage")) startupTasks.push(loadAccessoryDetails());
+
+  if (
+    document.getElementById("accountProfile") ||
+    document.getElementById("accountOrders") ||
+    document.getElementById("accountRentals")
+  ) {
+    startupTasks.push(loadAccountPage());
+  }
+
+  if (document.getElementById("rentalCheckoutSummary")) {
+    startupTasks.push(renderRentalCheckoutPage());
+    initRentalPaymentMethodUI();
+    initRentalCheckoutForm();
   }
 
   if (document.getElementById("checkoutSummaryItems")) {
@@ -54,19 +67,14 @@ document.addEventListener("DOMContentLoaded", async () => {
     initCheckoutForm();
   }
 
-  if (
-    document.getElementById("accountProfile") ||
-    document.getElementById("accountOrders") ||
-    document.getElementById("accountRentals")
-  ) {
-    await loadAccountPage();
+  if (document.getElementById("cartItems")) {
+    renderCartPage();
   }
 
-  if (document.getElementById("rentalCheckoutSummary")) {
-    await renderRentalCheckoutPage();
-    initRentalPaymentMethodUI();
-    initRentalCheckoutForm();
-  }
+  await Promise.all(startupTasks);
+
+  if (document.getElementById("rentalsGrid")) initRentalsFilters();
+  if (document.getElementById("saleGrid")) initSaleFilters();
 
   hideLoader();
 });
@@ -79,12 +87,8 @@ function showLoader() {
 
 function hideLoader() {
   document.body.classList.add("is-ready");
-
   if (!pageLoader) return;
-
-  setTimeout(() => {
-    pageLoader.classList.add("hide");
-  }, 300);
+  pageLoader.classList.add("hide");
 }
 
 showLoader();
@@ -979,8 +983,7 @@ if (bookingsError) {
 const isBookedNow = (existingBookings || []).some((booking) => {
   return booking.start_date <= todayString && booking.end_date >= todayString;
 });
-const { data: authData } = await window.db.auth.getUser();
-const currentUser = authData?.user || null;
+const currentUser = await getCurrentUserSafe();
   
       page.innerHTML = `
         <div class="car-details-layout">
@@ -1432,9 +1435,8 @@ const bookingData = {
   
     buttons.forEach((button) => {
       button.addEventListener("click", async () => {
-        const { data } = await window.db.auth.getUser();
-        const currentUser = data?.user || null;
-  
+        const currentUser = await getCurrentUserSafe();
+
         if (!currentUser) {
           window.location.href = "login.html";
           return;
@@ -1718,8 +1720,7 @@ const bookingData = {
     if (!button) return;
   
     button.addEventListener("click", async () => {
-      const { data } = await window.db.auth.getUser();
-      const currentUser = data?.user || null;
+     const currentUser = await getCurrentUserSafe();
   
       if (!currentUser) {
         window.location.href = "login.html";
@@ -1933,8 +1934,7 @@ const bookingData = {
       return;
     }
   
-    const { data: authData } = await window.db.auth.getUser();
-    const currentUser = authData?.user || null;
+    const currentUser = await getCurrentUserSafe();
   
     if (!currentUser) {
       setCheckoutMessage("You need to log in before placing an order.", "error");
@@ -2266,14 +2266,12 @@ const bookingData = {
     if (!profileContainer && !ordersContainer && !rentalsContainer) return;
   
     try {
-      const { data: sessionData, error: sessionError } = await window.db.auth.getUser();
-  
-      if (sessionError || !sessionData?.user) {
-        window.location.href = "login.html";
-        return;
-      }
-  
-      const user = sessionData.user;
+      const user = await getCurrentUserSafe();
+
+if (!user) {
+  window.location.href = "login.html";
+  return;
+}
   
       let { data: profile, error: profileError } = await window.db
         .from("users")
@@ -2506,12 +2504,12 @@ const bookingData = {
     }
   
     try {
-      const { data, error } = await window.db.auth.getUser();
+      const currentUser = await getCurrentUserSafe();
   
       guestItems.forEach((el) => el.classList.remove("show-auth-item"));
       userItems.forEach((el) => el.classList.remove("show-auth-item"));
   
-      if (error || !data?.user) {
+      if (!currentUser) {
         guestItems.forEach((el) => el.classList.add("show-auth-item"));
       } else {
         userItems.forEach((el) => el.classList.add("show-auth-item"));
@@ -2717,12 +2715,12 @@ initClickableCards();
     const summary = document.getElementById("rentalCheckoutSummary");
     if (!summary) return;
   
-    const { data: authData, error: authError } = await window.db.auth.getUser();
-  
-    if (authError || !authData?.user) {
-      window.location.href = "login.html";
-      return;
-    }
+    const currentUser = await getCurrentUserSafe();
+
+if (!currentUser) {
+  window.location.href = "login.html";
+  return;
+}
   
     const booking = JSON.parse(localStorage.getItem("rentalCheckout") || "null");
   
@@ -2882,8 +2880,7 @@ if (!locationLat || !locationLng) {
       submitBtn.disabled = true;
       setRentalCheckoutMessage("Saving booking...", "");
   
-      const { data: authData } = await window.db.auth.getUser();
-      const currentUser = authData?.user || null;
+      const currentUser = await getCurrentUserSafe();
   
       const { data: existingBookings, error: overlapError } = await window.db
         .from("rentals")
@@ -3136,29 +3133,15 @@ function initRentalCheckoutMap() {
       return;
     }
   
-    if (window.innerWidth > 768) {
-      cards.forEach(card => {
+    let currentPage = 1;
+    let wasMobile = window.innerWidth <= 768;
+    const totalPages = Math.ceil(cards.length / perPage);
+  
+    function showAllCards() {
+      cards.forEach((card) => {
         card.style.display = "";
       });
       pagination.innerHTML = "";
-      return;
-    }
-  
-    let currentPage = 1;
-    const totalPages = Math.ceil(cards.length / perPage);
-  
-    function renderPage(page) {
-      currentPage = page;
-  
-      const start = (page - 1) * perPage;
-      const end = start + perPage;
-  
-      cards.forEach((card, index) => {
-        card.style.display = index >= start && index < end ? "" : "none";
-      });
-  
-      renderButtons();
-      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   
     function renderButtons() {
@@ -3170,41 +3153,72 @@ function initRentalCheckoutMap() {
       let buttonsHTML = "";
   
       if (currentPage > 1) {
-        buttonsHTML += `<button class="mobile-page-btn" data-page="${currentPage - 1}">‹</button>`;
+        buttonsHTML += `<button class="mobile-page-btn" type="button" data-page="${currentPage - 1}">‹</button>`;
       }
   
       for (let i = 1; i <= totalPages; i++) {
         buttonsHTML += `
-          <button class="mobile-page-btn ${i === currentPage ? "active" : ""}" data-page="${i}">
+          <button class="mobile-page-btn ${i === currentPage ? "active" : ""}" type="button" data-page="${i}">
             ${i}
           </button>
         `;
       }
   
       if (currentPage < totalPages) {
-        buttonsHTML += `<button class="mobile-page-btn" data-page="${currentPage + 1}">›</button>`;
+        buttonsHTML += `<button class="mobile-page-btn" type="button" data-page="${currentPage + 1}">›</button>`;
       }
   
       pagination.innerHTML = buttonsHTML;
   
       pagination.querySelectorAll("[data-page]").forEach((btn) => {
         btn.addEventListener("click", () => {
-          renderPage(Number(btn.dataset.page));
+          renderPage(Number(btn.dataset.page), true);
         });
       });
     }
   
-    renderPage(1);
+    function renderPage(page, scrollToPagination = false) {
+      currentPage = page;
   
-    window.addEventListener("resize", () => {
-      if (window.innerWidth > 768) {
-        cards.forEach(card => {
-          card.style.display = "";
-        });
-        pagination.innerHTML = "";
-      } else {
-        renderPage(1);
+      const start = (page - 1) * perPage;
+      const end = start + perPage;
+  
+      cards.forEach((card, index) => {
+        card.style.display = index >= start && index < end ? "" : "none";
+      });
+  
+      renderButtons();
+  
+      if (scrollToPagination) {
+        pagination.scrollIntoView({ behavior: "smooth", block: "nearest" });
       }
+    }
+  
+    function applyLayout() {
+      const isMobile = window.innerWidth <= 768;
+  
+      if (!isMobile) {
+        showAllCards();
+        return;
+      }
+  
+      if (currentPage > totalPages) currentPage = 1;
+      renderPage(currentPage, false);
+    }
+  
+    applyLayout();
+  
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const isMobile = window.innerWidth <= 768;
+  
+        if (isMobile !== wasMobile) {
+          wasMobile = isMobile;
+          applyLayout();
+        }
+      }, 150);
     });
   }
   function initMobileMenu() {
