@@ -155,6 +155,45 @@ function getWhatsAppLink(message = "Hello") {
       window.location.href = `rentals.html?${params.toString()}`;
     });
   }
+  function buildRentalWhatsAppMessage(rental, options = {}) {
+    const {
+      pickup = "",
+      dropoff = "",
+      totalDays = 0,
+      chauffeur = false,
+      phone = "",
+      fullTotal = 0,
+      depositAmount = 0,
+      currentUser = null
+    } = options;
+  
+    const customerName =
+      currentUser?.user_metadata?.full_name ||
+      currentUser?.email ||
+      "Customer";
+  
+    const lines = [
+      "Hello, I want to rent this car.",
+      "",
+      `Car: ${rental.title || "Rental Car"}`,
+      `Brand: ${rental.brand || "-"}`,
+      `Model: ${rental.model || "-"}`,
+      `Year: ${rental.year || "-"}`,
+      pickup ? `Pick-up Date: ${pickup}` : "",
+      dropoff ? `Return Date: ${dropoff}` : "",
+      totalDays ? `Total Days: ${totalDays}` : "",
+      `Chauffeur: ${chauffeur ? "Yes" : "No"}`,
+      phone ? `Customer Phone: ${phone}` : "",
+      `Customer Name: ${customerName}`,
+      currentUser?.email ? `Customer Email: ${currentUser.email}` : "",
+      fullTotal ? `Estimated Total: $${Number(fullTotal).toLocaleString()}` : "",
+      depositAmount ? `Estimated Deposit: $${Number(depositAmount).toLocaleString()}` : "",
+      "",
+      "Please confirm availability."
+    ].filter(Boolean);
+  
+    return lines.join("\n");
+  }
   async function loadSiteSettings() {
     try {
       const { data, error } = await window.db
@@ -1312,6 +1351,7 @@ const currentUser = await getCurrentUserSafe();
     const returnDate = document.getElementById("returnDate");
     const chauffeurRequired = document.getElementById("chauffeurRequired");
     const form = document.getElementById("rentalBookingForm");
+    const whatsappBtn = document.querySelector(".rental-wa-btn");
   
     if (!pickupDate || !returnDate || !chauffeurRequired || !form) return;
   
@@ -1320,103 +1360,111 @@ const currentUser = await getCurrentUserSafe();
     const summaryChauffeur = document.getElementById("summaryChauffeur");
     const summaryDeposit = document.getElementById("summaryDeposit");
     const summaryTotal = document.getElementById("summaryTotal");
+    const summaryRemaining = document.getElementById("summaryRemaining");
+    const submitBtn = form.querySelector('button[type="submit"]');
   
-    function calculate() {
-      const start = pickupDate.value ? new Date(pickupDate.value) : null;
-      const end = returnDate.value ? new Date(returnDate.value) : null;
-    
+    if (submitBtn) {
+      submitBtn.textContent = "Send Booking on WhatsApp";
+    }
+  
+    function getCalculationData() {
+      const pickup = pickupDate.value || "";
+      const dropoff = returnDate.value || "";
+      const chauffeur = chauffeurRequired.value === "true";
+      const phone = document.getElementById("customerPhone")?.value.trim() || "";
+  
+      const start = pickup ? new Date(pickup) : null;
+      const end = dropoff ? new Date(dropoff) : null;
+  
       let totalDays = 0;
-    
+  
       if (start && end) {
         const diff = end.getTime() - start.getTime();
         totalDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
         if (totalDays < 0) totalDays = 0;
       }
-    
+  
       const pricePerDay = Number(rental.price_per_day || 0);
       const chauffeurPerDay = Number(rental.chauffeur_price_per_day || 0);
       const depositPercentage = Number(rental.deposit_percentage || 25);
-    
+  
       const basePrice = totalDays * pricePerDay;
-      const chauffeurPrice =
-        chauffeurRequired.value === "true"
-          ? totalDays * chauffeurPerDay
-          : 0;
-    
+      const chauffeurPrice = chauffeur ? totalDays * chauffeurPerDay : 0;
       const fullTotal = basePrice + chauffeurPrice;
-      const deposit = fullTotal * (depositPercentage / 100);
-      const remaining = fullTotal - deposit;
-    
-      summaryTotalDays.textContent = totalDays;
-      summaryBasePrice.textContent = `$${basePrice.toLocaleString()}`;
-      summaryChauffeur.textContent = `$${chauffeurPrice.toLocaleString()}`;
-      summaryDeposit.textContent = `$${deposit.toLocaleString()}`;
-      summaryTotal.textContent = `$${fullTotal.toLocaleString()}`;
-    
-      const remainingEl = document.getElementById("summaryRemaining");
-      if (remainingEl) {
-        remainingEl.textContent = `$${remaining.toLocaleString()}`;
-      }
+      const depositAmount = fullTotal * (depositPercentage / 100);
+      const remainingAmount = fullTotal - depositAmount;
+  
+      return {
+        pickup,
+        dropoff,
+        chauffeur,
+        phone,
+        totalDays,
+        basePrice,
+        chauffeurPrice,
+        fullTotal,
+        depositAmount,
+        remainingAmount
+      };
+    }
+  
+    function updateWhatsAppButton() {
+      if (!whatsappBtn) return;
+  
+      const calc = getCalculationData();
+      const message = buildRentalWhatsAppMessage(rental, {
+        ...calc,
+        currentUser: window.currentUser || null
+      });
+  
+      whatsappBtn.href = getWhatsAppLink(message);
+    }
+  
+    function calculate() {
+      const calc = getCalculationData();
+  
+      if (summaryTotalDays) summaryTotalDays.textContent = calc.totalDays;
+      if (summaryBasePrice) summaryBasePrice.textContent = `$${calc.basePrice.toLocaleString()}`;
+      if (summaryChauffeur) summaryChauffeur.textContent = `$${calc.chauffeurPrice.toLocaleString()}`;
+      if (summaryDeposit) summaryDeposit.textContent = `$${calc.depositAmount.toLocaleString()}`;
+      if (summaryTotal) summaryTotal.textContent = `$${calc.fullTotal.toLocaleString()}`;
+      if (summaryRemaining) summaryRemaining.textContent = `$${calc.remainingAmount.toLocaleString()}`;
+  
+      updateWhatsAppButton();
     }
   
     pickupDate.addEventListener("change", calculate);
     returnDate.addEventListener("change", calculate);
     chauffeurRequired.addEventListener("change", calculate);
   
+    const customerPhone = document.getElementById("customerPhone");
+    if (customerPhone) {
+      customerPhone.addEventListener("input", updateWhatsAppButton);
+    }
+  
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-    
-      const pickup = pickupDate.value;
-      const dropoff = returnDate.value;
-      const chauffeur = chauffeurRequired.value === "true";
-      const phone = document.getElementById("customerPhone")?.value.trim() || "";
-    
-      if (!pickup || !dropoff) {
+  
+      const calc = getCalculationData();
+  
+      if (!calc.pickup || !calc.dropoff) {
         alert("Please select pick-up and return dates.");
         return;
       }
-    
-      const start = new Date(pickup);
-      const end = new Date(dropoff);
-      const diff = end.getTime() - start.getTime();
-      const totalDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
-    
-      if (totalDays <= 0) {
+  
+      if (calc.totalDays <= 0) {
         alert("Return date must be after pick-up date.");
         return;
       }
-    
-      const pricePerDay = Number(rental.price_per_day || 0);
-      const chauffeurPerDay = Number(rental.chauffeur_price_per_day || 0);
-      const depositPercentage = 25;
-    
-      const basePrice = totalDays * pricePerDay;
-const chauffeurPrice = chauffeur ? totalDays * chauffeurPerDay : 0;
-const fullTotal = basePrice + chauffeurPrice;
-const depositAmount = fullTotal * (depositPercentage / 100);
-const remainingAmount = fullTotal - depositAmount;
-const totalPrice = fullTotal;
-    
-const bookingData = {
-  rental_car_id: rental.id,
-  title: rental.title || "Rental Car",
-  image_url: rental.image_url || "images/rental-1.jpg",
-  pickup_date: pickup,
-  return_date: dropoff,
-  total_days: totalDays,
-  customer_phone: phone,
-  chauffeur_required: chauffeur,
-  price_per_day: pricePerDay,
-  chauffeur_price_per_day: chauffeurPerDay,
-  base_price: basePrice,
-  chauffeur_price: chauffeurPrice,
-  deposit_amount: depositAmount,
-  remaining_amount: remainingAmount,
-  total_price: totalPrice
-};
-    
-      localStorage.setItem("rentalCheckout", JSON.stringify(bookingData));
-      window.location.href = "rental-checkout.html";
+  
+      const currentUser = await getCurrentUserSafe();
+  
+      const message = buildRentalWhatsAppMessage(rental, {
+        ...calc,
+        currentUser
+      });
+  
+      window.open(getWhatsAppLink(message), "_blank");
     });
   
     calculate();
