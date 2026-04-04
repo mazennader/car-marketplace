@@ -155,6 +155,37 @@ function getWhatsAppLink(message = "Hello") {
       window.location.href = `rentals.html?${params.toString()}`;
     });
   }
+  function buildAccessoriesWhatsAppMessage(cart = [], currentUser = null) {
+    if (!cart.length) {
+      return "Hello, I want to ask about your accessories.";
+    }
+  
+    const customerName =
+      currentUser?.user_metadata?.full_name ||
+      currentUser?.email ||
+      "Customer";
+  
+    let total = 0;
+  
+    const itemLines = cart.map((item, index) => {
+      const qty = Number(item.quantity || 0);
+      const price = Number(item.price || 0);
+      const lineTotal = qty * price;
+      total += lineTotal;
+  
+      return `${index + 1}. ${item.name || "Product"} — Qty: ${qty} — $${lineTotal.toLocaleString()}`;
+    });
+  
+    return [
+      "Hello, I want to order these accessories:",
+      "",
+      ...itemLines,
+      "",
+      `Total: $${total.toLocaleString()}`,
+      `Customer Name: ${customerName}`,
+      currentUser?.email ? `Customer Email: ${currentUser.email}` : ""
+    ].filter(Boolean).join("\n");
+  }
   function buildRentalWhatsAppMessage(rental, options = {}) {
     const {
       pickup = "",
@@ -1559,6 +1590,28 @@ const currentUser = await getCurrentUserSafe();
     saveCart(cart);
     updateCartBadge();
   }
+  function initProceedToCheckoutButton() {
+    const btn = document.getElementById("proceedToCheckoutBtn");
+    if (!btn || btn.dataset.bound === "true") return;
+  
+    btn.dataset.bound = "true";
+  
+    btn.addEventListener("click", async (e) => {
+      e.preventDefault();
+  
+      const cart = getCart();
+  
+      if (!cart.length) {
+        alert("Your cart is empty.");
+        return;
+      }
+  
+      const currentUser = await getCurrentUserSafe();
+  
+      const message = buildAccessoriesWhatsAppMessage(cart, currentUser);
+      window.open(getWhatsAppLink(message), "_blank");
+    });
+  }
   async function loadAccessoryDetails() {
     const page = document.getElementById("accessoryDetailsPage");
     if (!page) return;
@@ -1822,6 +1875,7 @@ const currentUser = await getCurrentUserSafe();
       `;
       updateCartSummary([]);
       initClearCartButton();
+      initProceedToCheckoutButton();
       return;
     }
   
@@ -1854,8 +1908,9 @@ const currentUser = await getCurrentUserSafe();
     }).join("");
   
     updateCartSummary(cart);
-    initCartControls();
-    initClearCartButton();
+initCartControls();
+initClearCartButton();
+initProceedToCheckoutButton();
   }
   
   function updateCartSummary(cart) {
