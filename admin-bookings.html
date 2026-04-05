@@ -126,6 +126,10 @@
           <h2>Rental Bookings</h2>
           <p>Manage customer reservations</p>
         </div>
+      
+        <button type="button" class="admin-primary-btn" id="openBookingModalBtn">
+          + New Booking
+        </button>
       </div>
 
       <div class="panel-card">
@@ -156,7 +160,65 @@
       </div>
     </main>
   </div>
-
+  <div class="admin-modal" id="bookingModal">
+    <div class="admin-modal-card">
+      <div class="admin-modal-head">
+        <h3>Create Booking</h3>
+        <button type="button" class="admin-modal-close" id="closeBookingModalBtn">×</button>
+      </div>
+  
+      <form id="bookingForm" class="admin-form-grid">
+        <div class="admin-form-group admin-form-group-full">
+          <label for="bookingCar">Car</label>
+          <select id="bookingCar" required>
+            <option value="">Select car</option>
+          </select>
+        </div>
+  
+        <div class="admin-form-group">
+          <label for="bookingName">Customer Name</label>
+          <input type="text" id="bookingName" required />
+        </div>
+  
+        <div class="admin-form-group">
+          <label for="bookingEmail">Customer Email</label>
+          <input type="email" id="bookingEmail" />
+        </div>
+  
+        <div class="admin-form-group">
+          <label for="bookingPhone">Customer Phone</label>
+          <input type="text" id="bookingPhone" />
+        </div>
+  
+        <div class="admin-form-group">
+          <label for="bookingStart">Start Date</label>
+          <input type="date" id="bookingStart" required />
+        </div>
+  
+        <div class="admin-form-group">
+          <label for="bookingEnd">End Date</label>
+          <input type="date" id="bookingEnd" required />
+        </div>
+  
+        <div class="admin-form-group">
+          <label for="bookingChauffeur">Chauffeur</label>
+          <select id="bookingChauffeur">
+            <option value="false">No</option>
+            <option value="true">Yes</option>
+          </select>
+        </div>
+  
+        <div class="admin-form-group admin-form-group-full">
+          <div id="bookingPreview" class="admin-form-message"></div>
+        </div>
+  
+        <div class="admin-form-actions">
+          <button type="button" class="admin-secondary-btn" id="cancelBookingModalBtn">Cancel</button>
+          <button type="submit" class="admin-primary-btn">Save Booking</button>
+        </div>
+      </form>
+    </div>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
   <script src="admin.js"></script>

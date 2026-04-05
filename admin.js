@@ -1471,7 +1471,240 @@ document.addEventListener("DOMContentLoaded", async () => {
   /* =========================
      BOOKINGS PAGE
   ========================= */
+  function initBookingModal() {
+    const modal = document.getElementById("bookingModal");
+    const openBtn = document.getElementById("openBookingModalBtn");
+    const closeBtn = document.getElementById("closeBookingModalBtn");
+    const cancelBtn = document.getElementById("cancelBookingModalBtn");
+    const form = document.getElementById("bookingForm");
   
+    if (!modal || !form) return;
+  
+    if (openBtn && !openBtn.dataset.bound) {
+      openBtn.dataset.bound = "true";
+      openBtn.addEventListener("click", async () => {
+        form.reset();
+        const preview = document.getElementById("bookingPreview");
+        if (preview) {
+          preview.textContent = "";
+          preview.className = "admin-form-message";
+        }
+  
+        await loadBookingCars();
+        modal.classList.add("show");
+      });
+    }
+  
+    if (closeBtn && !closeBtn.dataset.bound) {
+      closeBtn.dataset.bound = "true";
+      closeBtn.addEventListener("click", () => {
+        modal.classList.remove("show");
+      });
+    }
+  
+    if (cancelBtn && !cancelBtn.dataset.bound) {
+      cancelBtn.dataset.bound = "true";
+      cancelBtn.addEventListener("click", () => {
+        modal.classList.remove("show");
+      });
+    }
+  
+    if (!form.dataset.bound) {
+      form.dataset.bound = "true";
+      form.addEventListener("submit", handleBookingFormSubmit);
+    }
+  
+    ["bookingCar", "bookingStart", "bookingEnd", "bookingChauffeur"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el && !el.dataset.boundCalc) {
+        el.dataset.boundCalc = "true";
+        el.addEventListener("change", calculateBookingPreview);
+      }
+    });
+  }
+  
+  async function loadBookingCars() {
+    const select = document.getElementById("bookingCar");
+    if (!select) return;
+  
+    const { data, error } = await window.db
+      .from("rental_cars")
+      .select("*")
+      .order("title", { ascending: true });
+  
+    if (error) {
+      console.error("Load booking cars error:", error);
+      select.innerHTML = `<option value="">Failed to load cars</option>`;
+      return;
+    }
+  
+    select.innerHTML = `
+      <option value="">Select car</option>
+      ${(data || []).map((car) => `
+        <option
+          value="${car.id}"
+          data-title="${car.title || ""}"
+          data-price="${Number(car.price_per_day || 0)}"
+          data-deposit="${Number(car.deposit_percentage || 25)}"
+          data-chauffeur="${Number(car.chauffeur_price_per_day || 0)}"
+        >
+          ${car.title || "Rental Car"}
+        </option>
+      `).join("")}
+    `;
+  }
+  
+  function calculateBookingPreview() {
+    const carSelect = document.getElementById("bookingCar");
+    const startValue = document.getElementById("bookingStart")?.value || "";
+    const endValue = document.getElementById("bookingEnd")?.value || "";
+    const chauffeurValue = document.getElementById("bookingChauffeur")?.value || "false";
+    const preview = document.getElementById("bookingPreview");
+  
+    if (!preview || !carSelect) return null;
+  
+    const selectedOption = carSelect.selectedOptions[0];
+    if (!selectedOption || !selectedOption.value || !startValue || !endValue) {
+      preview.textContent = "";
+      preview.className = "admin-form-message";
+      return null;
+    }
+  
+    const start = new Date(startValue);
+    const end = new Date(endValue);
+    const diff = end.getTime() - start.getTime();
+    const totalDays = Math.ceil(diff / (1000 * 60 * 60 * 24));
+  
+    if (totalDays <= 0) {
+      preview.textContent = "Return date must be after start date.";
+      preview.className = "admin-form-message error";
+      return null;
+    }
+  
+    const pricePerDay = Number(selectedOption.dataset.price || 0);
+    const depositPercentage = Number(selectedOption.dataset.deposit || 25);
+    const chauffeurPerDay = Number(selectedOption.dataset.chauffeur || 0);
+    const chauffeurRequired = chauffeurValue === "true";
+  
+    const basePrice = totalDays * pricePerDay;
+    const chauffeurPrice = chauffeurRequired ? totalDays * chauffeurPerDay : 0;
+    const totalPrice = basePrice + chauffeurPrice;
+    const depositAmount = totalPrice * (depositPercentage / 100);
+    const remainingAmount = totalPrice - depositAmount;
+  
+    preview.innerHTML = `
+      <strong>Total Days:</strong> ${totalDays}<br>
+      <strong>Base Price:</strong> ${formatMoney(basePrice)}<br>
+      <strong>Chauffeur:</strong> ${formatMoney(chauffeurPrice)}<br>
+      <strong>Total Price:</strong> ${formatMoney(totalPrice)}<br>
+      <strong>Deposit:</strong> ${formatMoney(depositAmount)}<br>
+      <strong>Remaining:</strong> ${formatMoney(remainingAmount)}
+    `;
+    preview.className = "admin-form-message success";
+  
+    return {
+      totalDays,
+      basePrice,
+      chauffeurPrice,
+      totalPrice,
+      depositAmount,
+      remainingAmount,
+      chauffeurRequired
+    };
+  }
+  
+  async function handleBookingFormSubmit(e) {
+    e.preventDefault();
+  
+    const carSelect = document.getElementById("bookingCar");
+    const rentalCarId = carSelect?.value || "";
+    const customerName = document.getElementById("bookingName")?.value.trim() || "";
+    const customerEmail = document.getElementById("bookingEmail")?.value.trim() || "";
+    const customerPhone = document.getElementById("bookingPhone")?.value.trim() || "";
+    const startDate = document.getElementById("bookingStart")?.value || "";
+    const endDate = document.getElementById("bookingEnd")?.value || "";
+    const preview = document.getElementById("bookingPreview");
+  
+    if (!rentalCarId || !customerName || !startDate || !endDate) {
+      if (preview) {
+        preview.textContent = "Please fill all required fields.";
+        preview.className = "admin-form-message error";
+      }
+      return;
+    }
+  
+    const calc = calculateBookingPreview();
+    if (!calc) return;
+  
+    try {
+      const { data: overlapRows, error: overlapError } = await window.db
+        .from("rentals")
+        .select("id, start_date, end_date, booking_status")
+        .eq("rental_car_id", rentalCarId)
+        .neq("booking_status", "cancelled");
+  
+      if (overlapError) throw overlapError;
+  
+      const hasOverlap = (overlapRows || []).some((booking) => {
+        return startDate <= booking.end_date && endDate >= booking.start_date;
+      });
+  
+      if (hasOverlap) {
+        if (preview) {
+          preview.textContent = "This car is already booked for these dates.";
+          preview.className = "admin-form-message error";
+        }
+        return;
+      }
+  
+      const bookingReference = `ADM-${Date.now()}`;
+  
+      const { error: insertError } = await window.db
+        .from("rentals")
+        .insert([{
+          rental_car_id: rentalCarId,
+          customer_name: customerName,
+          customer_email: customerEmail || null,
+          customer_phone: customerPhone || null,
+          start_date: startDate,
+          end_date: endDate,
+          total_days: calc.totalDays,
+          base_price: calc.basePrice,
+          chauffeur_price: calc.chauffeurPrice,
+          total_price: calc.totalPrice,
+          deposit_amount: calc.depositAmount,
+          remaining_amount: calc.remainingAmount,
+          booking_status: "confirmed",
+          payment_status: "partial",
+          deposit_status: "paid",
+          deposit_paid: calc.depositAmount,
+          chauffeur_required: calc.chauffeurRequired,
+          booking_reference: bookingReference,
+          payment_method: "admin_manual"
+        }]);
+  
+      if (insertError) throw insertError;
+  
+      document.getElementById("bookingModal")?.classList.remove("show");
+      document.getElementById("bookingForm")?.reset();
+  
+      if (preview) {
+        preview.textContent = "";
+        preview.className = "admin-form-message";
+      }
+  
+      await loadAdminBookings();
+      await loadAdminDashboard();
+      await loadAdminAnalytics();
+      await loadAdminRentCars();
+    } catch (error) {
+      console.error("Create booking error:", error);
+      if (preview) {
+        preview.textContent = error.message || "Failed to create booking.";
+        preview.className = "admin-form-message error";
+      }
+    }
+  }
   async function loadAdminBookings() {
     const body = document.getElementById("adminBookingsBody");
     const searchInput = document.getElementById("adminBookingsSearch");
@@ -1492,6 +1725,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   
       if (!data || !data.length) {
         body.innerHTML = `<tr><td colspan="8">No bookings found.</td></tr>`;
+        initBookingModal();
         return;
       }
   
@@ -1619,6 +1853,7 @@ ${booking.booking_status === "pending_deposit" && booking.deposit_status === "pa
       }
   
       renderRows(data);
+      initBookingModal();
   
       if (searchInput && !searchInput.dataset.bound) {
         searchInput.dataset.bound = "true";
@@ -1643,6 +1878,7 @@ ${booking.booking_status === "pending_deposit" && booking.deposit_status === "pa
     } catch (error) {
       console.error("Admin bookings error:", error);
       body.innerHTML = `<tr><td colspan="8">Failed to load bookings.</td></tr>`;
+      initBookingModal();
     }
   }
   function initBookingActionButtons() {
