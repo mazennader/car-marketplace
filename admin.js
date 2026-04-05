@@ -2111,7 +2111,234 @@ ${booking.booking_status === "pending_deposit" && booking.deposit_status === "pa
   /* =========================
      ORDERS PAGE
   ========================= */
+  function initManualOrderModal() {
+    const modal = document.getElementById("manualOrderModal");
+    const openBtn = document.getElementById("openManualOrderModalBtn");
+    const closeBtn = document.getElementById("closeManualOrderModalBtn");
+    const cancelBtn = document.getElementById("cancelManualOrderModalBtn");
+    const form = document.getElementById("manualOrderForm");
   
+    if (!modal || !form) return;
+  
+    if (openBtn && !openBtn.dataset.bound) {
+      openBtn.dataset.bound = "true";
+      openBtn.addEventListener("click", async () => {
+        form.reset();
+  
+        const qtyInput = document.getElementById("manualOrderQty");
+        if (qtyInput) qtyInput.value = 1;
+  
+        const preview = document.getElementById("manualOrderPreview");
+        if (preview) {
+          preview.textContent = "";
+          preview.className = "admin-form-message";
+        }
+  
+        await loadManualOrderProducts();
+        modal.classList.add("show");
+      });
+    }
+  
+    if (closeBtn && !closeBtn.dataset.bound) {
+      closeBtn.dataset.bound = "true";
+      closeBtn.addEventListener("click", () => {
+        modal.classList.remove("show");
+      });
+    }
+  
+    if (cancelBtn && !cancelBtn.dataset.bound) {
+      cancelBtn.dataset.bound = "true";
+      cancelBtn.addEventListener("click", () => {
+        modal.classList.remove("show");
+      });
+    }
+  
+    if (!form.dataset.bound) {
+      form.dataset.bound = "true";
+      form.addEventListener("submit", handleManualOrderSubmit);
+    }
+  
+    ["manualOrderProduct", "manualOrderQty"].forEach((id) => {
+      const el = document.getElementById(id);
+      if (el && !el.dataset.boundCalc) {
+        el.dataset.boundCalc = "true";
+        el.addEventListener("change", calculateManualOrderPreview);
+        el.addEventListener("input", calculateManualOrderPreview);
+      }
+    });
+  }
+  
+  async function loadManualOrderProducts() {
+    const select = document.getElementById("manualOrderProduct");
+    if (!select) return;
+  
+    const { data, error } = await window.db
+      .from("accessories")
+      .select("*")
+      .order("name", { ascending: true });
+  
+    if (error) {
+      console.error("Load manual order products error:", error);
+      select.innerHTML = `<option value="">Failed to load accessories</option>`;
+      return;
+    }
+  
+    select.innerHTML = `
+      <option value="">Select accessory</option>
+      ${(data || []).map((item) => `
+        <option
+          value="${item.id}"
+          data-name="${item.name || ""}"
+          data-price="${Number(item.price || 0)}"
+          data-stock="${Number(item.stock || 0)}"
+        >
+          ${item.name || "Accessory"} (Stock: ${Number(item.stock || 0)})
+        </option>
+      `).join("")}
+    `;
+  }
+  
+  function calculateManualOrderPreview() {
+    const productSelect = document.getElementById("manualOrderProduct");
+    const qtyValue = Number(document.getElementById("manualOrderQty")?.value || 0);
+    const preview = document.getElementById("manualOrderPreview");
+  
+    if (!preview || !productSelect) return null;
+  
+    const selectedOption = productSelect.selectedOptions[0];
+    if (!selectedOption || !selectedOption.value || qtyValue <= 0) {
+      preview.textContent = "";
+      preview.className = "admin-form-message";
+      return null;
+    }
+  
+    const price = Number(selectedOption.dataset.price || 0);
+    const stock = Number(selectedOption.dataset.stock || 0);
+  
+    if (qtyValue > stock) {
+      preview.textContent = `Not enough stock. Available stock: ${stock}.`;
+      preview.className = "admin-form-message error";
+      return null;
+    }
+  
+    const totalPrice = qtyValue * price;
+    const remainingStock = stock - qtyValue;
+  
+    preview.innerHTML = `
+      <strong>Unit Price:</strong> ${formatMoney(price)}<br>
+      <strong>Quantity:</strong> ${qtyValue}<br>
+      <strong>Total:</strong> ${formatMoney(totalPrice)}<br>
+      <strong>Stock After Sale:</strong> ${remainingStock}
+    `;
+    preview.className = "admin-form-message success";
+  
+    return {
+      price,
+      stock,
+      quantity: qtyValue,
+      totalPrice,
+      remainingStock
+    };
+  }
+  
+  async function handleManualOrderSubmit(e) {
+    e.preventDefault();
+  
+    const productSelect = document.getElementById("manualOrderProduct");
+    const accessoryId = productSelect?.value || "";
+    const customerName = document.getElementById("manualOrderCustomerName")?.value.trim() || "Walk-in Customer";
+    const customerEmail = document.getElementById("manualOrderCustomerEmail")?.value.trim() || null;
+    const customerPhone = document.getElementById("manualOrderCustomerPhone")?.value.trim() || null;
+    const preview = document.getElementById("manualOrderPreview");
+  
+    if (!accessoryId) {
+      if (preview) {
+        preview.textContent = "Please select an accessory.";
+        preview.className = "admin-form-message error";
+      }
+      return;
+    }
+  
+    const calc = calculateManualOrderPreview();
+    if (!calc) return;
+  
+    try {
+      const { data: freshAccessory, error: freshError } = await window.db
+        .from("accessories")
+        .select("id, name, stock, price")
+        .eq("id", accessoryId)
+        .single();
+  
+      if (freshError || !freshAccessory) {
+        throw freshError || new Error("Accessory not found.");
+      }
+  
+      if (Number(freshAccessory.stock || 0) < calc.quantity) {
+        throw new Error(`Not enough stock. Available stock: ${freshAccessory.stock || 0}.`);
+      }
+  
+      const { data: order, error: orderError } = await window.db
+        .from("orders")
+        .insert([{
+          customer_name: customerName,
+          customer_email: customerEmail,
+          customer_phone: customerPhone,
+          total_price: calc.totalPrice,
+          payment_method: "admin_manual",
+          payment_status: "paid",
+          order_status: "delivered"
+        }])
+        .select()
+        .single();
+  
+      if (orderError || !order) {
+        throw orderError || new Error("Failed to create order.");
+      }
+  
+      const { error: itemError } = await window.db
+        .from("order_items")
+        .insert([{
+          order_id: order.id,
+          accessory_id: accessoryId,
+          quantity: calc.quantity,
+          unit_price: calc.price
+        }]);
+  
+      if (itemError) {
+        throw itemError;
+      }
+  
+      const { error: stockError } = await window.db
+        .from("accessories")
+        .update({
+          stock: Number(freshAccessory.stock || 0) - calc.quantity
+        })
+        .eq("id", accessoryId);
+  
+      if (stockError) {
+        throw stockError;
+      }
+  
+      document.getElementById("manualOrderModal")?.classList.remove("show");
+      document.getElementById("manualOrderForm")?.reset();
+  
+      if (preview) {
+        preview.textContent = "";
+        preview.className = "admin-form-message";
+      }
+  
+      await loadAdminOrders();
+      await loadAdminAccessories();
+      await loadAdminDashboard();
+      await loadAdminAnalytics();
+    } catch (error) {
+      console.error("Manual order submit error:", error);
+      if (preview) {
+        preview.textContent = error.message || "Failed to save manual sale.";
+        preview.className = "admin-form-message error";
+      }
+    }
+  }
   async function loadAdminOrders() {
     const body = document.getElementById("adminOrdersBody");
     const searchInput = document.getElementById("adminOrdersSearch");
@@ -2136,6 +2363,7 @@ ${booking.booking_status === "pending_deposit" && booking.deposit_status === "pa
   
       if (!data || !data.length) {
         body.innerHTML = `<tr><td colspan="7">No orders found.</td></tr>`;
+        initManualOrderModal();
         return;
       }
   
@@ -2199,6 +2427,7 @@ ${booking.booking_status === "pending_deposit" && booking.deposit_status === "pa
       }
   
       renderRows(data);
+      initManualOrderModal();
   
       if (searchInput) {
         searchInput.addEventListener("input", () => {
@@ -2222,6 +2451,7 @@ ${booking.booking_status === "pending_deposit" && booking.deposit_status === "pa
     } catch (error) {
       console.error("Admin orders error:", error);
       body.innerHTML = `<tr><td colspan="7">Failed to load orders.</td></tr>`;
+      initManualOrderModal();
     }
   }
   function initOrderActionButtons() {

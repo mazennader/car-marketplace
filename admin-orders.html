@@ -127,6 +127,10 @@
           <h2>Accessory Orders</h2>
           <p>Manage customer purchases</p>
         </div>
+      
+        <button type="button" class="admin-primary-btn" id="openManualOrderModalBtn">
+          + Record Sale
+        </button>
       </div>
 
       <div class="panel-card">
@@ -157,7 +161,52 @@
       </div>
     </main>
   </div>
-
+  <div class="admin-modal" id="manualOrderModal">
+    <div class="admin-modal-card">
+      <div class="admin-modal-head">
+        <h3>Record Manual Sale</h3>
+        <button type="button" class="admin-modal-close" id="closeManualOrderModalBtn">×</button>
+      </div>
+  
+      <form id="manualOrderForm" class="admin-form-grid">
+        <div class="admin-form-group admin-form-group-full">
+          <label for="manualOrderProduct">Accessory</label>
+          <select id="manualOrderProduct" required>
+            <option value="">Select accessory</option>
+          </select>
+        </div>
+  
+        <div class="admin-form-group">
+          <label for="manualOrderQty">Quantity</label>
+          <input type="number" id="manualOrderQty" min="1" value="1" required />
+        </div>
+  
+        <div class="admin-form-group">
+          <label for="manualOrderCustomerName">Customer Name</label>
+          <input type="text" id="manualOrderCustomerName" />
+        </div>
+  
+        <div class="admin-form-group">
+          <label for="manualOrderCustomerEmail">Customer Email</label>
+          <input type="email" id="manualOrderCustomerEmail" />
+        </div>
+  
+        <div class="admin-form-group">
+          <label for="manualOrderCustomerPhone">Customer Phone</label>
+          <input type="text" id="manualOrderCustomerPhone" />
+        </div>
+  
+        <div class="admin-form-group admin-form-group-full">
+          <div id="manualOrderPreview" class="admin-form-message"></div>
+        </div>
+  
+        <div class="admin-form-actions">
+          <button type="button" class="admin-secondary-btn" id="cancelManualOrderModalBtn">Cancel</button>
+          <button type="submit" class="admin-primary-btn">Save Sale</button>
+        </div>
+      </form>
+    </div>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="supabase.js"></script>
   <script src="admin.js"></script>
