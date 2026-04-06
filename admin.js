@@ -2281,7 +2281,7 @@ ${booking.booking_status === "pending_deposit" && booking.deposit_status === "pa
         .from("orders")
         .insert([{
           customer_name: customerName,
-          customer_email: customerEmail,
+          customer_email: customerPhone ? customerPhone + "@admin.local" : "admin@booking.local",
           customer_phone: customerPhone,
           total_price: calc.totalPrice,
           payment_method: "admin_manual",
