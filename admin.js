@@ -1617,15 +1617,15 @@ document.addEventListener("DOMContentLoaded", async () => {
     e.preventDefault();
   
     const carSelect = document.getElementById("bookingCar");
-    const rentalCarId = carSelect?.value || "";
-    const customerName = document.getElementById("bookingName")?.value.trim() || "";
-    const customerEmail = customerPhone
+const rentalCarId = carSelect?.value || "";
+const customerName = document.getElementById("bookingName")?.value.trim() || "";
+const customerPhone = document.getElementById("bookingPhone")?.value.trim() || "";
+const customerEmail = customerPhone
   ? `${customerPhone.replace(/\s+/g, "")}@admin.local`
   : "admin@booking.local";
-    const customerPhone = document.getElementById("bookingPhone")?.value.trim() || "";
-    const startDate = document.getElementById("bookingStart")?.value || "";
-    const endDate = document.getElementById("bookingEnd")?.value || "";
-    const preview = document.getElementById("bookingPreview");
+const startDate = document.getElementById("bookingStart")?.value || "";
+const endDate = document.getElementById("bookingEnd")?.value || "";
+const preview = document.getElementById("bookingPreview");
   
     if (!rentalCarId || !customerName || !startDate || !endDate) {
       if (preview) {
