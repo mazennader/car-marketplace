@@ -1619,7 +1619,9 @@ document.addEventListener("DOMContentLoaded", async () => {
     const carSelect = document.getElementById("bookingCar");
     const rentalCarId = carSelect?.value || "";
     const customerName = document.getElementById("bookingName")?.value.trim() || "";
-    const customerEmail = document.getElementById("bookingEmail")?.value.trim() || "";
+    const customerEmail = customerPhone
+  ? `${customerPhone.replace(/\s+/g, "")}@admin.local`
+  : "admin@booking.local";
     const customerPhone = document.getElementById("bookingPhone")?.value.trim() || "";
     const startDate = document.getElementById("bookingStart")?.value || "";
     const endDate = document.getElementById("bookingEnd")?.value || "";
@@ -1664,7 +1666,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         .insert([{
           rental_car_id: rentalCarId,
           customer_name: customerName,
-          customer_email: customerEmail || null,
+          customer_email: customerEmail,
           customer_phone: customerPhone || null,
           start_date: startDate,
           end_date: endDate,
